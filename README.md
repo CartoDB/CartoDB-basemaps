@@ -50,6 +50,7 @@ That should be it for getting the project running in a local TileMill.
 ### Creating generalizations
 
 The generalizations go into a different schema that the style (project.json) refers to. Creating all the materialized view takes 6-7 hours for the full planet (and requires that this be run on a machine with `psql` access).
+You can speed up the generalization creation by using the script and specifying a bigger amount of threads.
 
 To create these:
 

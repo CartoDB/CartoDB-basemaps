@@ -7,14 +7,17 @@ var async = require('async');
 
 var default_schema = null;
 var database_url = null;
+var pg_type = 'MATERIALIZED VIEW';
+var threads = 1;
 
 process.argv.forEach(function (val, index, array) {
   if (index == 2) default_schema = val;
   if (index == 3) database_url = val;
+  if (index == 4) threads = parseInt(val);
 });
 
 if (process.argv.length < 3) {
-  console.log("arguments SCHEMA DATABASE_URL");
+  console.log("arguments SCHEMA [DATABASE_URL] [PARALLEL_THREADS]");
   process.exit();
 }
 
@@ -30,8 +33,8 @@ if (process.argv.length == 3) {
   var doc = yaml.safeLoad(fs.readFileSync('generalizations.yml', 'utf8'));
   console.log("CREATE SCHEMA IF NOT EXISTS " + default_schema + ";");
   doc.forEach(function(view) {
-    console.log("DROP MATERIALIZED VIEW IF EXISTS " + tname(view.name) + " CASCADE;");  
-    console.log("CREATE MATERIALIZED VIEW " + tname(view.name) + " AS" +
+    console.log("DROP "+pg_type+" IF EXISTS " + tname(view.name) + ";");  
+    console.log("CREATE "+pg_type+" " + tname(view.name) + " AS" +
                 " SELECT " + view.select + 
                 " FROM "  + tname(view.from) + 
                 " WHERE " + view.where + 
@@ -68,8 +71,8 @@ function queryFunction(sql) {
 
 function queriesFor(view) {
   var arr = [];
-  arr.push(queryFunction("DROP MATERIALIZED VIEW IF EXISTS " + tname(view.name) + " CASCADE;"));
-  arr.push(queryFunction("CREATE MATERIALIZED VIEW " + tname(view.name) + " AS" +
+  arr.push(queryFunction("DROP "+pg_type+" IF EXISTS " + tname(view.name) + " CASCADE;"));
+  arr.push(queryFunction("CREATE "+pg_type+" " + tname(view.name) + " AS" +
                 " SELECT " + view.select + 
                 " FROM "  + tname(view.from) + 
                 " WHERE " + view.where + 
@@ -79,7 +82,7 @@ function queriesFor(view) {
   return arr;
 }
 
-if (process.argv.length == 4) {
+if (process.argv.length == 4 || process.argv.length == 5) {
   console.log("Using database " + database_url);
   var doc = yaml.safeLoad(fs.readFileSync('generalizations.yml', 'utf8'));
   var queryFunctions = [];
@@ -89,7 +92,7 @@ if (process.argv.length == 4) {
     queriesFor(view).forEach(function(q) { queryFunctions.push(q) });
   });
 
-  async.series(queryFunctions, function(err,results) {
+  async.parallelLimit(queryFunctions, threads, function(err,results) {
     if(err) console.error(err);
   });
 }

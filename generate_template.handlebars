@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>CartoDB Basemap Beta</title>
+  </head>
+  <body>
+    <style>
+      body {
+        font-family: "Helvetica", sans-serif;
+        background-color: #eee;
+      }
+      
+      #container {
+        width: 90%;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: white;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+
+      .urltemplate {
+        width: 400px;
+      }
+
+      .previewimage {
+        margin-top: 0px;
+        height: 200px;
+        float: right;
+      }
+
+      .vardiv {
+        height: 210px;
+      }
+
+      .leftside {
+        width: 400px;
+        display: inline-block;
+      }
+
+    </style>
+
+    <div id="container">
+      <h2>CartoDB Basemaps Beta</h2>
+      <hr/>
+      <h3>How to use:</h3>
+      <video autoplay="true" loop="true">
+        <source src="assets/tutorial.mp4" type="video/mp4">
+        <source src="assets/tutorial.ogv" type="video/ogg">
+        I'm sorry; your browser doesn't support HTML5 video.
+      </video>
+</video>
+
+      <h3>Basemap URLs:</h3>
+      <div>
+        <div class="vardiv">
+          <div class="leftside">
+            <div class="variant">Light Map with labels</div>
+            <textarea class="urltemplate">{{light_labels}}</textarea>
+          </div>
+          <img src="previews/sf_8.png" class="previewimage"></img>
+        </div>
+        <div class="vardiv">
+          <div class="leftside">
+            <div class="variant">Light Map without labels</div>
+            <textarea class="urltemplate">{{light_nolabels}}</textarea>
+          </div>
+          <img src="previews/nolabels_sf_8.png" class="previewimage"></img>
+        </div>
+        <div class="vardiv">
+          <div class="leftside">
+            <div class="variant">Dark Map with labels</div>
+            <textarea class="urltemplate">{{dark_labels}}</textarea>
+          </div>
+          <img src="previews/dark_sf_8.png" class="previewimage"></img>
+        </div>
+        <div class="vardiv">
+          <div class="leftside">
+            <div class="variant">Dark Map without labels</div>
+            <textarea class="urltemplate">{{dark_nolabels}}</textarea>
+          </div>
+          <img src="previews/dark_nolabels_sf_8.png" class="previewimage"></img>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

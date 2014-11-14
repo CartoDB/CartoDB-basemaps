@@ -1,0 +1,65 @@
+<html>
+
+  <head>
+    <title>Basemap previews</title>
+  </head>
+  <body>
+    <a href="../">Interactive Map</a>
+    <style>
+      html {
+        min-width: 2500px;
+      }
+    
+      .citycolumn {
+        width: 600px;
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 10px;
+      }
+
+      .citycolumn img {
+        margin-bottom: 8px;
+      }
+
+      #labels {
+        width: 16px;
+        display: inline-block;
+      }
+
+      .zoomlabel {
+        height: 400px;
+        text-size: 31px;
+        font-family: Helvetica, sans-serif;
+        margin-bottom: 8px;
+      }
+    </style>
+    <div id="imagelist">
+      <div id="labels">
+    </div>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script>
+      var cities = [
+        {"prefix":"sf","max":18,"images":[]},
+        {"prefix":"madrid","max":18,"images":[]},
+        {"prefix":"nolabels_sf","max":18,"images":[]},
+        {"prefix":"nolabels_madrid","max":18,"images":[]},
+        {"prefix":"dark_sf","max":18,"images":[]},
+        {"prefix":"dark_madrid","max":18,"images":[]},
+        {"prefix":"dark_nolabels_sf","max":18,"images":[]},
+        {"prefix":"dark_nolabels_madrid","max":18,"images":[]}
+      ];
+      cities.forEach(function(c) {
+        for (var i = 1; i <= c.max; i++) { 
+          c.images.push(c.prefix + "_" + i + ".png");
+        };
+      });
+
+      d3.select("#labels").selectAll(".zoomlabel").data([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18])
+        .enter().append("div").attr("class","zoomlabel").text(function(d) { return d });
+      var columns = d3.select("#imagelist").selectAll(".citycolumn").data(cities)
+        .enter().append("div").attr("class","citycolumn");
+      columns.selectAll("img").data(function(d) { return d.images }).enter().append("img")
+        .attr("src", function(d) { return d });
+    </script>
+  </body>
+</html>

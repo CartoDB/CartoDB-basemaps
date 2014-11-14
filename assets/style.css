@@ -1,0 +1,37 @@
+html, body, #map {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#layer_selector {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 0;
+}
+
+#layer_selector ul {
+  padding: 0; margin: 0;
+  list-style-type: none;
+}
+
+#layer_selector li {
+  border-bottom: 1px solid #999;
+  padding: 15px 30px;
+  font-family: "Helvetica", Arial;
+  font-size: 13px;
+  color: #888;
+  cursor: auto;
+  background-color: #ccc;
+}
+
+#layer_selector li:hover {
+  cursor: pointer;
+}
+
+#layer_selector li.selected {
+  color: black;
+  font-style: bold;
+  background-color: white;
+}

@@ -1,0 +1,10 @@
+*.swp
+.env
+.thumb.png
+node_modules
+config.json
+ne_temp
+simplified-land-polygons-complete-3857
+water-polygons-split-3857
+z12plus.csv
+secrets.json

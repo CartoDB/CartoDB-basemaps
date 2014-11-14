@@ -27,12 +27,11 @@ Create a file in the root of this directory called `config.json` with your Carto
 ### Development on a CartoDB instance
 
 1. run `node import_files.js` to import Natural Earth and Coastline data to your instance
-2. Import the z4to10.json file using the dashboard into your account
-3. Import an OSM extract into your db, using imposm3_mapping.json. See the Makefile or https://github.com/cartodb/osm
-4. import `global_functions.sql` into your DB.
-5. run `generalizations_sql.js` into your DB.
-6. Ensure the Azo Sans, DejaVu unicode, unifont fonts are available on your instance.
-7. Open index.html to see your basemap being rendered from CartoDB. The styles will be regenerated on refresh.
+2. Import an OSM extract into your db, using imposm3_mapping.json. See the Makefile or https://github.com/cartodb/osm
+3. import `global_functions.sql` into your DB.
+4. run `generalizations_sql.js` into your DB.
+5. Ensure the Azo Sans, DejaVu unicode, unifont fonts are available on your instance.
+6. Open index.html to see your basemap being rendered from CartoDB. The styles will be regenerated on refresh.
 
 ### Development locally using Tilemill
 

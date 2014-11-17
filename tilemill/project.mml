@@ -36,6 +36,7 @@
     "marine_labels.mss",
     "osmtunnels.mss",
     "water.mss",
+    "land_negative.mss",
     "water_labels.mss",
     "admin1boundary_labels.mss"
   ],
@@ -130,7 +131,7 @@
       "geometry": "unknown",
       "Datasource": {
         "type": "postgis",
-        "table": "(SELECT id, the_geom_webmercator, name, is_lake, ne_scalerank, area FROM water_zoomed('public','!scale_denominator!', !bbox!)) AS _",
+        "table": "(SELECT id, the_geom_webmercator, name, is_lake, ne_scalerank, area, type FROM water_zoomed('public','!scale_denominator!', !bbox!)) AS _",
         "key_field": "",
         "geometry_field": "the_geom_webmercator",
         "extent_cache": "off",
@@ -193,7 +194,7 @@
       "geometry": "polygon",
       "Datasource": {
         "type": "postgis",
-        "table": "(SELECT cartodb_id, the_geom_webmercator FROM land_negative_zoomed('!scale_denominator!', !bbox!)) AS _",
+        "table": "(SELECT cartodb_id, the_geom_webmercator, '' AS name, 'ocean' AS type, 1 AS is_lake, 0 AS ne_scalerank, 999999999 AS area FROM land_negative_zoomed('!scale_denominator!', !bbox!)) AS _",
         "key_field": "",
         "geometry_field": "the_geom_webmercator",
         "extent_cache": "off",
@@ -432,7 +433,7 @@
     {
       "Datasource": {
         "type": "postgis",
-        "table": "(select cartodb_id, name, featurecla, the_geom_webmercator, scalerank from ne_marine_zoomed('!scale_denominator!',!bbox!)) as _",
+        "table": "(select cartodb_id, name, namealt, featurecla, the_geom_webmercator, scalerank from ne_marine_zoomed('!scale_denominator!',!bbox!)) as _",
         "key_field": "",
         "geometry_field": "the_geom_webmercator",
         "extent_cache": "off",

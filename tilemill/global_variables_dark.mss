@@ -1,6 +1,6 @@
 @polygoncolor: #ffd479;
 @cachebuster: #000096;
-@water: darken(#333336,4%);
+@water: darken(#333336,6%);
 
 
 Map {

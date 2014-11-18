@@ -1,8 +1,6 @@
 @polygoncolor: #ffd479;
 @cachebuster: #000096;
-@water: darken(#333336,9%);
-//@water: lighten(#101014,2%); //too purple
-//@water: #101014;
+@water: darken(#333336,4%);
 
 
 Map {
@@ -13,9 +11,9 @@ Map {
 
 //@landmass_fill: darken(#333333, 9%);
 @landmass_fill: #0e0e0e;
-@landmass_line: black;
+@landmass_line: #222;
 
-@greenareas: darken(#263302, 9%);
+@greenareas: darken(#263302, 8%);
 @greenareas_fill_low: @greenareas;
 @greenareas_fill_medium: @greenareas;
 @greenareas_fill_high: @greenareas;
@@ -27,8 +25,8 @@ Map {
 @aeroways: #111;
 
 @ne10roads_line_color: rgba(0,0,0,0.8);
-@ne10roads_line_outline: rgba(200,200,200,0.3);
-@ne10roads_7_minor_color: #1f1f1f;
+@ne10roads_line_outline: rgba(150,150,150,0.5);
+@ne10roads_7_minor_color: #262626;
 
 @ne_rivers_stroke: #1f1f1f;
 @ne_rivers_casing: rgba(0,0,0,0.1);
@@ -36,12 +34,12 @@ Map {
 @urbanareas: lighten(@landmass_fill,1%);
 @urbanareas_highzoom: lighten(@landmass_fill,1%);
 
-@admin0_4: #333;
+@admin0_4: #555;
 @admin0_5: #444;
 @admin0_6: #151515;
 @admin0_7: #444;
 
-@admin1_lowzoom: #292929;
+@admin1_lowzoom: #333;
 @admin1_highzoom: #444;
 
 @admin1_labels: #333;
@@ -51,42 +49,42 @@ Map {
 @rail_line: #2f2f2f;
 @rail_dashline: #111;
 
-@highwaycasing: rgba(50,50,50,0.9);
+@highwaycasing: rgba(70,70,70,0.9);
 @highwaystroke: black;
 
-@osm_roads_z9_highway_casing: rgba(50,50,50,0.5);
+@osm_roads_z9_highway_casing: rgba(50,50,50,0.8);
 @osm_roads_z9_highway_stroke: @highwaystroke;
 @osm_roads_z9_major_stroke: #2a2a2a;
 
-@osm_roads_z10_highway_casing: rgba(50,50,50,0.7);
+@osm_roads_z10_highway_casing: rgba(60,60,60,0.8);
 @osm_roads_z10_highway_stroke: @highwaystroke;
 @osm_roads_z10_major_stroke: #2a2a2a;
 @osm_roads_z10_minor_stroke: #252525;
 
 @osm_roads_z11_highway_casing: @highwaycasing;
 @osm_roads_z11_highway_stroke: @highwaystroke;
-@osm_roads_z11_major_stroke: #2a2a2a;
-@osm_roads_z11_minor_stroke: #252525;
+@osm_roads_z11_major_stroke: #333;
+@osm_roads_z11_minor_stroke: #2a2a2a;
 
 @osm_roads_z12_highway_casing: lighten(@highwaycasing,5%);
 @osm_roads_z12_highway_stroke: @highwaystroke;
 @osm_roads_z12_major_casing: darken(@highwaycasing,2%);
 @osm_roads_z12_major_stroke: lighten(@highwaystroke,2%);
-@osm_roads_z12_minor_stroke: #222;
+@osm_roads_z12_minor_stroke: #2a2a2a;
 
 @osm_roads_z13_highway_casing: lighten(@highwaycasing,5%);
 @osm_roads_z13_highway_stroke: @highwaystroke;
-@osm_roads_z13_major_casing: darken(@highwaycasing,3%);
+@osm_roads_z13_major_casing: darken(@highwaycasing,7%);
 @osm_roads_z13_major_stroke: lighten(@highwaystroke,2%);
-@osm_roads_z13_minor_stroke: #222;
+@osm_roads_z13_minor_stroke: #2a2a2a;
 
 @osm_roads_z14plus_highway_casing: lighten(@highwaycasing,2%);
 @osm_roads_z14plus_highway_stroke: lighten(@highwaystroke,5%);
 @osm_roads_z14plus_major_casing: darken(@highwaycasing,2%);
 @osm_roads_z14plus_major_stroke: lighten(@highwaystroke,2%);
 
-@osm_roads_z14plus_minor_casing: darken(@highwaycasing,10%);
-@osm_roads_z14plus_minor_stroke: lighten(@highwaystroke,5%);
+@osm_roads_z14plus_minor_casing: darken(@highwaycasing,15%);
+@osm_roads_z14plus_minor_stroke: lighten(@highwaystroke,2%);
 
 @osm_roads_path_stroke: #181818;
 @osm_tunnel_stroke: #111;

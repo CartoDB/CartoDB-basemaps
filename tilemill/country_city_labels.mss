@@ -73,6 +73,7 @@
   [zoom=12][scalerank<=10],
   [zoom>=13][place='town'],
   [zoom>=13][place='village'],
+  [zoom>=13][place='suburb'],
   [zoom>=13][place='neighbourhood'] {
 
     text-name: "[name]";

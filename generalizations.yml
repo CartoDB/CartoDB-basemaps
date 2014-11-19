@@ -214,4 +214,4 @@
           tags -> 'population' AS population,
           the_geom AS the_geom_webmercator
   from: public.planet
-  where: tags -> 'place' IN ('city','town','village','hamlet','neighbourhood')
+  where: tags -> 'place' IN ('city','town','village','hamlet','suburb','neighbourhood')

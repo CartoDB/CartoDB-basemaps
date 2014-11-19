@@ -131,7 +131,7 @@
       "geometry": "unknown",
       "Datasource": {
         "type": "postgis",
-        "table": "(SELECT id, the_geom_webmercator, name, is_lake, ne_scalerank, area, type FROM water_zoomed('public','!scale_denominator!', !bbox!)) AS _",
+        "table": "(SELECT id, the_geom_webmercator, name, type, is_lake, ne_scalerank, area FROM water_zoomed('public','!scale_denominator!', !bbox!)) AS _",
         "key_field": "",
         "geometry_field": "the_geom_webmercator",
         "extent_cache": "off",

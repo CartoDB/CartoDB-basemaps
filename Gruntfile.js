@@ -12,7 +12,8 @@ module.exports = function(grunt) {
       options: {
         accessKeyId: "<%= aws.S3_KEY%>",
         secretAccessKey: "<%= aws.S3_SECRET %>",
-        bucket: "<%= aws.S3_BUCKET %>"
+        bucket: "<%= aws.S3_BUCKET %>",
+        gzip: false
       },
 
       build: {

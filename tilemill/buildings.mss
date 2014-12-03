@@ -15,7 +15,7 @@
   }
   [zoom >= 18] {
     [osm_id = 220254203], // Madrid
-    [osm_id = 279767968], // Brooklyn
+    [osm_id = 279768154], // Brooklyn
     [osm_id = 260351411]  // Stamen
     {
       ::red {

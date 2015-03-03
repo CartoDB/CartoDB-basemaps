@@ -103,8 +103,8 @@ Map {
 @osm_roads_labels_halo: white;
 
 // assets
-@city_shield_file: url("https://dl.dropboxusercontent.com/u/2682489/city_shield_light.svg");
-@city_shield_file_lowzoom: url("https://dl.dropboxusercontent.com/u/2682489/city_shield_light.svg");
+@city_shield_file: url("https://dl.dropboxusercontent.com/u/2624290/stamen_cartodb_icons/city_shield_light.svg");
+@city_shield_file_lowzoom: url("https://dl.dropboxusercontent.com/u/2624290/stamen_cartodb_icons/city_shield_light.svg");
 @capital_shield_file: url("https://dl.dropboxusercontent.com/u/2624290/stamen_cartodb_icons/capital_shield_light.png");
 @capital_shield_file_lowzoom: url("https://dl.dropboxusercontent.com/u/2624290/stamen_cartodb_icons/capital_shield_light.png");
 

@@ -87,6 +87,10 @@
     text-halo-fill: @labels_highzoom_halo_fill;
     text-fill: @labels_highzoom_text_fill;
 
+    [zoom=13][name='Barrio de la Latina'] {
+      text-name: ''; // Hack: avoid clipped label in this specific case
+    }
+
     text-min-distance: 10;
 
     // class 1 (bigger)

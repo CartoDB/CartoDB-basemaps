@@ -10,7 +10,7 @@
 
     polygon-pattern-alignment: global;
     polygon-pattern-opacity: @park_texture_opacity;
-    polygon-pattern-file: url(https://dl.dropboxusercontent.com/u/2682489/park-halftone-1.png);
+    polygon-pattern-file: url(https://dl.dropboxusercontent.com/u/2624290/stamen_cartodb_icons/park-halftone-1.png);
   }
 
   [zoom>=11] {
@@ -24,7 +24,7 @@
 
     polygon-pattern-alignment: global;
     polygon-pattern-opacity: @park_texture_opacity;
-    polygon-pattern-file: url(https://dl.dropboxusercontent.com/u/2682489/park-halftone-1.png);
+    polygon-pattern-file: url(https://dl.dropboxusercontent.com/u/2624290/stamen_cartodb_icons/park-halftone-1.png);
   }
 
   [zoom>=15]{
@@ -33,7 +33,7 @@
 
     polygon-pattern-alignment: global;
     polygon-pattern-opacity: @park_texture_opacity;
-    polygon-pattern-file: url(https://dl.dropboxusercontent.com/u/2682489/park-halftone-1.png);
+    polygon-pattern-file: url(https://dl.dropboxusercontent.com/u/2624290/stamen_cartodb_icons/park-halftone-1.png);
   }
   
 }

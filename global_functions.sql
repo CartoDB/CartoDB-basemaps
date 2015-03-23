@@ -24,6 +24,13 @@ BEGIN
 END
 $$ LANGUAGE plpgsql IMMUTABLE;
 
+CREATE OR REPLACE FUNCTION numeric_or_zero(s numeric) RETURNS numeric
+AS $$
+BEGIN
+  RETURN s::numeric;
+END
+$$ LANGUAGE plpgsql IMMUTABLE;
+
 -- see https://github.com/omniscale/imposm3/blob/master/mapping/fields.go#L199
 CREATE OR REPLACE FUNCTION wayzorder(tags hstore) RETURNS integer
 AS $$
@@ -259,30 +266,30 @@ BEGIN
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 8 AND zoom(scaleDenominator::numeric) <= 10 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id AS id, the_geom_webmercator, name::text, type::text,
+      'SELECT osm_id::bigint AS id, the_geom_webmercator, name::text, type::text,
        (CASE WHEN type IN (''water'',''bay'',''riverbank'',''reservoir'') 
              AND ST_GeometryType(the_geom_webmercator) IN (''ST_Polygon'',''ST_MultiPolygon'') THEN 1 ELSE 0 END) as is_lake,
-       0 as ne_scalerank, area
+       0 as ne_scalerank, area::bigint
        FROM %s.water_areas_z10
        WHERE the_geom_webmercator && $1
        ORDER BY is_lake ASC', schema
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 11 AND zoom(scaleDenominator::numeric) <= 13 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id AS id, the_geom_webmercator, name::text, type::text,
+      'SELECT osm_id::bigint AS id, the_geom_webmercator, name::text, type::text,
        (CASE WHEN type IN (''water'',''bay'',''riverbank'',''reservoir'') 
              AND ST_GeometryType(the_geom_webmercator) IN (''ST_Polygon'',''ST_MultiPolygon'') THEN 1 ELSE 0 END) as is_lake,
-       0 AS ne_scalerank, area
+       0 AS ne_scalerank, area::bigint
        FROM %s.water_areas_z13
        WHERE the_geom_webmercator && $1
        ORDER BY is_lake ASC', schema
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 14 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id AS id, the_geom_webmercator, name::text, type::text,
+      'SELECT osm_id::bigint AS id, the_geom_webmercator, name::text, type::text,
        (CASE WHEN type IN (''water'',''bay'',''riverbank'',''reservoir'') 
              AND ST_GeometryType(the_geom_webmercator) IN (''ST_Polygon'',''ST_MultiPolygon'') THEN 1 ELSE 0 END) as is_lake,
-       0 as ne_scalerank, area
+       0 as ne_scalerank, area::bigint
        FROM %s.water_areas_z14plus
        WHERE the_geom_webmercator && $1
        ORDER BY is_lake ASC', schema
@@ -409,7 +416,7 @@ BEGIN
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 10 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id, the_geom_webmercator, false
+      'SELECT osm_id::bigint, the_geom_webmercator, false
        FROM %s.administrative
        WHERE admin_level = ''2''
        AND the_geom_webmercator && $1', schema
@@ -440,7 +447,7 @@ BEGIN
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 10 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id, tags -> ''name'' as name, 0, the_geom_webmercator, ST_GeometryType(the_geom_webmercator) AS geomtype
+      'SELECT osm_id::bigint, tags::hstore -> ''name'' as name, 0, the_geom_webmercator, ST_GeometryType(the_geom_webmercator) AS geomtype
        FROM %s.administrative
        WHERE admin_level = ''4''
        AND the_geom_webmercator && $1', schema
@@ -521,7 +528,7 @@ BEGIN
   END CASE;
 
   RETURN QUERY EXECUTE format(
-    'SELECT name, ref, the_geom_webmercator, highway, railway, kind, is_link, is_tunnel, is_bridge, z_order 
+    'SELECT name, ref, the_geom_webmercator, highway::text, railway::text, kind::text, is_link::text, is_tunnel::text, is_bridge::text, z_order 
      FROM %s.%I
      WHERE the_geom_webmercator && $1
      AND %s ORDER BY z_order ASC', schema, tablename, conditions
@@ -551,7 +558,7 @@ BEGIN
   END CASE;
 
   RETURN QUERY EXECUTE format(
-    'SELECT name, ref, the_geom_webmercator, highway, railway, kind, is_link, is_tunnel, is_bridge, z_order 
+    'SELECT name, ref, the_geom_webmercator, highway::text, railway::text, kind::text, is_link::text, is_tunnel::text, is_bridge::text, z_order 
      FROM %s.%I
      WHERE the_geom_webmercator && $1
      ORDER BY z_order ASC', schema, tablename
@@ -579,7 +586,7 @@ BEGIN
   END CASE;
 
   RETURN QUERY EXECUTE format(
-    'SELECT the_geom_webmercator, highway, railway, kind, is_link, is_tunnel, is_bridge 
+    'SELECT the_geom_webmercator, highway::text, railway::text, kind::text, is_link::text, is_tunnel::text, is_bridge::text
      FROM %s.%I
      WHERE the_geom_webmercator && $1
       AND is_tunnel = ''yes'' ORDER BY z_order ASC', schema, tablename
@@ -607,7 +614,7 @@ BEGIN
   END CASE;
 
   RETURN QUERY EXECUTE format(
-    'SELECT the_geom_webmercator, highway, railway, kind, is_link, is_tunnel, is_bridge 
+    'SELECT the_geom_webmercator, highway::text, railway::text, kind::text, is_link::text, is_tunnel::text, is_bridge::text
      FROM %s.%I
      WHERE the_geom_webmercator && $1
       AND is_bridge = ''yes'' ORDER BY z_order ASC', schema, tablename
@@ -623,13 +630,13 @@ $$
 BEGIN
   IF zoom(scaleDenominator::numeric) >= 12 AND zoom(scaleDenominator::numeric) <= 13 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id, area, the_geom_webmercator
+      'SELECT osm_id::bigint, area::bigint, the_geom_webmercator
        FROM %s.buildings_z13
        WHERE the_geom_webmercator && $1', schema
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 14 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id, area, the_geom_webmercator
+      'SELECT osm_id::bigint, area::bigint, the_geom_webmercator
        FROM %s.buildings_z14plus
        WHERE the_geom_webmercator && $1', schema
     ) USING bbox;
@@ -647,19 +654,19 @@ $$
 BEGIN
   IF zoom(scaleDenominator::numeric) >= 9 AND zoom(scaleDenominator::numeric) <= 10 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id, name, area, the_geom_webmercator
+      'SELECT osm_id::bigint, name, area::bigint, the_geom_webmercator
        FROM %s.green_areas_z10
        WHERE the_geom_webmercator && $1', schema
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 11 AND zoom(scaleDenominator::numeric) <= 13 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id, name, area, the_geom_webmercator
+      'SELECT osm_id::bigint, name, area::bigint, the_geom_webmercator
        FROM %s.green_areas_z13
        WHERE the_geom_webmercator && $1', schema
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 14 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id, name, area, the_geom_webmercator
+      'SELECT osm_id::bigint, name, area::bigint, the_geom_webmercator
        FROM %s.green_areas_z14plus
        WHERE the_geom_webmercator && $1', schema
     ) USING bbox;
@@ -678,7 +685,7 @@ $$
 BEGIN
   IF zoom(scaleDenominator::numeric) >= 12 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id, type::text, the_geom_webmercator
+      'SELECT osm_id::bigint, type::text, the_geom_webmercator
        FROM %s.aeroways
        WHERE the_geom_webmercator && $1', schema
     ) USING bbox;
@@ -696,7 +703,7 @@ $$
 BEGIN
   IF zoom(scaleDenominator::numeric) >= 9 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id, admin_level::text, the_geom_webmercator
+      'SELECT osm_id::bigint, admin_level::text, the_geom_webmercator
        FROM %s.administrative
        WHERE the_geom_webmercator && $1', schema
     ) USING bbox;

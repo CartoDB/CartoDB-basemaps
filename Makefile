@@ -25,7 +25,7 @@ globals:
 # Install project into user's TileMill 1 directory
 install:
 	mkdir -p ${HOME}/Documents/MapBox/project
-	ln -sf "`pwd`/tilemill" ${HOME}/Documents/MapBox/project/cartodb-basemap
+	ln -sf "`pwd`/styles" ${HOME}/Documents/MapBox/project/cartodb-basemap
 
 ##### Development tasks that interact with CartoDB #####
 # Generate image previews

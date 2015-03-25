@@ -17,7 +17,7 @@ module.exports = function(grunt) {
       },
 
       build: {
-        cwd: "tilemill/images/",
+        cwd: "styles/images/",
         src: "**",
         dest: 'stamen-base/'
       }

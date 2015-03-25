@@ -26,7 +26,7 @@ var node = function() {
     for (var i in images) {
       var image = images[i].split('/');
       image = image[image.length - 1];
-      var hash = md5(fs.readFileSync('tilemill/images/' + image));
+      var hash = md5(fs.readFileSync('styles/images/' + image));
       cartocss = cartocss.replace(
         new RegExp('https:\/\/dl.dropboxusercontent.com\/u\/[0-9]+\/.*' + image, 'g'),
         IMAGES_HOST + image 
@@ -53,7 +53,7 @@ var node = function() {
     new_layer.name = l.name;
     new_layer.options.sql = l.options.sql;
     if (l.name == "global_variables") {
-      new_layer.options.cartocss = replaceImages(fs.readFileSync("tilemill/global_variables_dark.mss").toString())
+      new_layer.options.cartocss = replaceImages(fs.readFileSync("styles/global_variables_dark.mss").toString())
     } else {
       new_layer.options.cartocss = replaceImages(fs.readFileSync(l.options.cartocss_file).toString())
     }
@@ -77,7 +77,7 @@ var node = function() {
     new_layer.options.sql = l.options.sql;
     if (!l.toggle[2]) new_layer.options.sql = new_layer.options.sql + " LIMIT 0;";
     if (l.name == "global_variables") {
-      new_layer.options.cartocss = replaceImages(fs.readFileSync("tilemill/global_variables_dark.mss").toString());
+      new_layer.options.cartocss = replaceImages(fs.readFileSync("styles/global_variables_dark.mss").toString());
     } else {
       new_layer.options.cartocss = replaceImages(fs.readFileSync(l.options.cartocss_file).toString());
     }

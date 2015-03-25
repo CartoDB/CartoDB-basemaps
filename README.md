@@ -7,7 +7,7 @@ The code and styles here are intended for serving the basemaps on your own local
 
 ### What does what?
 
-* All CartoCSS styles live in `/tilemill`. The Tilemill Project MML (used for local Tilemill 1) and the `project.json` in the root (used for CartoDB) need to be manually kept in sync. Each layer should have a name the same as its CartoCSS ID, and a call to a SQL function.
+* All CartoCSS styles live in `/styles`. The Tilemill Project MML (used for local Tilemill 1) and the `project.json` in the root (used for CartoDB) need to be manually kept in sync. Each layer should have a name the same as its CartoCSS ID, and a call to a SQL function.
 	* The oddness here has to do with Tilemill and CartoDB parsing SQL differently, and also because CartoDB does not support zoom-dependent layers yet; so we instead make layers zoom-dependent by writing PL/PGSQL functions that take a mapnik `!scaleDenominator!`.
 	* The stylesheet `global_variables` may be substituted in variant styles e.g. Dark Map.
 	

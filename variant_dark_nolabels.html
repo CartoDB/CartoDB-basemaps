@@ -48,7 +48,7 @@
           data.layers.forEach(function(l) {
             console.log(l);
             if (l.name == "global_variables") {
-              l.options.cartocss_file = 'tilemill/global_variables_dark.mss';
+              l.options.cartocss_file = 'styles/global_variables_dark.mss';
             }
             if (!l.toggle[2]) {
               l.options.sql = l.options.sql + " LIMIT 0;";

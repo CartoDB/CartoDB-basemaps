@@ -19,6 +19,7 @@ var node = function() {
   var mapconfig_dark = {'layers':[]};
   var mapconfig_light_nolabels = {'layers':[]};
   var mapconfig_dark_nolabels = {'layers':[]};
+  var mapconfig_light_only_labels = {'layers':[]};
 
   // change the host for the images
   function replaceImages(cartocss) {
@@ -84,11 +85,25 @@ var node = function() {
     mapconfig_dark_nolabels.layers.push(new_layer);
   });
 
+  PROJECT.layers.forEach(function(l) {
+    new_layer = {'type':'cartodb','options':{'cartocss_version':'2.1.1'}};
+    new_layer.name = l.name;
+    new_layer.options.sql = l.options.sql;
+    if (l.name == "global_variables") {
+      new_layer.options.cartocss = replaceImages(fs.readFileSync("tilemill/global_variables_only_labels.mss").toString());
+      mapconfig_light_only_labels.layers.push(new_layer);
+    } else if (!l.toggle[2]) {
+      new_layer.options.cartocss = replaceImages(fs.readFileSync(l.options.cartocss_file).toString());
+      mapconfig_light_only_labels.layers.push(new_layer);
+    }
+  });
+
   return {
-    'mapconfig_light':mapconfig_light,
-    'mapconfig_dark':mapconfig_dark,
-    'mapconfig_light_nolabels':mapconfig_light_nolabels,
-    'mapconfig_dark_nolabels':mapconfig_dark_nolabels
+    'mapconfig_light': mapconfig_light,
+    'mapconfig_dark': mapconfig_dark,
+    'mapconfig_light_nolabels': mapconfig_light_nolabels,
+    'mapconfig_dark_nolabels': mapconfig_dark_nolabels,
+    'mapconfig_light_only_labels': mapconfig_light_only_labels
   };
 }
 

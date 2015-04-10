@@ -90,7 +90,7 @@ var node = function() {
     new_layer.name = l.name;
     new_layer.options.sql = l.options.sql;
     if (l.name == "global_variables") {
-      new_layer.options.cartocss = replaceImages(fs.readFileSync("tilemill/global_variables_only_labels.mss").toString());
+      new_layer.options.cartocss = replaceImages(fs.readFileSync("styles/global_variables_only_labels.mss").toString());
       mapconfig_light_only_labels.layers.push(new_layer);
     } else if (!l.toggle[2]) {
       new_layer.options.cartocss = replaceImages(fs.readFileSync(l.options.cartocss_file).toString());

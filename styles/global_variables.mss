@@ -103,10 +103,10 @@ Map {
 @osm_roads_labels_halo: white;
 
 // assets
-@city_shield_file: url("https://dl.dropboxusercontent.com/u/2682489/city_shield_light.svg");
-@city_shield_file_lowzoom: url("https://dl.dropboxusercontent.com/u/2682489/city_shield_light.svg");
-@capital_shield_file: url("https://dl.dropboxusercontent.com/u/2624290/stamen_cartodb_icons/capital_shield_light.png");
-@capital_shield_file_lowzoom: url("https://dl.dropboxusercontent.com/u/2624290/stamen_cartodb_icons/capital_shield_light.png");
+@city_shield_file: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/city_shield_light.svg");
+@city_shield_file_lowzoom: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/city_shield_light.svg");
+@capital_shield_file: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/capital_shield_light.png");
+@capital_shield_file_lowzoom: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/capital_shield_light.png");
 
 @label_park_halo_fill: lighten(#e3e3dc, 8%);
 @label_park_fill: darken(#d4ded6, 30%);

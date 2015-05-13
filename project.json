@@ -1,5 +1,5 @@
 {
-  "togglesets":["Default On","All On","Labels Off"],
+  "togglesets":["Default On","All On","Labels Off","Labels only"],
   "layers": [
     {
       "name":"global_variables",
@@ -7,7 +7,7 @@
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
-        "cartocss_file": "styles/global_variables.mss",
+        "cartocss_file": "styles/global_variables_only_labels.mss",
         "sql": "SELECT '', null::geometry as the_geom_webmercator limit 0;"
       }
     },
@@ -223,4 +223,3 @@
     }
   ]
 }
-

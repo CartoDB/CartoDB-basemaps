@@ -192,6 +192,56 @@
       }
     },
     {
+      "name":"nps_points_of_interest",
+      "toggle":[true,true,false, true, true],
+      "type": "cartodb",
+      "options": {
+        "cartocss_version": "2.1.1",
+        "cartocss_file": "styles/nps_poi.mss",
+        "sql": "SELECT cartodb_id, the_geom_webmercator from points_of_interest"
+      }
+    },
+    {
+      "name":"nps_roads",
+      "toggle":[true,true,false, true, true],
+      "type": "cartodb",
+      "options": {
+        "cartocss_version": "2.1.1",
+        "cartocss_file": "styles/nps_roads.mss",
+        "sql": "SELECT cartodb_id, the_geom_webmercator from roads"
+      }
+    },
+    {
+      "name":"nps_parking_lots",
+      "toggle":[true,true,false, true, true],
+      "type": "cartodb",
+      "options": {
+        "cartocss_version": "2.1.1",
+        "cartocss_file": "styles/nps_parking_lots.mss",
+        "sql": "SELECT cartodb_id, the_geom_webmercator from parking_lots"
+      }
+    },
+    {
+      "name":"nps_buildings",
+      "toggle":[true,true,false, true, true],
+      "type": "cartodb",
+      "options": {
+        "cartocss_version": "2.1.1",
+        "cartocss_file": "styles/nps_buildings.mss",
+        "sql": "SELECT cartodb_id, the_geom_webmercator from buildings"
+      }
+    },
+    {
+      "name":"nps_trails",
+      "toggle":[true,true,false, true, true],
+      "type": "cartodb",
+      "options": {
+        "cartocss_version": "2.1.1",
+        "cartocss_file": "styles/nps_trails.mss",
+        "sql": "SELECT cartodb_id, the_geom_webmercator from trails"
+      }
+    },
+    {
       "name":"marine_labels",
       "toggle":[true,true,false, true, true],
       "type": "cartodb",

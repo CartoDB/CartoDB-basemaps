@@ -1,11 +1,11 @@
 // Zooms 9-18
 
-#greenareas {
+#greenareas  {
   [zoom>=9][zoom<=10] {
     polygon-fill: @greenareas_fill_low;
     [zoom=9][area<500000000],
     [zoom=10][area<250000000] {
-      polygon-fill: fadeout(@greenareas_fill_low,50%);
+    polygon-fill: fadeout(@greenareas_fill_low,50%);
     }
 
     polygon-pattern-alignment: global;
@@ -36,4 +36,8 @@
     polygon-pattern-file: url(http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/park-halftone-1.png);
   }
   
+  /*[boundary = 'national_park'] {
+    line-width: 0;
+    polygon-fill: red;
+  }*/
 }

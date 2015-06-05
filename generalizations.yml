@@ -36,12 +36,13 @@
 - name: green_areas_z14plus
   cluster_on: the_geom
   index_by: the_geom_webmercator
-  select: osm_id, tags -> 'name' AS name, ST_Area(the_geom)::bigint AS area, the_geom AS the_geom_webmercator
+  select: osm_id, tags -> 'name' AS name, tags -> 'boundary' AS boundary, ST_Area(the_geom)::bigint AS area, the_geom AS the_geom_webmercator
   from: public.planet
   where: tags -> 'leisure' IN ('park','water_park','marina','nature_reserve','playground',
          'garden','common','sports_centre','golf_course','stadium','track','pitch')
          OR tags -> 'amenity' IN ('graveyard')
          OR tags -> 'landuse' IN ('cemetery','recreation_ground','forest','wood')
+         OR tags -> 'boundary' IN ('national_park')
 
 - name: green_areas_z13
   cluster_on: the_geom_webmercator

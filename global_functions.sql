@@ -649,24 +649,24 @@ LANGUAGE 'plpgsql';
 
 DROP FUNCTION IF EXISTS green_areas_zoomed(text,text,box3d);
 CREATE OR REPLACE FUNCTION green_areas_zoomed(schema text, scaleDenominator text, bbox box3d)
-  RETURNS TABLE(osm_id bigint, name text, area bigint, the_geom_webmercator geometry) AS
+  RETURNS TABLE(osm_id bigint, name text, boundary text, area bigint, the_geom_webmercator geometry) AS
 $$
 BEGIN
   IF zoom(scaleDenominator::numeric) >= 9 AND zoom(scaleDenominator::numeric) <= 10 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id::bigint, name, area::bigint, the_geom_webmercator
+      'SELECT osm_id::bigint, name, boundary, area::bigint, the_geom_webmercator
        FROM %s.green_areas_z10
        WHERE the_geom_webmercator && $1', schema
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 11 AND zoom(scaleDenominator::numeric) <= 13 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id::bigint, name, area::bigint, the_geom_webmercator
+      'SELECT osm_id::bigint, name, boundary, area::bigint, the_geom_webmercator
        FROM %s.green_areas_z13
        WHERE the_geom_webmercator && $1', schema
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 14 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id::bigint, name, area::bigint, the_geom_webmercator
+      'SELECT osm_id::bigint, name, boundary, area::bigint, the_geom_webmercator
        FROM %s.green_areas_z14plus
        WHERE the_geom_webmercator && $1', schema
     ) USING bbox;

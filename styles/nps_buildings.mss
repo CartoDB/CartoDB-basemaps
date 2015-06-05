@@ -1,7 +1,14 @@
+ @building:   #d7d7d7;
+
 #buildings {
-  polygon-fill: #FF6600;
-  polygon-opacity: 0.7;
-  line-color: #FFF;
-  line-width: 1;
-  line-opacity: 1;
+  ::wall[zoom>=16] {
+    polygon-geometry-transform: translate(1,1);  
+    polygon-fill:@building * 0.80;
+  }
+
+  ::roof {
+    polygon-fill: darken(@building,5 );
+    line-color: @building;
+    line-width: 0.5;  
+  }
 }

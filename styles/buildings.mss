@@ -1,6 +1,8 @@
+
+
 // Zooms 12-18
 
-#buildings {
+#buildings{
   [zoom=13][area>=10000],
   [zoom=14][area>=5000],
   [zoom=15][area>=2000],
@@ -93,4 +95,5 @@
     }
   }
 }
+
 

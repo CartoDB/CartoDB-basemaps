@@ -3,17 +3,17 @@
   "layers": [
     {
       "name":"global_variables",
-      "toggle":[true,true,true],
+      "toggle":[true,true,true, true],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
         "cartocss_file": "styles/global_variables_only_labels.mss",
-        "sql": "SELECT '', null::geometry as the_geom_webmercator limit 0;"
+        "sql": "SELECT null::geometry as the_geom_webmercator"
       }
     },
     {
       "name":"false_background",
-      "toggle":[true,true,true],
+      "toggle":[true,true,true, false],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
@@ -23,7 +23,7 @@
     },
     {
       "name":"land_positive",
-      "toggle":[true,true,true],
+      "toggle":[true,true,true, false],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
@@ -33,7 +33,7 @@
     },
     {
       "name":"urban_areas",
-      "toggle":[false,true,true],
+      "toggle":[false,true, true, false],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
@@ -43,7 +43,7 @@
     },
     {
       "name":"green_areas",
-      "toggle":[false,true,true],
+      "toggle":[false,true,true, false],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
@@ -53,7 +53,7 @@
     },
     {
       "name":"admin0boundaries",
-      "toggle":[true,true,true],
+      "toggle":[true,true,true, false],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
@@ -63,7 +63,7 @@
     },
     {
       "name":"admin1boundaries",
-      "toggle":[true,true,true],
+      "toggle":[true,true,true, false],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
@@ -73,7 +73,7 @@
     },
     {
       "name":"water",
-      "toggle":[true,true,true],
+      "toggle":[true,true,true, false],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
@@ -83,7 +83,7 @@
     },
     {
       "name":"aeroways",
-      "toggle":[true,true,true],
+      "toggle":[true,true,true, false],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
@@ -93,7 +93,7 @@
     },
     {
       "name":"ne10mroads",
-      "toggle":[true,true,true],
+      "toggle":[true,true,true, false],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
@@ -103,7 +103,7 @@
     },
     {
       "name":"buildings",
-      "toggle":[false,true,true],
+      "toggle":[false,true,true, false],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
@@ -113,7 +113,7 @@
     },
     {
       "name":"osmtunnels",
-      "toggle":[true,true,true],
+      "toggle":[true,true,true, false],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
@@ -123,7 +123,7 @@
     },
     {
       "name":"osmroads",
-      "toggle":[true,true,true],
+      "toggle":[true,true,true, false],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
@@ -133,7 +133,7 @@
     },
     {
       "name":"osmbridges",
-      "toggle":[true,true,true],
+      "toggle":[true,true,true, false],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
@@ -143,7 +143,7 @@
     },
     {
       "name":"country_city_labels",
-      "toggle":[true,true,false],
+      "toggle":[true,true,false, true],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
@@ -153,7 +153,7 @@
     },
     {
       "name":"park_labels",
-      "toggle":[true,true,false],
+      "toggle":[true,true,false, true],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
@@ -163,7 +163,7 @@
     },
     {
       "name":"water_labels",
-      "toggle":[true,true,false],
+      "toggle":[true,true,false, true],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
@@ -173,7 +173,7 @@
     },
     {
       "name":"osm_roads_labels",
-      "toggle":[true,true,false],
+      "toggle":[true,true,false, true],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
@@ -183,7 +183,7 @@
     },
     {
       "name":"marine_labels",
-      "toggle":[true,true,false],
+      "toggle":[true,true,false, true],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
@@ -193,7 +193,7 @@
     },
     {
       "name":"admin1boundary_labels",
-      "toggle":[true,true,false],
+      "toggle":[true,true,false, true],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
@@ -203,7 +203,7 @@
     },
     {
       "name":"admin1_labels",
-      "toggle":[true,true,false],
+      "toggle":[true,true,false, true],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
@@ -213,7 +213,7 @@
     },
     {
       "name":"continent_labels",
-      "toggle":[true,true,false],
+      "toggle":[true,true,false, true],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",

@@ -23,6 +23,10 @@
     <a href="variant_dark.html">Dark</a>
     <a href="variant_dark_nolabels.html">Dark+No Labels</a>
     <button id="embedme">Embed this map in CartoDB</button>
+    <div id="manage">
+      <h2>layers</h2>
+      <ul id="layers" class="connectedSortable"></ul>
+    </div>
     <div id="map"></div>
     <div id="layer_selector" class="cartodb-infobox">
       <ul id="togglebox">
@@ -41,6 +45,8 @@
         var config; 
 
         $.ajaxSetup({ async: false }); /// I think I can skip callbacks here
+
+        var layersSetup = localStorage.getItem('layersSetup') ? JSON.parse(localStorage.getItem('layersSetup')) : {};
         var sublayers = [];
 
         $.get("project.json", "", function(data) {
@@ -52,11 +58,13 @@
                 cartocss:data,
                 name:l.name,
                 toggle:l.toggle, 
-                original_sql:l.options.sql
+                original_sql:l.options.sql,
+                showing: layersSetup[l.name] === undefined ? true: layersSetup[l.name]
               });
             });
           });
         });
+
         $.get("config.json", "", function(data) { config = data; });
         $.ajaxSetup({ async: true });
 
@@ -100,6 +108,35 @@
               sublayers[i].cartodb_ref = layer.getSubLayer(i); 
             }
 
+            function updateLayers() {
+              var setup = {}
+              for(var i = 0; i < sublayers.length; i++) {
+                if (sublayers[i].showing) {
+                  sublayers[i].cartodb_ref.show();
+                } else {
+                  sublayers[i].cartodb_ref.hide();
+                }
+                setup[sublayers[i].name] = sublayers[i].showing;
+              }
+              d3.select('#layers').selectAll('li').data(sublayers)
+                .attr('class', function(d) {
+                  return d.showing ? 'selected': ''
+                });
+              localStorage.setItem('layersSetup', JSON.stringify(setup))
+            }
+
+            d3.select('#layers').selectAll('li').data(sublayers).enter()
+              .append('li')
+              .text(function(d) { return d.name })
+              .attr('class', function(d) {
+                return d.showing ? 'selected': ''
+              })
+              .on('click', function(d, i) {
+                var b = sublayers[i].showing = !sublayers[i].showing;
+                d3.select(this).classed("selected", b);
+                updateLayers();
+              })
+
             d3.select("#togglebox").selectAll("li").data(toggleSets).enter().append("li")
               .text(function(d) { return d })
               .classed("selected", function(d,i) { return i == 1 })
@@ -110,10 +147,11 @@
                 var toggleSetIndex = toggleSets.indexOf(d);
                 sublayers.forEach(function(sl) {
                   if(sl.toggle[toggleSetIndex]) {
-                    sl.cartodb_ref.setSQL(sl.original_sql);
+                    sl.showing = true;
                   } else {
-                    sl.cartodb_ref.setSQL(sl.original_sql + " LIMIT 0");
+                    sl.showing = false;
                   }
+                  updateLayers();
                 });
               });
           }).on('error', function() { console.log("error"); }); 

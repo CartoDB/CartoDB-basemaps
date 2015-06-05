@@ -34,7 +34,7 @@
     </div>
  
     <!-- include cartodb.js library -->
-    <script src="http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"></script>
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.14/cartodb.uncompressed.js"></script>
     <script src="assets/leaflet-hash.js"></script>
     <script src="assets/l.control.geosearch.js"></script>
     <script src="assets/l.geosearch.provider.openstreetmap.js"></script>
@@ -49,12 +49,33 @@
         var layersSetup = localStorage.getItem('layersSetup') ? JSON.parse(localStorage.getItem('layersSetup')) : {};
         var sublayers = [];
 
+        function remove_parks_geometry_sql(_sql) {
+          // get selected columns
+          try {
+            var columns = /SELECT (.*) FROM/i.exec(_sql)[1].split(',').map(function(a) { return a.trim() })
+            // remove the_geom_webmercator
+            var t = columns.indexOf('the_geom_webmercator')
+            columns.splice(t, 1);
+          } catch(e) {
+            return _sql;
+          }
+          if (columns.length === 0 || _sql.indexOf('UNION') >= 0) {
+            return _sql
+          }
+          
+          var s = "with viewport_parks as (select st_union(the_geom_webmercator) as the_geom_webmercator from parks where the_geom_webmercator && !bbox!) ";
+          s += 'select ' + columns.join(',') + ', (case when st_intersects(__wrapped.the_geom_webmercator, vp.the_geom_webmercator)  then st_difference(__wrapped.the_geom_webmercator, vp.the_geom_webmercator)  else __wrapped.the_geom_webmercator end) as the_geom_webmercator from (' + _sql + ') as __wrapped, viewport_parks as vp '
+          console.log(s);
+          return s;
+          
+        }
+
         $.get("project.json", "", function(data) {
           toggleSets = data.togglesets;
           data.layers.forEach(function(l) {
             $.get(l.options.cartocss_file, '', function (data) { 
               sublayers.push({
-                sql:l.options.sql, 
+sql: l.name.indexOf('nps_') >= 0 ? l.options.sql: remove_parks_geometry_sql(l.options.sql),
                 cartocss:data,
                 name:l.name,
                 toggle:l.toggle, 

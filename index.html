@@ -16,9 +16,7 @@
     <a href="previews/">Basemap 0-18 Previews</a>
     <a id="zoom_to_sf" href="#13/37.7520/-122.4415">Zoom to San Francisco</a>
     <a id="zoom_to_madrid" href="#13/40.4183/-363.6865">Zoom to Madrid</a>
-    <a id="beyonce" href="">Beyonce</a>
-    <a id="portland" href="">Portland Street Lights</a>
-    <a id="restaurants" href="">Restaurant Hexbins</a>
+    <a id="cartodb_layer" href="#">Add cartodb layer</a>
     <a href="variant_nolabels.html">No Labels</a>
     <a href="variant_dark.html">Dark</a>
     <a href="variant_dark_nolabels.html">Dark+No Labels</a>
@@ -81,6 +79,9 @@
           provider: new L.GeoSearch.Provider.Nominatim(),
           showMarker: false
         }).addTo(map);
+        var baselayer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+        }).addTo(map);
 
         cartodb.createLayer(map, {
             user_name: config.cdb_url.replace(/http(s?):\/\/(.*).cartodb.com/, "$2"),
@@ -98,9 +99,25 @@
                 alert("Copy this URL into CartoDB: \n\n" + tileTemplate);
               });
 
-              $("#beyonce").attr("href","vis_examples/beyonce.html?layergroupid=" + t.tiles[0]);
-              $("#portland").attr("href","vis_examples/portland_street_lights.html?layergroupid=" + t.tiles[0]);
-              $("#restaurants").attr("href","vis_examples/restaurant_hexbins.html?layergroupid=" + t.tiles[0]);
+              var vizjsonUrl = localStorage.getItem('vizjson')
+
+              function addCdbLayer(vizjsonUrl) {
+                cartodb.createLayer(map, vizjsonUrl).done(function(cdb_layer) {
+                  baselayer.setZIndex(0)
+                  cdb_layer.setZIndex(1)
+                  layer.setZIndex(2)
+                }).addTo(map);
+              }
+              if (vizjsonUrl) {
+                addCdbLayer(vizjsonUrl);
+              }
+
+              $("#cartodb_layer").click(function() {
+                var vizjsonUrl = window.prompt('viz.json url');
+                localStorage.setItem('vizjson', vizjsonUrl);
+                addCdbLayer(vizjsonUrl);
+                return false;
+              });
             })
 
             // stitch together two lists: the project list, and references to the returned CartoDB layers
@@ -124,6 +141,8 @@
                 });
               localStorage.setItem('layersSetup', JSON.stringify(setup))
             }
+
+            updateLayers();
 
             d3.select('#layers').selectAll('li').data(sublayers).enter()
               .append('li')

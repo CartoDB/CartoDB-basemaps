@@ -14,6 +14,7 @@
   </head>
   <body>
     <a href="previews/">Basemap 0-18 Previews</a>
+    <div id="zoom_level" style= "display: inline">ZOOM: 0</div>
     <a id="zoom_to_sf" href="#13/37.7520/-122.4415">Zoom to San Francisco</a>
     <a id="zoom_to_madrid" href="#13/40.4183/-363.6865">Zoom to Madrid</a>
     <a id="cartodb_layer" href="#">Add cartodb layer</a>
@@ -72,6 +73,9 @@
           zoom: 12,
           maxZoom: 18,
           attributionControl: false
+        });
+        map.on('zoomend', function() {
+            $('#zoom_level').text("ZOOM " + map.getZoom());
         });
 
         var hash = new L.Hash(map);

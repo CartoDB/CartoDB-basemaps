@@ -2,12 +2,22 @@
   "togglesets":["Default On","All On","Labels Off","Labels only"],
   "layers": [
     {
-      "name":"global_variables",
-      "toggle":[true,true,true, true],
+      "name":"global_variables_labels",
+      "toggle":[false, false, false, true],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
         "cartocss_file": "styles/global_variables_only_labels.mss",
+        "sql": "SELECT null::geometry as the_geom_webmercator"
+      }
+    },
+    {
+      "name":"global_variables",
+      "toggle":[true,true,true, false],
+      "type": "cartodb",
+      "options": {
+        "cartocss_version": "2.1.1",
+        "cartocss_file": "styles/global_variables.mss",
         "sql": "SELECT null::geometry as the_geom_webmercator"
       }
     },

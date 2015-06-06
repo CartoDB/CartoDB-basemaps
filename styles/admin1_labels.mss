@@ -5,10 +5,9 @@
   [zoom=6][scalerank<4],
   [zoom=7][scalerank<99]
   {
-
-    text-size: 12;
-    text-name: "[name]"; 
-    text-halo-radius: 1.4px;
+    text-size: @admin1_labels_size;
+    text-name: "[name]";
+    text-halo-radius: @admin1_labels_halo_radius;
     text-fill: @admin1_labels;
     text-halo-fill: @admin1_labels_halo;
     text-face-name: "Azo Sans Regular","DejaVu Sans Bold","unifont Medium";

@@ -41,9 +41,6 @@ Map {
 @admin1_lowzoom: lighten(#6d6e71, 40%);
 @admin1_highzoom: lighten(#c79297, 15%);
 
-@admin1_labels: #ccc;
-@admin1_labels_halo: white;
-
 //osm roads
 @rail_line: #dddddd;
 @rail_dashline: #fafafa;
@@ -87,32 +84,48 @@ Map {
 // labels
 @label_foreground_fill: #8494a1;
 @label_foreground_halo_fill: rgba(236,236,234,0.7);
+@label_foreground_halo_radius: 1.4px;
+
 @label_background_fill: #b6b6b6;
 @label_background_halo_fill: rgba(255,255,255,0.7);
-@labels_lowzoom_shield_fill: lighten(@label_foreground_fill, 7%); 
+
+@labels_lowzoom_shield_fill: lighten(@label_foreground_fill, 7%);
 @labels_lowzoom_shield_halo_fill: lighten(@label_foreground_halo_fill,10%);
+
 @labels_highzoom_text_fill: lighten(@label_foreground_fill,15%);
 @labels_highzoom_halo_fill: lighten(@label_foreground_halo_fill,10%);
+@labels_highzoom_halo_radius: 1.4px;
 
 @labels_highzoom_class1_text_fill: lighten(@label_foreground_fill,5%);
 @labels_highzoom_class2_text_fill: darken(@label_foreground_fill,5%);
+@labels_highzoom_class1_text_size: 12;
+@labels_highzoom_class1_text_size_default: 10;
 
 @labels_marine_fill: white;
 @labels_marine_halo_fill: lighten(@label_foreground_fill,10%);
+@labels_marine_halo_radius: 1.4px;
 
 @osm_roads_labels_fill: #bbb;
 @osm_roads_labels_halo: white;
+@osm_roads_labels_radius: 1.8px;
+
+@admin1_labels_size: 10;
+@admin1_labels: rgba(255,255,255,1);
+@admin1_labels_halo: rgba(47,48,53,0.8);
+@admin1_labels_halo_radius: 1.4px;
+
+@label_park_fill: darken(#d4ded6, 30%);
+@label_park_halo_fill: lighten(#e3e3dc, 8%);
+@label_park_halo_radius: 1.4px;
+
+@label_water_fill: lighten(#6b8a95, 5%);
+@label_water_halo_fill: lighten(#e3e3dc, 8%);
+@label_water_halo_radius: 1.4px;
 
 // assets
 @city_shield_file: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/city_shield_light.svg");
 @city_shield_file_lowzoom: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/city_shield_light.svg");
 @capital_shield_file: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/capital_shield_light.png");
 @capital_shield_file_lowzoom: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/capital_shield_light.png");
-
-@label_park_halo_fill: lighten(#e3e3dc, 8%);
-@label_park_fill: darken(#d4ded6, 30%);
-
-@label_water_halo_fill: lighten(#e3e3dc, 8%);
-@label_water_fill: lighten(#6b8a95, 5%);
 
 @park_texture_opacity: 0.0;

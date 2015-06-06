@@ -15,7 +15,7 @@
       text-name: "[name]"; 
       text-fill: @label_water_fill;
       text-halo-fill: @label_water_halo_fill;
-      text-halo-radius: 1.4;
+      text-halo-radius: @label_water_halo_radius;
       text-face-name: "Azo Sans Italic","DejaVu Sans Bold","unifont Medium";
       text-placement: interior;
       text-min-distance: 20;
@@ -27,7 +27,7 @@
       text-name: "[name]"; 
       text-fill: @label_water_fill;
       text-halo-fill: @label_water_halo_fill;
-      text-halo-radius: 1.4;
+      text-halo-radius: @label_water_halo_radius;
       text-face-name: "Azo Sans Italic","DejaVu Sans Bold","unifont Medium";
       text-placement: line;
       text-min-distance: 100;

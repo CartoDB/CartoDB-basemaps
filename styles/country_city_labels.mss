@@ -83,7 +83,7 @@
     text-wrap-width: 100;
     text-wrap-before: true;
     text-character-spacing: 1.2;
-    text-halo-radius: 1.4px;
+    text-halo-radius: @labels_highzoom_halo_radius;
     text-halo-fill: @labels_highzoom_halo_fill;
     text-fill: @labels_highzoom_text_fill;
 
@@ -93,7 +93,7 @@
     [zoom=8][scalerank<=6],
     [zoom=9][scalerank<=7],
     [zoom=10][scalerank<=7] {
-      text-size: 12;
+      text-size: @labels_highzoom_class1_text_size;
       text-fill: @labels_highzoom_class1_text_fill;
       text-line-spacing: -2;
     }
@@ -108,7 +108,7 @@
     [zoom=9][scalerank<=5],
     [zoom=10][scalerank<=5] {
       text-size: 16;
-      text-fill: @labels_highzoom_class2_text_fill;    
+      text-fill: @labels_highzoom_class2_text_fill;
     }
     [zoom=11][scalerank<=5],
     [zoom=12][scalerank<=5]
@@ -118,7 +118,7 @@
     }
 
     // class 0 (default)
-    text-size: 10;
+    text-size: @labels_highzoom_class1_text_size_default;
 
     // At this zoom cities disappear, and it's only neighborhoods
     [zoom>=13] {
@@ -144,7 +144,7 @@
     [name="Falkland Islands"] {
       text-name: [name] + "\n(Malvinas)";
     }
-    text-halo-radius: 1.4;
+    text-halo-radius: @label_foreground_halo_radius;
     text-halo-fill: @label_foreground_halo_fill;
     text-face-name: "Azo Sans Regular","DejaVu Sans Bold","unifont Medium";
     text-min-distance: 10;

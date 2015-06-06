@@ -13,14 +13,14 @@
   [zoom=9][kind='major_road'] { 
     [kind='highway'] {
       ::outline {
-        line-color: @osm_roads_z9_highway_casing;
+        line-color: #fff;//@osm_roads_z9_highway_casing;
         line-width: 3;
       }
       line-width: 1;
       line-color: @osm_roads_z9_highway_stroke;
     }
     [kind='major_road'] {
-      line-color: @osm_roads_z9_major_stroke;
+      line-color: #c2adad;
       line-width: 0.5; 
     }
   }
@@ -28,37 +28,37 @@
   [zoom=10] { 
     [kind='highway'] {
       ::outline {
-        line-color: @osm_roads_z10_highway_casing;
+        line-color: #fff;//@osm_roads_z10_highway_casing;
         line-width: 3;
       }
       line-width: 1;
-      line-color: @osm_roads_z10_highway_stroke;
+      line-color: #c2adad;//@osm_roads_z10_highway_stroke;
     }
     [kind='major_road'] {
-      line-color: @osm_roads_z10_major_stroke;
+      line-color: #c2adad;//@osm_roads_z10_major_stroke;
       line-width: 0.5; 
     }
     line-width: 0.5;
-    line-color: @osm_roads_z10_minor_stroke;
+    line-color: #c2adad;//@osm_roads_z10_minor_stroke;
   }
 
   [zoom=11] { 
     [kind='highway'] {
       ::outline {
-        line-color: @osm_roads_z11_highway_casing;
+        line-color: #fff;//@osm_roads_z11_highway_casing;
         line-width: 4;
       }
       line-width: 2;
-      line-color: @osm_roads_z11_highway_stroke;
+      line-color: #c2adad;//@osm_roads_z11_highway_stroke;
     }
     [kind='major_road'] {
       line-width: 1;
-      line-color: @osm_roads_z11_major_stroke;
+      line-color: #c2adad; //@osm_roads_z11_major_stroke;
     }
 
     [kind='minor_road'] {
       line-width: 0.5;
-      line-color: @osm_roads_z11_minor_stroke;
+      line-color: #c2adad;//@osm_roads_z11_minor_stroke;
       line-cap: round;
     }
   }
@@ -66,19 +66,19 @@
   [zoom=12] { 
     [kind='highway'][is_link='no'] {
       ::outline {
-        line-color: @osm_roads_z12_highway_casing;
+        line-color: #fff;//@osm_roads_z12_highway_casing;
         line-width: 5;
       }
       line-width: 3;
-      line-color: @osm_roads_z12_highway_stroke;
+      line-color: #c2adad;//@osm_roads_z12_highway_stroke;
     }
     [kind='major_road'][is_link='no'] {
       ::outline {
-        line-color: @osm_roads_z12_major_casing;
+        line-color: #fff;//@osm_roads_z12_major_casing;
         line-width: 3;
       }
       line-width: 1;
-      line-color: @osm_roads_z12_major_stroke;
+      line-color: #c2adad; //@osm_roads_z12_major_stroke;
     }
 
     [kind='minor_road'] {

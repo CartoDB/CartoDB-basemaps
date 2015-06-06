@@ -1,3 +1,3 @@
 #false_background {
-  polygon-fill: @landmass_fill; 
+  polygon-fill: rgb(231,227,222); 
 }

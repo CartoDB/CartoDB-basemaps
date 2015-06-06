@@ -1,14 +1,13 @@
 @polygoncolor: #ffd479;
 @cachebuster: #0000c7;
-@water: #cdd2d4;
-
+@water: darken(#ACCEDB,4%);
 
 Map {
 	background-color: @water;
   buffer-size: 256;
 }
 
-@landmass_fill: lighten(#e3e3dc, 8%);
+@landmass_fill: @land;//lighten(#e3e3dc, 8%);
 @landmass_line: darken(#bfc7c8, 10%);
 
 @greenareas_fill_low: lighten(#d4dad6,8%);

@@ -48,7 +48,17 @@
       "options": {
         "cartocss_version": "2.1.1",
         "cartocss_file": "styles/greenareas.mss",
-        "sql": "SELECT osm_id, the_geom_webmercator, area FROM green_areas_zoomed('planet_green','!scale_denominator!',!bbox!) AS _"
+        "sql": "SELECT * FROM green_areas_zoomed('planet_green','!scale_denominator!',!bbox!) AS _"
+      }
+    },
+    {
+      "name":"nps_parks",
+      "toggle":[true,true,false, true, true],
+      "type": "cartodb",
+      "options": {
+        "cartocss_version": "2.1.1",
+        "cartocss_file": "styles/nps_parks.mss",
+        "sql": "SELECT cartodb_id, the_geom_webmercator from parks"
       }
     },
     {
@@ -102,6 +112,16 @@
       }
     },
     {
+      "name":"nps_parking_lots",
+      "toggle":[true,true,false, true, true],
+      "type": "cartodb",
+      "options": {
+        "cartocss_version": "2.1.1",
+        "cartocss_file": "styles/nps_parking_lots.mss",
+        "sql": "SELECT cartodb_id, the_geom_webmercator from parking_lots"
+      }
+    },
+    {
       "name":"buildings",
       "toggle":[false,true,true, false, true],
       "type": "cartodb",
@@ -109,6 +129,16 @@
         "cartocss_version": "2.1.1",
         "cartocss_file": "styles/buildings.mss",
         "sql": "SELECT osm_id, the_geom_webmercator, area FROM buildings_zoomed('planet_green','!scale_denominator!',!bbox!) AS _"
+      }
+    },
+    {
+      "name":"nps_buildings",
+      "toggle":[true,true,false, true, true],
+      "type": "cartodb",
+      "options": {
+        "cartocss_version": "2.1.1",
+        "cartocss_file": "styles/nps_buildings.mss",
+        "sql": "SELECT cartodb_id, the_geom_webmercator from buildings"
       }
     },
     {
@@ -142,13 +172,23 @@
       }
     },
     {
-      "name":"country_city_labels",
+      "name":"nps_roads",
       "toggle":[true,true,false, true, true],
       "type": "cartodb",
       "options": {
         "cartocss_version": "2.1.1",
-        "cartocss_file": "styles/country_city_labels.mss",
-        "sql": "SELECT cartodb_id, name, the_geom_webmercator, scalerank, place, pop_est, country_city, is_capital FROM country_city_labels_zoomed('planet_green','!scale_denominator!',!bbox!) AS _"
+        "cartocss_file": "styles/nps_roads.mss",
+        "sql": "SELECT cartodb_id, the_geom_webmercator from roads"
+      }
+    },
+    {
+      "name":"nps_trails",
+      "toggle":[true,true,false, true, true],
+      "type": "cartodb",
+      "options": {
+        "cartocss_version": "2.1.1",
+        "cartocss_file": "styles/nps_trails.mss",
+        "sql": "SELECT cartodb_id, the_geom_webmercator from trails"
       }
     },
     {
@@ -159,6 +199,36 @@
         "cartocss_version": "2.1.1",
         "cartocss_file": "styles/park_labels.mss",
         "sql": "SELECT osm_id, name, area, the_geom_webmercator FROM green_areas_zoomed('planet_green','!scale_denominator!',!bbox!) AS _"
+      }
+    },
+    {
+      "name":"nps_park_labels",
+      "toggle":[true,true,false, true, true],
+      "type": "cartodb",
+      "options": {
+        "cartocss_version": "2.1.1",
+        "cartocss_file": "styles/nps_park_labels.mss",
+        "sql": "SELECT cartodb_id, the_geom_webmercator from park_labels"
+      }
+    },
+    {
+      "name":"country_city_labels",
+      "toggle":[true,true,false, true, true],
+      "type": "cartodb",
+      "options": {
+        "cartocss_version": "2.1.1",
+        "cartocss_file": "styles/country_city_labels.mss",
+        "sql": "SELECT cartodb_id, name, the_geom_webmercator, scalerank, place, pop_est, country_city, is_capital FROM country_city_labels_zoomed('planet_green','!scale_denominator!',!bbox!) AS _"
+      }
+    },
+    {
+      "name":"nps_points_of_interest",
+      "toggle":[true,true,false, true, true],
+      "type": "cartodb",
+      "options": {
+        "cartocss_version": "2.1.1",
+        "cartocss_file": "styles/nps_poi.mss",
+        "sql": "SELECT cartodb_id, the_geom_webmercator from points_of_interest"
       }
     },
     {
@@ -179,66 +249,6 @@
         "cartocss_version": "2.1.1",
         "cartocss_file": "styles/osm_roads_labels.mss",
         "sql": "SELECT name, highway, railway, kind, the_geom_webmercator FROM high_road_labels('planet_green','!scale_denominator!',!bbox!) as _"
-      }
-    },
-    {
-      "name":"nps_parks",
-      "toggle":[true,true,false, true, true],
-      "type": "cartodb",
-      "options": {
-        "cartocss_version": "2.1.1",
-        "cartocss_file": "styles/nps_parks.mss",
-        "sql": "SELECT cartodb_id, the_geom_webmercator from parks"
-      }
-    },
-    {
-      "name":"nps_points_of_interest",
-      "toggle":[true,true,false, true, true],
-      "type": "cartodb",
-      "options": {
-        "cartocss_version": "2.1.1",
-        "cartocss_file": "styles/nps_poi.mss",
-        "sql": "SELECT cartodb_id, the_geom_webmercator from points_of_interest"
-      }
-    },
-    {
-      "name":"nps_roads",
-      "toggle":[true,true,false, true, true],
-      "type": "cartodb",
-      "options": {
-        "cartocss_version": "2.1.1",
-        "cartocss_file": "styles/nps_roads.mss",
-        "sql": "SELECT cartodb_id, the_geom_webmercator from roads"
-      }
-    },
-    {
-      "name":"nps_parking_lots",
-      "toggle":[true,true,false, true, true],
-      "type": "cartodb",
-      "options": {
-        "cartocss_version": "2.1.1",
-        "cartocss_file": "styles/nps_parking_lots.mss",
-        "sql": "SELECT cartodb_id, the_geom_webmercator from parking_lots"
-      }
-    },
-    {
-      "name":"nps_buildings",
-      "toggle":[true,true,false, true, true],
-      "type": "cartodb",
-      "options": {
-        "cartocss_version": "2.1.1",
-        "cartocss_file": "styles/nps_buildings.mss",
-        "sql": "SELECT cartodb_id, the_geom_webmercator from buildings"
-      }
-    },
-    {
-      "name":"nps_trails",
-      "toggle":[true,true,false, true, true],
-      "type": "cartodb",
-      "options": {
-        "cartocss_version": "2.1.1",
-        "cartocss_file": "styles/nps_trails.mss",
-        "sql": "SELECT cartodb_id, the_geom_webmercator from trails"
       }
     },
     {

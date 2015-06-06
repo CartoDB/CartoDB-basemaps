@@ -27,7 +27,7 @@
     }
 
     [is_lake=1] {
-      polygon-fill: @water;
+      polygon-fill: darken(#ACCEDB,4%);
 
       ::outline {
         line-color: @landmass_line;
@@ -39,7 +39,7 @@
   // OSM
   [zoom >= 8] {
     [is_lake=0] {
-      line-color: @water;
+      line-color: darken(#ACCEDB,4%);
       line-width: 0.5;
 
       // to avoid excessive detail near Perpignan, France (10/42.6380/2.6944)
@@ -49,7 +49,7 @@
     }
 
     [is_lake=1] {
-      polygon-fill: @water;
+      polygon-fill: darken(#ACCEDB,4%);
 
       ::outline[zoom=8][area>500000000] { line-width: 1; }
       ::outline[zoom=9][area>100000000] { line-width: 1.5; }

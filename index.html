@@ -110,7 +110,7 @@ sql: l.name.indexOf('nps_') >= 0 ? l.options.sql: remove_parks_geometry_sql(l.op
             extra_params: {
               map_key: config.api_key
             }
-        }, { no_cdn: true })
+        }, { no_cdn: true, force_cors: true})
         .addTo(map)
         .on('done', function(layer) { 
             layer.getTiles(function(t) { 

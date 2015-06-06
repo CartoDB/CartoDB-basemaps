@@ -80,15 +80,15 @@ Map {
 @osm_tunnel_stroke: #eee;
 
 // labels
-@label_foreground_fill: darken(#8494a1, 30%);
-@label_foreground_halo_fill: rgba(255,255,255,0.6);
+@label_foreground_fill: darken(#8494a1, 25%);
+@label_foreground_halo_fill: rgba(255,255,255,0.9);
 @label_foreground_halo_radius: 1.2px;
 
-@label_background_fill: darken(#8494a1, 30%);
-@label_background_halo_fill: rgba(255,255,255,0.8);
+@label_background_fill: darken(#8494a1, 25%);
+@label_background_halo_fill: rgba(255,255,255,0.9);
 
-@labels_lowzoom_shield_fill: darken(#8494a1, 30%);
-@labels_lowzoom_shield_halo_fill: rgba(255,255,255,0.8);
+@labels_lowzoom_shield_fill: darken(#8494a1, 25%);
+@labels_lowzoom_shield_halo_fill: rgba(255,255,255,0.9);
 
 @labels_highzoom_text_fill: @label_foreground_fill;
 @labels_highzoom_halo_fill: @label_foreground_halo_fill;
@@ -103,7 +103,7 @@ Map {
 @labels_marine_halo_fill: lighten(@label_foreground_fill,15%);
 @labels_marine_halo_radius: 1.2px;
 
-@osm_roads_labels_fill: darken(#8494a1, 15%);
+@osm_roads_labels_fill: darken(#8494a1, 13%);
 @osm_roads_labels_halo: rgba(255,255,255,0.8);
 @osm_roads_labels_radius: 1.7px;
 
@@ -112,12 +112,12 @@ Map {
 @admin1_labels_halo: rgba(47,48,53,0.8);
 @admin1_labels_halo_radius: 1px;
 
-@label_park_fill: darken(#d4ded6, 30%);
-@label_park_halo_fill: rgba(255,255,255, 0.5);
+@label_park_fill: darken(#d4ded6, 25%);
+@label_park_halo_fill: rgba(255,255,255, 0.9);
 @label_park_halo_radius: 1.2px;
 
-@label_water_fill: darken(#6b8a95, 15%);
-@label_water_halo_fill: rgba(255,255,255, 0.90);
+@label_water_fill: darken(#6b8a95, 13%);
+@label_water_halo_fill: rgba(255,255,255, 0.9);
 @label_water_halo_radius: 1.2px;
 
 // assets

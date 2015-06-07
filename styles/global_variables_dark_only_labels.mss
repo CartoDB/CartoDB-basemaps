@@ -120,6 +120,10 @@ Map {
 @admin1_labels_halo: #111;
 @admin1_labels_halo_radius: 1px;
 
+@admin1_lowzoom_labels_size: 0;
+@admin1_lowzoom_labels: transparent;
+@admin1_lowzoom_labels_halo_radius: 0;
+
 @label_park_fill: lighten(#555, 20%);
 @label_park_halo_fill: @label_foreground_halo_fill;
 @label_park_halo_radius: 1.2px;

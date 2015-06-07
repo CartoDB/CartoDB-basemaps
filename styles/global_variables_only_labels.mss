@@ -111,13 +111,17 @@ Map {
 @countries_class2_text_fill: transparent;
 @countries_class2_text_halo_radius: 0;
 
-@admin1_labels_size: 12;
-@admin1_labels: white;
-@admin1_labels_halo: rgba(47,48,53,0.7);
+@admin1_labels_size: 14;
+@admin1_labels: darken(#8494a1, 15%);
+@admin1_labels_halo: rgba(255,255,255,0.9);
 @admin1_labels_halo_radius: 1.6px;
 
+@admin1_lowzoom_labels_size: 0;
+@admin1_lowzoom_labels: transparent;
+@admin1_lowzoom_labels_halo_radius: 0;
+
 @label_park_fill: darken(#d4ded6, 25%);
-@label_park_halo_fill: rgba(255,255,255, 0.9);
+@label_park_halo_fill: rgba(255,255,255,0.9);
 @label_park_halo_radius: 1.2px;
 
 @label_water_fill: darken(#6b8a95, 13%);

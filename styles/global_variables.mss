@@ -117,6 +117,10 @@ Map {
 @admin1_labels_halo: rgba(47,48,53,0.8);
 @admin1_labels_halo_radius: 1.4px;
 
+@admin1_lowzoom_labels_size: @admin1_labels_size;
+@admin1_lowzoom_labels: @admin1_labels;
+@admin1_lowzoom_labels_halo_radius: @admin1_labels_halo_radius;
+
 @label_park_fill: darken(#d4ded6, 30%);
 @label_park_halo_fill: lighten(#e3e3dc, 8%);
 @label_park_halo_radius: 1.4px;

@@ -30,7 +30,6 @@ Map {
 @urbanareas: darken(#f5f5f3, 4%);
 @urbanareas_highzoom: darken(#f5f5f3, 3%);
 
-
 @admin0_4: lighten(#c79297, 20%);
 @admin0_5: lighten(#c99297,10%);
 @admin0_6: mix(lighten(#c99297, 20%), lighten(#e3e3dc, 8%), 20);
@@ -100,12 +99,15 @@ Map {
 @labels_highzoom_class1_text_size_default: 9;
 
 @labels_marine_fill: white;
-@labels_marine_halo_fill: lighten(@label_foreground_fill,15%);
+@labels_marine_halo_fill: @label_foreground_fill;
 @labels_marine_halo_radius: 1.2px;
 
 @osm_roads_labels_fill: darken(#8494a1, 13%);
 @osm_roads_labels_halo: rgba(255,255,255,0.8);
 @osm_roads_labels_radius: 1.7px;
+
+@countries_class1_text_fill: @label_foreground_fill;
+@countries_highzoom_class1_text_fill: @label_foreground_fill;
 
 @countries_class2_label_size: 0;
 @countries_class2_text_fill: transparent;
@@ -127,6 +129,8 @@ Map {
 @label_water_fill: darken(#6b8a95, 13%);
 @label_water_halo_fill: rgba(255,255,255, 0.9);
 @label_water_halo_radius: 1.2px;
+
+@continent_labels: darken(@label_foreground_fill,5%);
 
 // assets
 @city_shield_file: url("http://dl.dropboxusercontent.com/u/538411/basemaps_labels/city_shield_light_only_labels.svg");

@@ -128,22 +128,20 @@
   }
 }
 
-#country_city_labels[country_city="country"]
-{
+#country_city_labels[country_city="country"]{
   [zoom=3][scalerank<2][pop_est >= 2000000],
   [zoom=4][scalerank<3][pop_est >= 2000000],
   [zoom=5][scalerank<4] {
     text-size: 15;
     text-line-spacing: -3;
-
     text-wrap-width: 100;
-
     text-wrap-before: true;
     text-ratio: 0.5;
     text-name: "[name]";
     [name="Falkland Islands"] {
       text-name: [name] + "\n(Malvinas)";
     }
+
     text-halo-radius: @label_foreground_halo_radius;
     text-halo-fill: @label_foreground_halo_fill;
     text-face-name: "Azo Sans Regular","DejaVu Sans Bold","unifont Medium";
@@ -156,23 +154,22 @@
       text-halo-radius: @countries_class2_text_halo_radius;
 
       [pop_est>20000000] {
-      text-fill: lighten(@label_foreground_fill,5%);
         text-size: 14;
+        text-halo-radius: @label_foreground_halo_radius;
+        text-halo-fill: @label_foreground_halo_fill;
       }
     }
     [zoom=4],[zoom=5] {
       text-size: 12;
       text-line-spacing: -3;
 
-      text-fill: @label_background_fill;
       text-halo-fill: @label_background_halo_fill;
-      text-halo-radius: 2;
+      text-halo-radius: @label_foreground_halo_radius;
       text-face-name: "Azo Sans Regular","DejaVu Sans Bold","unifont Medium";
 
       [pop_est>20000000] {
         text-size: 16;
         text-line-spacing: -4;
-        text-fill: darken(@label_background_fill, 5%);
         text-wrap-width: 200;
       }
     }

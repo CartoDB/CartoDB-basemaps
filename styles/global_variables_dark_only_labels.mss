@@ -111,6 +111,9 @@ Map {
 @osm_roads_labels_halo: rgba(0,0,0,0.9);
 @osm_roads_labels_radius: 1.7px;
 
+@countries_class1_text_fill: lighten(@label_foreground_fill,25%);
+@countries_highzoom_class1_text_fill: lighten(@label_foreground_fill,10%);
+
 @countries_class2_label_size: 0;
 @countries_class2_text_fill: transparent;
 @countries_class2_text_halo_radius: 0;
@@ -131,6 +134,8 @@ Map {
 @label_water_fill: lighten(#555, 20%);
 @label_water_halo_fill: darken(@label_foreground_halo_fill,5%);
 @label_water_halo_radius: 1.2px;
+
+@continent_labels: lighten(@label_foreground_fill,25%);
 
 // assets
 @city_shield_file: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/city_shield_dark_444.png");

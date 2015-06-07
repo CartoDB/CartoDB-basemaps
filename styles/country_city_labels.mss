@@ -155,6 +155,7 @@
 
       [pop_est>20000000] {
         text-size: 14;
+        text-fill: @countries_class1_text_fill;
         text-halo-radius: @label_foreground_halo_radius;
         text-halo-fill: @label_foreground_halo_fill;
       }
@@ -163,6 +164,7 @@
       text-size: 12;
       text-line-spacing: -3;
 
+      text-fill: @countries_highzoom_class1_text_fill;
       text-halo-fill: @label_background_halo_fill;
       text-halo-radius: @label_foreground_halo_radius;
       text-face-name: "Azo Sans Regular","DejaVu Sans Bold","unifont Medium";

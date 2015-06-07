@@ -107,10 +107,14 @@ Map {
 @osm_roads_labels_halo: rgba(255,255,255,0.8);
 @osm_roads_labels_radius: 1.7px;
 
-@admin1_labels_size: 10;
-@admin1_labels: rgba(255,255,255,1);
-@admin1_labels_halo: rgba(47,48,53,0.8);
-@admin1_labels_halo_radius: 1px;
+@countries_class2_label_size: 0;
+@countries_class2_text_fill: transparent;
+@countries_class2_text_halo_radius: 0;
+
+@admin1_labels_size: 12;
+@admin1_labels: white;
+@admin1_labels_halo: rgba(47,48,53,0.7);
+@admin1_labels_halo_radius: 1.6px;
 
 @label_park_fill: darken(#d4ded6, 25%);
 @label_park_halo_fill: rgba(255,255,255, 0.9);

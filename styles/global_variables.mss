@@ -108,6 +108,10 @@ Map {
 @osm_roads_labels_halo: white;
 @osm_roads_labels_radius: 1.8px;
 
+@countries_class2_label_size: 10px;
+@countries_class2_text_fill: lighten(@label_foreground_fill,10%);
+@countries_class2_text_halo_radius: 1.8;
+
 @admin1_labels_size: 10;
 @admin1_labels: rgba(255,255,255,1);
 @admin1_labels_halo: rgba(47,48,53,0.8);

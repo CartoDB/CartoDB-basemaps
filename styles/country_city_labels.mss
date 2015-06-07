@@ -151,9 +151,9 @@
     text-transform: uppercase;
 
     [zoom=3] {
-      text-size: 10;
-      text-fill: lighten(@label_foreground_fill,10%);
-      text-halo-radius: 1.8;
+      text-size: @countries_class2_label_size;
+      text-fill: @countries_class2_text_fill;
+      text-halo-radius: @countries_class2_text_halo_radius;
 
       [pop_est>20000000] {
       text-fill: lighten(@label_foreground_fill,5%);

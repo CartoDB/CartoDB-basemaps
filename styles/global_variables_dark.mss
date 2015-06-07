@@ -112,6 +112,10 @@ Map {
 @osm_roads_labels_halo: black;
 @osm_roads_labels_radius: 1.7px;
 
+@countries_class2_label_size: 10px;
+@countries_class2_text_fill: lighten(@label_foreground_fill,10%);
+@countries_class2_text_halo_radius: 1.8;
+
 @admin1_labels_size: 10;
 @admin1_labels: #333;
 @admin1_labels_halo: #111;

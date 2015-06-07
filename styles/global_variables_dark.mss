@@ -121,6 +121,10 @@ Map {
 @admin1_labels_halo: #111;
 @admin1_labels_halo_radius: 1px;
 
+@admin1_lowzoom_labels_size: @admin1_labels_size;
+@admin1_lowzoom_labels: @admin1_labels;
+@admin1_lowzoom_labels_halo_radius: @admin1_labels_halo_radius;
+
 @label_park_fill: darken(@label_foreground_fill,15%);
 @label_park_halo_fill: darken(@label_foreground_halo_fill,10%);
 @label_park_halo_radius: 1.2px;

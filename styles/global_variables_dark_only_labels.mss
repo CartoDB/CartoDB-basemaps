@@ -4,7 +4,6 @@
 
 
 Map {
-  background-color: @water;
   buffer-size: 256;
 }
 
@@ -85,43 +84,43 @@ Map {
 @osm_tunnel_stroke: #111;
 
 // labels
-@label_foreground_fill: #777;
-@label_foreground_halo_fill: rgba(0,0,0,0.7);
+@label_foreground_fill: lighten(#555,10%);
+@label_foreground_halo_fill: rgba(0,0,0,0.9);
 @label_foreground_halo_radius: 1.2px;
 
-@label_background_fill: #444;
-@label_background_halo_fill: rgba(0,0,0,0.3);
+@label_background_fill: lighten(#444,10%);
+@label_background_halo_fill: rgba(0,0,0,0.9);
 
 @labels_lowzoom_shield_fill: darken(@label_foreground_fill, 15%);
 @labels_lowzoom_shield_halo_fill: black;
 
-@labels_highzoom_text_fill: #444;
+@labels_highzoom_text_fill: lighten(#555, 20%);
 @labels_highzoom_halo_fill: darken(@label_foreground_halo_fill,10%);
 @labels_highzoom_halo_radius: 1.7px;
 
-@labels_highzoom_class1_text_fill: lighten(@labels_highzoom_text_fill,5%);
-@labels_highzoom_class2_text_fill: lighten(@labels_highzoom_text_fill,15%);
+@labels_highzoom_class1_text_fill: lighten(@labels_highzoom_text_fill,15%);
+@labels_highzoom_class2_text_fill: lighten(@labels_highzoom_text_fill,25%);
 @labels_highzoom_class1_text_size: 12;
 @labels_highzoom_class1_text_size_default: 9;
 
-@labels_marine_fill: darken(@label_foreground_fill,20%);
+@labels_marine_fill: #555;
 @labels_marine_halo_fill: darken(@label_foreground_halo_fill,10%);
 @labels_marine_halo_radius: 1.2px;
 
-@osm_roads_labels_fill: #444;
-@osm_roads_labels_halo: black;
+@osm_roads_labels_fill: lighten(#555, 20%);
+@osm_roads_labels_halo: rgba(0,0,0,0.9);
 @osm_roads_labels_radius: 1.7px;
 
 @admin1_labels_size: 10;
-@admin1_labels: #333;
+@admin1_labels: #444;
 @admin1_labels_halo: #111;
 @admin1_labels_halo_radius: 1px;
 
-@label_park_fill: darken(@label_foreground_fill,15%);
-@label_park_halo_fill: darken(@label_foreground_halo_fill,10%);
+@label_park_fill: lighten(#555, 20%);
+@label_park_halo_fill: @label_foreground_halo_fill;
 @label_park_halo_radius: 1.2px;
 
-@label_water_fill: darken(@label_foreground_fill,20%);
+@label_water_fill: lighten(#555, 20%);
 @label_water_halo_fill: darken(@label_foreground_halo_fill,5%);
 @label_water_halo_radius: 1.2px;
 

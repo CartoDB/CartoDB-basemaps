@@ -143,4 +143,4 @@ Map {
 @capital_shield_file: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/capital_shield_dark_444.png");
 @capital_shield_file_lowzoom: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/capital_shield_dark_666.png");
 
-@park_texture_opacity: 0.1;
+@park_texture_opacity: 0.12;

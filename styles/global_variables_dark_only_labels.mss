@@ -103,7 +103,7 @@ Map {
 @labels_highzoom_class1_text_size: 12;
 @labels_highzoom_class1_text_size_default: 9;
 
-@labels_marine_fill: #555;
+@labels_marine_fill: darken(@label_foreground_fill,15%);
 @labels_marine_halo_fill: darken(@label_foreground_halo_fill,10%);
 @labels_marine_halo_radius: 1.2px;
 

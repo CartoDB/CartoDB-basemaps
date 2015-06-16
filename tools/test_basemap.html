@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Easy example | CartoDB.js</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico" />
+    <style>
+html, body {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+  
+}
+.map {
+        height: 100%;
+        width: 50%;
+        padding: 0;
+        margin: 0;
+        float: left;
+      }
+    </style>
+
+    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.14/themes/css/cartodb.css" />
+  </head>
+  <body>
+    <div class="map" id="map1"></div>
+    <div class="map" id="map2"></div>
+
+    <!-- include cartodb.js library -->
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.14/cartodb.js"></script>
+    <script src="http://turban.github.io/Leaflet.Sync/L.Map.Sync.js"></script>
+
+    <script>
+      function main() {
+        var reference_map = L.map('map1', { 
+          zoomControl: false,
+          center: [43, 0],
+          zoom: 3
+        })
+        L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+}).addTo(reference_map);
+        var map = L.map('map2', { 
+          zoomControl: false,
+          center: [43, 0],
+          zoom: 3
+        })
+        cartodb.createLayer(map, {
+          type: 'namedmap',
+          user_name: 'basemaps',
+          options: {
+            named_map: {
+              name: location.hash.slice(1)
+            }
+          }
+        })
+        .addTo(map)
+        reference_map.sync(map);
+        map.sync(reference_map);
+      }
+
+      window.onload = main;
+    </script>
+  </body>
+</html>

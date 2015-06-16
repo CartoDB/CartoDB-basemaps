@@ -11,6 +11,7 @@
 var node = function() {
   var fs = require("fs");
   var md5 = require('MD5');
+  var _ = require('underscore');
 
   var PROJECT = JSON.parse(fs.readFileSync("project.json"));
   var IMAGES_HOST = 'http://libs.cartocdn.com.s3.amazonaws.com/stamen-base/';
@@ -20,6 +21,7 @@ var node = function() {
   var mapconfig_light_nolabels = {'layers':[]};
   var mapconfig_dark_nolabels = {'layers':[]};
   var mapconfig_light_only_labels = {'layers':[]};
+  var mapconfig_dark_only_labels = {'layers':[]};
 
   // change the host for the images
   function replaceImages(cartocss) {
@@ -92,9 +94,13 @@ var node = function() {
     if (l.name == "global_variables") {
       new_layer.options.cartocss = replaceImages(fs.readFileSync("styles/global_variables_only_labels.mss").toString());
       mapconfig_light_only_labels.layers.push(new_layer);
+      var new_layer_dark = _.clone(new_layer)
+      new_layer_dark.options.cartocss = replaceImages(fs.readFileSync("styles/global_variables_dark_only_labels.mss").toString());
+      mapconfig_dark_only_labels.layers.push(new_layer_dark);
     } else if (!l.toggle[2]) {
       new_layer.options.cartocss = replaceImages(fs.readFileSync(l.options.cartocss_file).toString());
       mapconfig_light_only_labels.layers.push(new_layer);
+      mapconfig_dark_only_labels.layers.push(new_layer);
     }
   });
 
@@ -103,7 +109,8 @@ var node = function() {
     'mapconfig_dark': mapconfig_dark,
     'mapconfig_light_nolabels': mapconfig_light_nolabels,
     'mapconfig_dark_nolabels': mapconfig_dark_nolabels,
-    'mapconfig_light_only_labels': mapconfig_light_only_labels
+    'mapconfig_light_only_labels': mapconfig_light_only_labels,
+    'mapconfig_dark_only_labels': mapconfig_dark_only_labels
   };
 }
 

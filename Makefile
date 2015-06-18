@@ -58,15 +58,27 @@ cartodb_generalizations:
 
 
 basemap_light_only_labels:
-	node make_named_map.js mapconfig_light_only_labels staging_only_labels > /tmp/basemap.json
-	curl -X DELETE -H 'content-type: application/json' -d @/tmp/basemap.json https://basemaps.cartodb.com/api/v1/map/named/staging_only_labels\?api_key=$(CARTODB_API_KEY)
+	node make_named_map.js mapconfig_light_only_labels light_only_labels > /tmp/basemap.json
+	curl -X DELETE -H 'content-type: application/json' -d @/tmp/basemap.json https://basemaps.cartodb.com/api/v1/map/named/light_only_labels\?api_key=$(CARTODB_API_KEY)
 	curl -H 'content-type: application/json' -d @/tmp/basemap.json https://basemaps.cartodb.com/api/v1/map/named\?api_key=$(CARTODB_API_KEY)
 	rm -rf /tmp/basempap.json
-	open "tools/test_basemap.html"
+
+basemap_dark_only_labels:
+	node make_named_map.js mapconfig_dark_only_labels dark_only_labels > /tmp/basemap.json
+	curl -X DELETE -H 'content-type: application/json' -d @/tmp/basemap.json https://basemaps.cartodb.com/api/v1/map/named/dark_only_labels\?api_key=$(CARTODB_API_KEY)
+	curl -H 'content-type: application/json' -d @/tmp/basemap.json https://basemaps.cartodb.com/api/v1/map/named\?api_key=$(CARTODB_API_KEY)
+	rm -rf /tmp/basempap.json
 
 basemap_light_all:
 	node make_named_map.js mapconfig_light staging_light > /tmp/basemap.json
 	curl -X DELETE -H 'content-type: application/json' -d @/tmp/basemap.json https://basemaps.cartodb.com/api/v1/map/named/staging_light\?api_key=$(CARTODB_API_KEY)
+	curl -H 'content-type: application/json' -d @/tmp/basemap.json https://basemaps.cartodb.com/api/v1/map/named\?api_key=$(CARTODB_API_KEY)
+	rm -rf /tmp/basempap.json
+	open "tools/test_basemap.html"
+
+basemap_dark_all:
+	node make_named_map.js mapconfig_dark staging_dark > /tmp/basemap.json
+	curl -X DELETE -H 'content-type: application/json' -d @/tmp/basemap.json https://basemaps.cartodb.com/api/v1/map/named/staging_dark\?api_key=$(CARTODB_API_KEY)
 	curl -H 'content-type: application/json' -d @/tmp/basemap.json https://basemaps.cartodb.com/api/v1/map/named\?api_key=$(CARTODB_API_KEY)
 	rm -rf /tmp/basempap.json
 	open "tools/test_basemap.html"

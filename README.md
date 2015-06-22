@@ -1,5 +1,4 @@
-CartoDB Basemaps
-================
+# CartoDB Basemaps
 
 This is the source code and styles for the [CartoDB Basemaps](http://cartodb.com/basemaps), designed by [Stamen](http://stamen.com).
 
@@ -14,7 +13,7 @@ The code and styles here are intended for serving the basemaps on your own local
 * The `project.json` is transformed into a Windshaft MapConfig via `util.js`. All util does is inline text from stylesheets, and possibly toggles layers depending on which "toggle set" (e.g. Labels Off) they belong to. Disabling a layer is done by appending LIMIT 0 to the SQL query.
 
 * There's two places where database stuff (materialized views, PL/PGSQL functions) is defined.
-	* global_functions.sql is where all the functions go. This needs to be loaded first.
+	* `global_functions.sql` is where all the functions go. This needs to be loaded first.
 	* generalizations.yml describes the materialized views, this is read by `generalizations_sql.js` to output either raw SQL or issue queries.
 
 
@@ -22,12 +21,17 @@ The code and styles here are intended for serving the basemaps on your own local
 
 Create a file in the root of this directory called `config.json` with your CartoDB host and API key like this:
 
-    {"api_key":"API_KEY", "cdb_url": "https://myuser.cartodb.com"}
+```json
+{
+  "api_key": "API_KEY",
+  "cdb_url": "https://myuser.cartodb.com"
+}
+```
 
 ### Development on a CartoDB instance
 
 1. run `node import_files.js` to import Natural Earth and Coastline data to your instance
-2. Import an OSM extract into your db, using imposm3_mapping.json. See the Makefile or https://github.com/cartodb/osm
+2. Import an OSM extract into your db, using `imposm3_mapping.json`. See the Makefile or https://github.com/cartodb/osm
 3. import `global_functions.sql` into your DB.
 4. run `generalizations_sql.js` into your DB.
 5. Ensure the Azo Sans, DejaVu unicode, unifont fonts are available on your instance.

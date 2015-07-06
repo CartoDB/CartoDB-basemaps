@@ -38,7 +38,8 @@ html, body {
           center: [43, 0],
           zoom: 3
         })
-        L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+        var name = location.hash.slice(1)
+        L.tileLayer(name.indexOf('dark') !== -1 ? 'http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png':'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
 }).addTo(reference_map);
         var map = L.map('map2', { 
@@ -51,7 +52,7 @@ html, body {
           user_name: 'basemaps',
           options: {
             named_map: {
-              name: location.hash.slice(1)
+              name: name
             }
           }
         })

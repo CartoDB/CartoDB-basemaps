@@ -92,7 +92,7 @@ Map {
 @label_background_halo_fill: rgba(0,0,0,0.8);
 
 @labels_lowzoom_shield_fill: lighten(#555, 30%);
-@labels_lowzoom_shield_halo_fill: black;
+@labels_lowzoom_shield_halo_fill: rgba(0,0,0,0.9);
 @labels_lowzoom_shield_halo_radius: 1.3px;
 
 @labels_highzoom_text_fill: lighten(#555, 30%);

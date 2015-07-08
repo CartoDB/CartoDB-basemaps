@@ -94,10 +94,12 @@ Map {
 
 @labels_lowzoom_shield_fill: darken(@label_foreground_fill, 15%);
 @labels_lowzoom_shield_halo_fill: black;
+@labels_lowzoom_shield_halo_radius: 1.3px;
 
 @labels_highzoom_text_fill: #444;
 @labels_highzoom_halo_fill: darken(@label_foreground_halo_fill,10%);
 @labels_highzoom_halo_radius: 1.7px;
+
 
 @labels_highzoom_class1_text_fill: lighten(@labels_highzoom_text_fill,5%);
 @labels_highzoom_class2_text_fill: lighten(@labels_highzoom_text_fill,15%);

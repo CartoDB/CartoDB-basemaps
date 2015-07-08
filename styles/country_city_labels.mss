@@ -9,7 +9,7 @@
     shield-fill: @label_foreground_fill;
     shield-halo-fill: @labels_lowzoom_shield_halo_fill;
     shield-face-name: "Azo Sans Regular","DejaVu Sans Bold","unifont Medium";
-    shield-halo-radius: 1.4px;
+    shield-halo-radius: @labels_lowzoom_shield_halo_radius;
     shield-text-transform: uppercase;
     shield-min-distance: 5;
     [zoom=5] {
@@ -30,7 +30,7 @@
     [cartodb_id =~ '.*(1|3|5|7|9)$'] {
       shield-placements: "W,12";
     }
-    shield-text-dx: 5;
+    shield-text-dx: 6;
     shield-text-dy: 0;
     shield-unlock-image: true;
     shield-wrap-width: 100;

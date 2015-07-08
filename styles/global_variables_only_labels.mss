@@ -88,6 +88,7 @@ Map {
 
 @labels_lowzoom_shield_fill: darken(#8494a1, 25%);
 @labels_lowzoom_shield_halo_fill: rgba(255,255,255,0.9);
+@labels_lowzoom_shield_halo_radius: 1.3px
 
 @labels_highzoom_text_fill: @label_foreground_fill;
 @labels_highzoom_halo_fill: @label_foreground_halo_fill;

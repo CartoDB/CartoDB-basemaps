@@ -24,9 +24,9 @@
     text-line-spacing: -2;
     text-character-spacing: 1.1;
 
-    text-halo-radius: 1.4px;
-    text-fill: @labels_marine_fill;
     text-placement: interior;
+    text-fill: @labels_marine_fill;
+    text-halo-radius: @labels_marine_halo_radius;
     text-halo-fill: @labels_marine_halo_fill;
     [zoom>=3][zoom<=8][featurecla='ocean'] {
       text-size: 14;

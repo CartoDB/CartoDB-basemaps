@@ -4,7 +4,7 @@
   text-face-name: "Azo Sans Regular","DejaVu Sans Bold","unifont Medium";
   text-fill: @osm_roads_labels_fill;
   text-transform: uppercase;
-  text-halo-radius: 1.8;
+  text-halo-radius: @osm_roads_labels_radius;
   text-halo-fill: @osm_roads_labels_halo;
   text-size: 10px;
   text-character-spacing: 1.0;
@@ -24,7 +24,7 @@
   text-face-name: "Azo Sans Regular","DejaVu Sans Bold","unifont Medium";
   text-fill: @osm_roads_labels_fill;
   text-transform: uppercase;
-  text-halo-radius: 1.8;
+  text-halo-radius: @osm_roads_labels_radius;
   text-halo-fill: @osm_roads_labels_halo;
   text-size: 10px;
   text-character-spacing: 1.0;

@@ -5,11 +5,11 @@
   [zoom=5][scalerank<=5],
   [zoom=6][scalerank<=6],
   [zoom=7][scalerank<=7] {
-    shield-name: "[name]"; 
+    shield-name: "[name]";
     shield-fill: @label_foreground_fill;
     shield-halo-fill: @labels_lowzoom_shield_halo_fill;
     shield-face-name: "Azo Sans Regular","DejaVu Sans Bold","unifont Medium";
-    shield-halo-radius: 1.4px;
+    shield-halo-radius: @labels_lowzoom_shield_halo_radius;
     shield-text-transform: uppercase;
     shield-min-distance: 5;
     [zoom=5] {
@@ -30,7 +30,7 @@
     [cartodb_id =~ '.*(1|3|5|7|9)$'] {
       shield-placements: "W,12";
     }
-    shield-text-dx: 5;
+    shield-text-dx: 6;
     shield-text-dy: 0;
     shield-unlock-image: true;
     shield-wrap-width: 100;
@@ -83,7 +83,7 @@
     text-wrap-width: 100;
     text-wrap-before: true;
     text-character-spacing: 1.2;
-    text-halo-radius: 1.4px;
+    text-halo-radius: @labels_highzoom_halo_radius;
     text-halo-fill: @labels_highzoom_halo_fill;
     text-fill: @labels_highzoom_text_fill;
 
@@ -93,7 +93,7 @@
     [zoom=8][scalerank<=6],
     [zoom=9][scalerank<=7],
     [zoom=10][scalerank<=7] {
-      text-size: 12;
+      text-size: @labels_highzoom_class1_text_size;
       text-fill: @labels_highzoom_class1_text_fill;
       text-line-spacing: -2;
     }
@@ -108,7 +108,7 @@
     [zoom=9][scalerank<=5],
     [zoom=10][scalerank<=5] {
       text-size: 16;
-      text-fill: @labels_highzoom_class2_text_fill;    
+      text-fill: @labels_highzoom_class2_text_fill;
     }
     [zoom=11][scalerank<=5],
     [zoom=12][scalerank<=5]
@@ -118,7 +118,7 @@
     }
 
     // class 0 (default)
-    text-size: 10;
+    text-size: @labels_highzoom_class1_text_size_default;
 
     // At this zoom cities disappear, and it's only neighborhoods
     [zoom>=13] {
@@ -128,51 +128,50 @@
   }
 }
 
-#country_city_labels[country_city="country"] 
-{
+#country_city_labels[country_city="country"]{
   [zoom=3][scalerank<2][pop_est >= 2000000],
   [zoom=4][scalerank<3][pop_est >= 2000000],
   [zoom=5][scalerank<4] {
     text-size: 15;
     text-line-spacing: -3;
-
     text-wrap-width: 100;
-
     text-wrap-before: true;
     text-ratio: 0.5;
-    text-name: "[name]"; 
+    text-name: "[name]";
     [name="Falkland Islands"] {
       text-name: [name] + "\n(Malvinas)";
     }
-    text-halo-radius: 1.4;
+
+    text-halo-radius: @label_foreground_halo_radius;
     text-halo-fill: @label_foreground_halo_fill;
     text-face-name: "Azo Sans Regular","DejaVu Sans Bold","unifont Medium";
     text-min-distance: 10;
     text-transform: uppercase;
 
     [zoom=3] {
-      text-size: 10;
-      text-fill: lighten(@label_foreground_fill,10%);
-      text-halo-radius: 1.8;
+      text-size: @countries_class2_label_size;
+      text-fill: @countries_class2_text_fill;
+      text-halo-radius: @countries_class2_text_halo_radius;
 
       [pop_est>20000000] {
-      text-fill: lighten(@label_foreground_fill,5%);
         text-size: 14;
+        text-fill: @countries_class1_text_fill;
+        text-halo-radius: @label_foreground_halo_radius;
+        text-halo-fill: @label_foreground_halo_fill;
       }
     }
     [zoom=4],[zoom=5] {
       text-size: 12;
       text-line-spacing: -3;
 
-      text-fill: @label_background_fill;
+      text-fill: @countries_highzoom_class1_text_fill;
       text-halo-fill: @label_background_halo_fill;
-      text-halo-radius: 2;
+      text-halo-radius: @label_foreground_halo_radius;
       text-face-name: "Azo Sans Regular","DejaVu Sans Bold","unifont Medium";
 
       [pop_est>20000000] {
         text-size: 16;
         text-line-spacing: -4;
-        text-fill: darken(@label_background_fill, 5%);
         text-wrap-width: 200;
       }
     }

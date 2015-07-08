@@ -119,7 +119,7 @@ Map {
 @countries_class2_text_fill: @countries_class1_text_fill;
 @countries_class2_text_halo_radius: 1.8;
 
-@admin1_labels_size: 10;
+@admin1_labels_size: 14;
 @admin1_labels: #333;
 @admin1_labels_halo: #111;
 @admin1_labels_halo_radius: 1px;

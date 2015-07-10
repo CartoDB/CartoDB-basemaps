@@ -40,8 +40,9 @@ Create a file in the root of this directory called `config.json` with your Carto
 ### Development locally using Tilemill
 
 1. run `sh download_datasets.sh` to get all the Natural Earth and OSM coastline files.
+2. Run `make database` to create the `cartodb_basemaps` PostGIS database
 2. Run `make coastline` to get the water/land polygons into your DB
-3. Import an OSM extract into your db. see the Makefile.
+3. Import an OSM extract into your db. see the Makefile and edit the example `san_francisco` task as needed.
 4. run `sh ne2pgsql.sh` to import Natural Earth shapefiles locally such that they resemble CartoDB tables. This also imports the `z4to10.json` file from this repository, which is a hand-curated list of low zoom city points.
 5. import `global_functions.sql` into your DB (or run `make globals`)
 6. run `generalizations_sql.js` into your DB (or run `make generalizations`)

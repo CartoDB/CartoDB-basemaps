@@ -20,6 +20,7 @@ coastline:
 	ogr2ogr -lco GEOMETRY_NAME=the_geom_webmercator -lco FID=cartodb_id -overwrite -f "PostgreSQL" PG:"host=localhost dbname=cartodb_basemaps" ne_temp/water-polygons-split-3857/water_polygons.shp
 
 generalizations:
+	npm install
 	node generalizations_sql.js public postgres://localhost/cartodb_basemaps
 
 globals:

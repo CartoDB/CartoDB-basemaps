@@ -1,0 +1,38 @@
+_layer_default: &layer
+  type: mapnik
+
+_options_default: &options
+  cartocss_version: 2.1.1
+
+name: CartoDB_Basemaps
+version: 0.0.1
+placeholders:
+  color:
+    type: css_color
+    default: red
+  cartodb_id:
+    type: number
+    default: 1
+layergroup:
+  version: 1.0.1
+  minzoom: 0
+  maxzoom: 20
+
+  layers:
+    - type: http
+      options:
+        urlTemplate: http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png
+    - <<: *layer
+      name: global_variables
+      options:
+        <<: *options
+        sql: |
+          SELECT '', null::geometry AS the_geom_webmercator LIMIT 0
+    - <<: *layer
+      name: false_background
+      options:
+        <<: *options
+        cartocss_file: styles/false_background.mss # if not specified, defaults to styles/<name>.mss
+        sql: |
+          SELECT the_geom_webmercator
+          FROM false_background_zoomed('!scale_denominator!', !bbox!) AS _

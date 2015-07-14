@@ -1,4 +1,5 @@
 @polygoncolor: #ffd479;
+// this should be incremented when the data (queries, functions, features) changes
 @cachebuster: #0000c7;
 @water: #cdd2d4;
 

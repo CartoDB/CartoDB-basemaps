@@ -22,6 +22,10 @@ var node = function() {
   var mapconfig_dark_nolabels = {'layers':[]};
   var mapconfig_light_only_labels = {'layers':[]};
   var mapconfig_dark_only_labels = {'layers':[]};
+  var mapconfig_light_only_lines = {'layers':[]};
+  var mapconfig_dark_only_lines = {'layers':[]};
+  var mapconfig_light_only_background = {'layers':[]};
+  var mapconfig_dark_only_background = {'layers':[]};
 
   // change the host for the images
   function replaceImages(cartocss) {
@@ -42,6 +46,7 @@ var node = function() {
 
 
   PROJECT.layers.forEach(function(l) {
+    // populate mapconfig_light with all layers except "global_variables_labels"
     new_layer = {'type':'cartodb','options':{'cartocss_version':'2.1.1'}};
 
     new_layer.name = l.name;
@@ -54,6 +59,8 @@ var node = function() {
   });
 
   PROJECT.layers.forEach(function(l) {
+    // populate mapconfig_dark with all layers except "global_variables_labels"
+    // also, override the global_variables file with global_variables_dark.mss
     new_layer = {'type':'cartodb','options':{'cartocss_version':'2.1.1'}};
 
     new_layer.name = l.name;
@@ -70,6 +77,7 @@ var node = function() {
 
   PROJECT.layers.forEach(function(l) {
     new_layer = {'type':'cartodb','options':{'cartocss_version':'2.1.1'}};
+    // populate mapconfig_light_nolabels with all layers, but with empty data if layer toggle[2] is false
 
     new_layer.name = l.name;
     new_layer.options.sql = l.options.sql;
@@ -80,6 +88,8 @@ var node = function() {
 
   PROJECT.layers.forEach(function(l) {
     new_layer = {'type':'cartodb','options':{'cartocss_version':'2.1.1'}};
+    // populate mapconfig_dark_nolabels with all layers, but with empty data if layer toggle[2] is false
+    // also, override the global_variables file with global_variables_dark.mss
 
     new_layer.name = l.name;
     new_layer.options.sql = l.options.sql;
@@ -95,6 +105,9 @@ var node = function() {
 
   PROJECT.layers.forEach(function(l) {
     new_layer = {'type':'cartodb','options':{'cartocss_version':'2.1.1'}};
+    // populate mapconfig_light_only_labels only if layer toggle[3] is true, or name is global_variables
+    // also, override the global_variables file with global_variables_only_labels.mss
+
     new_layer.name = l.name;
     new_layer.options.sql = l.options.sql;
     if (l.name == "global_variables") {
@@ -108,15 +121,77 @@ var node = function() {
 
   PROJECT.layers.forEach(function(l) {
     new_layer = {'type':'cartodb','options':{'cartocss_version':'2.1.1'}};
+    // populate mapconfig_dark_only_labels only if layer toggle[3] is true, or name is global_variables
+    // also, override the global_variables file with global_variables_dark_only_labels.mss
+
     new_layer.name = l.name;
     new_layer.options.sql = l.options.sql;
-    if (l.name == "global_variables_labels") {
+    if (l.name == "global_variables") {
       new_layer.options.cartocss = replaceImages(fs.readFileSync("styles/global_variables_dark_only_labels.mss").toString());
       mapconfig_dark_only_labels.layers.push(new_layer);
     } else if (l.toggle[3]) {
       new_layer.options.cartocss = replaceImages(fs.readFileSync(l.options.cartocss_file).toString());
       mapconfig_dark_only_labels.layers.push(new_layer);
     }
+  });
+
+  PROJECT.layers.forEach(function(l) {
+    new_layer = {'type':'cartodb','options':{'cartocss_version':'2.1.1'}};
+    // populate mapconfig_light_only_lines only if layer toggle[4] is true, or name is global_variables
+    // also, override the global_variables file with global_variables_only_labels.mss
+
+    new_layer.name = l.name;
+    new_layer.options.sql = l.options.sql;
+    if (l.name == "global_variables") {
+      new_layer.options.cartocss = replaceImages(fs.readFileSync("styles/global_variables_only_labels.mss").toString());
+      mapconfig_light_only_lines.layers.push(new_layer);
+    } else if (l.toggle[4]) {
+      new_layer.options.cartocss = replaceImages(fs.readFileSync(l.options.cartocss_file).toString());
+      mapconfig_light_only_lines.layers.push(new_layer);
+    }
+  });
+
+  PROJECT.layers.forEach(function(l) {
+    new_layer = {'type':'cartodb','options':{'cartocss_version':'2.1.1'}};
+    // populate mapconfig_dark_only_lines with all layers, but with empty data if layer toggle[4] is false
+    // also, override the global_variables file with global_variables_dark_only_labels.mss
+
+    new_layer.name = l.name;
+    new_layer.options.sql = l.options.sql;
+    if (l.name == "global_variables") {
+      new_layer.options.cartocss = replaceImages(fs.readFileSync("styles/global_variables_dark_only_labels.mss").toString());
+      mapconfig_dark_only_lines.layers.push(new_layer);
+    } else if (l.toggle[4]) {
+      new_layer.options.cartocss = replaceImages(fs.readFileSync(l.options.cartocss_file).toString());
+      mapconfig_dark_only_lines.layers.push(new_layer);
+    }
+  });
+
+  PROJECT.layers.forEach(function(l) {
+    new_layer = {'type':'cartodb','options':{'cartocss_version':'2.1.1'}};
+    // populate mapconfig_light_only_background with all layers, but with empty data if layer toggle[5] is false
+
+    new_layer.name = l.name;
+    new_layer.options.sql = l.options.sql;
+    if (!l.toggle[5]) new_layer.options.sql = new_layer.options.sql + " LIMIT 0;";
+    new_layer.options.cartocss = replaceImages(fs.readFileSync(l.options.cartocss_file).toString());
+    mapconfig_light_only_background.layers.push(new_layer);
+  });
+
+  PROJECT.layers.forEach(function(l) {
+    new_layer = {'type':'cartodb','options':{'cartocss_version':'2.1.1'}};
+    // populate mapconfig_dark_only_background with all layers, but with empty data if layer toggle[5] is false
+    // also, override the global_variables file with global_variables_dark.mss
+
+    new_layer.name = l.name;
+    new_layer.options.sql = l.options.sql;
+    if (!l.toggle[5]) new_layer.options.sql = new_layer.options.sql + " LIMIT 0;";
+    if (l.name == "global_variables") {
+      new_layer.options.cartocss = replaceImages(fs.readFileSync("styles/global_variables_dark.mss").toString());
+    } else {
+      new_layer.options.cartocss = replaceImages(fs.readFileSync(l.options.cartocss_file).toString());
+    }
+    mapconfig_dark_only_background.layers.push(new_layer);
   });
 
 
@@ -126,7 +201,11 @@ var node = function() {
     'mapconfig_light_nolabels': mapconfig_light_nolabels,
     'mapconfig_dark_nolabels': mapconfig_dark_nolabels,
     'mapconfig_light_only_labels': mapconfig_light_only_labels,
-    'mapconfig_dark_only_labels': mapconfig_dark_only_labels
+    'mapconfig_dark_only_labels': mapconfig_dark_only_labels,
+    'mapconfig_light_only_lines': mapconfig_light_only_lines,
+    'mapconfig_dark_only_lines': mapconfig_dark_only_lines,
+    'mapconfig_light_only_background': mapconfig_light_only_background,
+    'mapconfig_dark_only_background': mapconfig_dark_only_background
   };
 }
 

@@ -10,7 +10,7 @@ Map {
 @landmass_fill: #0e0e0e;
 @landmass_line: #222;
 
-@greenareas: darken(#263302, 8%);
+@greenareas: darken(#222, 8%);
 @greenareas_fill_low: @greenareas;
 @greenareas_fill_medium: @greenareas;
 @greenareas_fill_high: @greenareas;

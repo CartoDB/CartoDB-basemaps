@@ -1,11 +1,14 @@
-@polygoncolor: #ffd479;
-// this should be incremented when the data (queries, functions, features) changes
+// Default colors for the light style ("positron")
+
+
+// this should be incremented when the data (queries, functions, features) changes:
 @cachebuster: #0000c7;
+
+@polygoncolor: #ffd479;
 @water: #cdd2d4;
 
-
 Map {
-	background-color: @water;
+  background-color: @water;
   buffer-size: 256;
 }
 

@@ -1,7 +1,14 @@
-@polygoncolor: #ffd479;
-@cachebuster: #000096;
-@water: darken(#333336,6%);
+// Alternate colors for dark style ("dark matter") variants
 
+// We use this instead of global_variables.mss whenever we show a subset of features on a transparent background.
+// For example, labels, lines, buildings that need to have modified contrast when overlayed on top of data.
+
+
+// this should be incremented when the data (queries, functions, features) changes:
+@cachebuster: #000096;
+
+@polygoncolor: #ffd479;
+@water: darken(#333336,6%);
 
 Map {
   buffer-size: 256;

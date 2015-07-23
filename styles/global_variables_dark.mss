@@ -1,7 +1,11 @@
-@polygoncolor: #ffd479;
-@cachebuster: #000096;
-@water: darken(#333336,6%);
+// Default colors for the dark style ("dark matter")
 
+
+// this should be incremented when the data (queries, functions, features) changes:
+@cachebuster: #000096;
+
+@polygoncolor: #ffd479;
+@water: darken(#333336,6%);
 
 Map {
   background-color: @water;

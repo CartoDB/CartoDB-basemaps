@@ -1,7 +1,13 @@
-@polygoncolor: #ffd479;
-@cachebuster: #0000c7;
-@water: #cdd2d4;
+// Alternate colors for light style ("positron") variants
+// We use this instead of global_variables.mss whenever we show a subset of features on a transparent background.
+// For example, labels, lines, buildings that need to have modified contrast when overlayed on top of data.
 
+
+// this should be incremented when the data (queries, functions, features) changes:
+@cachebuster: #0000c7;
+
+@polygoncolor: #ffd479;
+@water: #cdd2d4;
 
 Map {
   buffer-size: 256;

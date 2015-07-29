@@ -21,14 +21,14 @@
 - name: buildings_z14plus
   cluster_on: the_geom
   index_by: the_geom_webmercator
-  select: osm_id, ST_Area(the_geom)::bigint AS area, the_geom AS the_geom_webmercator
+  select: osm_id, building, height, ST_Area(the_geom)::bigint AS area, the_geom AS the_geom_webmercator
   from: public.planet
   where: tags ? 'building' AND tags -> 'building' != 'no'
 
 - name: buildings_z13
   cluster_on: the_geom_webmercator
   index_by: the_geom_webmercator
-  select: osm_id, area, generalize(the_geom_webmercator,13) as the_geom_webmercator
+  select: osm_id, building, height, area, generalize(the_geom_webmercator,13) as the_geom_webmercator
   from: buildings_z14plus
   where: area > 10000
 

@@ -49,7 +49,6 @@ layergroup:
       name: green_areas
       options:
         <<: *options
-        cartocss_file: styles/greenareas.mss
         sql: |
           SELECT osm_id, the_geom_webmercator, area FROM green_areas_zoomed('planet_green','!scale_denominator!',!bbox!) AS _
     - <<: *layer

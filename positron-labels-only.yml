@@ -1,0 +1,70 @@
+_layer_default: &layer
+  type: mapnik
+
+_options_default: &options
+  cartocss_version: 2.1.1
+
+name: Positron-labels-only
+version: 0.0.1
+layergroup:
+  version: 1.0.1
+  minzoom: 0
+  maxzoom: 20
+
+  layers:
+    # TODO merge options into layer to facilitate easier inclusion of external nodes
+    - <<: *layer
+      name: global_variables
+      options:
+        <<: *options
+        cartocss_file: styles/global_variables_only_labels.mss
+        sql: |
+          SELECT null::geometry AS the_geom_webmercator LIMIT 0
+    - <<: *layer
+      name: country_city_labels
+      options:
+        <<: *options
+        sql: |
+          SELECT cartodb_id, name, the_geom_webmercator, scalerank, place, pop_est, country_city, is_capital FROM country_city_labels_zoomed('planet_green','!scale_denominator!',!bbox!) AS _
+    - <<: *layer
+      name: park_labels
+      options:
+        <<: *options
+        sql: |
+          SELECT osm_id, name, area, the_geom_webmercator FROM green_areas_zoomed('planet_green','!scale_denominator!',!bbox!) AS _
+    - <<: *layer
+      name: water_labels
+      options:
+        <<: *options
+        sql: |
+          SELECT id, the_geom_webmercator, name, area, is_lake FROM water_zoomed('planet_green','!scale_denominator!',!bbox!) AS _
+    - <<: *layer
+      name: osm_roads_labels
+      options:
+        <<: *options
+        sql: |
+          SELECT name, highway, railway, kind, the_geom_webmercator FROM high_road_labels('planet_green','!scale_denominator!',!bbox!) as _
+    - <<: *layer
+      name: marine_labels
+      options:
+        <<: *options
+        sql: |
+          SELECT cartodb_id, name, namealt, featurecla, the_geom_webmercator, scalerank FROM ne_marine_zoomed('!scale_denominator!',!bbox!) AS _
+    - <<: *layer
+      name: admin1boundary_labels
+      options:
+        <<: *options
+        sql: |
+          SELECT cartodb_id, name, scalerank, the_geom_webmercator, geomtype from admin1boundaries_zoomed('planet_green','!scale_denominator!',!bbox!) as _
+    - <<: *layer
+      name: admin1_labels
+      options:
+        <<: *options
+        sql: |
+          SELECT cartodb_id, name, scalerank, the_geom_webmercator FROM admin1_polygons_zoomed('!scale_denominator!',!bbox!) AS _
+    - <<: *layer
+      name: continent_labels
+      options:
+        <<: *options
+        sql: |
+          SELECT cartodb_id, name, the_geom_webmercator FROM continents_zoomed('!scale_denominator!',!bbox!) AS _

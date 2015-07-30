@@ -1,0 +1,108 @@
+_layer_default: &layer
+  type: mapnik
+
+_options_default: &options
+  cartocss_version: 2.1.1
+
+name: Positron-no-labels
+version: 0.0.1
+layergroup:
+  version: 1.0.1
+  minzoom: 0
+  maxzoom: 20
+
+  layers:
+    # TODO merge options into layer to facilitate easier inclusion of external nodes
+    - <<: *layer
+      name: global_variables
+      options:
+        <<: *options
+        sql: |
+          SELECT null::geometry AS the_geom_webmercator LIMIT 0
+    - <<: *layer
+      name: false_background
+      options:
+        <<: *options
+        sql: |
+          SELECT the_geom_webmercator
+          FROM false_background_zoomed('!scale_denominator!', !bbox!) AS _
+    - <<: *layer
+      name: land_positive
+      options:
+        <<: *options
+        sql: |
+          SELECT
+            cartodb_id,
+            the_geom_webmercator
+          FROM land_positive_zoomed('!scale_denominator!', !bbox!) AS _
+    - <<: *layer
+      name: urban_areas
+      options:
+        <<: *options
+        sql: |
+          SELECT
+            cartodb_id,
+            scalerank,
+            the_geom_webmercator
+          FROM urban_areas_zoomed('!scale_denominator!',!bbox!) AS _
+    - <<: *layer
+      name: green_areas
+      options:
+        <<: *options
+        cartocss_file: styles/greenareas.mss
+        sql: |
+          SELECT osm_id, the_geom_webmercator, area FROM green_areas_zoomed('planet_green','!scale_denominator!',!bbox!) AS _
+    - <<: *layer
+      name: admin0boundaries
+      options:
+        <<: *options
+        sql: |
+          SELECT cartodb_id, the_geom_webmercator, unit FROM admin0boundaries_zoomed('planet_green','!scale_denominator!', !bbox!) AS _
+    - <<: *layer
+      name: admin1boundaries
+      options:
+        <<: *options
+        sql: |
+          SELECT cartodb_id, scalerank, the_geom_webmercator FROM admin1boundaries_zoomed('planet_green','!scale_denominator!', !bbox!) AS _
+    - <<: *layer
+      name: water
+      options:
+        <<: *options
+        sql: |
+          (SELECT id, the_geom_webmercator, name, type, is_lake, ne_scalerank, area FROM water_zoomed('planet_green','!scale_denominator!', !bbox!) AS _) UNION (SELECT cartodb_id, the_geom_webmercator, '' AS name, 'ocean' AS type, 1 AS is_lake, 0 AS ne_scalerank, 999999999 AS area FROM land_negative_zoomed('!scale_denominator!', !bbox!) AS _)
+    - <<: *layer
+      name: aeroways
+      options:
+        <<: *options
+        sql: |
+          SELECT osm_id, type, the_geom_webmercator FROM aeroways_zoomed('planet_green','!scale_denominator!', !bbox!) AS _
+    - <<: *layer
+      name: ne10mroads
+      options:
+        <<: *options
+        sql: |
+          SELECT cartodb_id, the_geom_webmercator, type, scalerank FROM ne_10m_roads_zoomed('!scale_denominator!', !bbox!) AS _
+    - <<: *layer
+      name: buildings
+      options:
+        <<: *options
+        sql: |
+          SELECT osm_id, the_geom_webmercator, area FROM buildings_zoomed('planet_green','!scale_denominator!',!bbox!) AS _
+    - <<: *layer
+      name: osmtunnels
+      options:
+        <<: *options
+        sql: |
+          select highway, railway, kind, the_geom_webmercator, is_link from tunnels('planet_green','!scale_denominator!',!bbox!) as _
+    - <<: *layer
+      name: osmroads
+      options:
+        <<: *options
+        sql: |
+          select highway, railway, kind, the_geom_webmercator, is_link from high_road('planet_green','!scale_denominator!',!bbox!) as _
+    - <<: *layer
+      name: osmbridges
+      options:
+        <<: *options
+        sql: |
+          select highway, railway, kind, the_geom_webmercator, is_link from bridges('planet_green','!scale_denominator!',!bbox!) as _

@@ -17,7 +17,7 @@ layergroup:
       name: global_variables
       options:
         <<: *options
-        cartocss_file: styles/global_variables_only_labels.mss
+        cartocss_file: styles/global_variables_dark_only_labels.mss
         sql: |
           SELECT null::geometry AS the_geom_webmercator LIMIT 0
     - <<: *layer

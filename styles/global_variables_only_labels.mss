@@ -1,7 +1,13 @@
-@polygoncolor: #ffd479;
-@cachebuster: #0000c7;
-@water: #cdd2d4;
+// Alternate colors for light style ("positron") variants
+// We use this instead of global_variables.mss whenever we show a subset of features on a transparent background.
+// For example, labels, lines, buildings that need to have modified contrast when overlayed on top of data.
 
+
+// this should be incremented when the data (queries, functions, features) changes:
+@cachebuster: #0000c7;
+
+@polygoncolor: #ffd479;
+@water: #cdd2d4;
 
 Map {
   buffer-size: 256;
@@ -88,7 +94,7 @@ Map {
 
 @labels_lowzoom_shield_fill: darken(#8494a1, 25%);
 @labels_lowzoom_shield_halo_fill: rgba(255,255,255,0.9);
-@labels_lowzoom_shield_halo_radius: 1.3px
+@labels_lowzoom_shield_halo_radius: 1.3px;
 
 @labels_highzoom_text_fill: @label_foreground_fill;
 @labels_highzoom_halo_fill: @label_foreground_halo_fill;
@@ -134,9 +140,9 @@ Map {
 @continent_labels: darken(@label_foreground_fill,5%);
 
 // assets
-@city_shield_file: url("http://dl.dropboxusercontent.com/u/538411/basemaps_labels/city_shield_light_only_labels.svg");
-@city_shield_file_lowzoom: url("http://dl.dropboxusercontent.com/u/538411/basemaps_labels/city_shield_light_only_labels.svg");
-@capital_shield_file: url("http://dl.dropboxusercontent.com/u/538411/basemaps_labels/capital_shield_light_only_labels.svg");
-@capital_shield_file_lowzoom: url("http://dl.dropboxusercontent.com/u/538411/basemaps_labels/capital_shield_light_only_labels.svg");
+@city_shield_file: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/city_shield_light.svg");
+@city_shield_file_lowzoom: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/city_shield_light.svg");
+@capital_shield_file: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/capital_shield_light.png");
+@capital_shield_file_lowzoom: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/capital_shield_light.png");
 
 @park_texture_opacity: 0.0;

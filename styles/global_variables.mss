@@ -1,11 +1,14 @@
-@polygoncolor: #ffd479;
-// this should be incremented when the data (queries, functions, features) changes
+// Default colors for the light style ("positron")
+
+
+// this should be incremented when the data (queries, functions, features) changes:
 @cachebuster: #0000c7;
+
+@polygoncolor: #ffd479;
 @water: #cdd2d4;
 
-
 Map {
-	background-color: @water;
+  background-color: @water;
   buffer-size: 256;
 }
 
@@ -91,7 +94,7 @@ Map {
 
 @labels_lowzoom_shield_fill: lighten(@label_foreground_fill, 7%);
 @labels_lowzoom_shield_halo_fill: lighten(@label_foreground_halo_fill,10%);
-@labels_lowzoom_shield_halo_radius: 1.3px
+@labels_lowzoom_shield_halo_radius: 1.3px;
 
 @labels_highzoom_text_fill: lighten(@label_foreground_fill,15%);
 @labels_highzoom_halo_fill: lighten(@label_foreground_halo_fill,10%);

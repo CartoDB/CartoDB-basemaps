@@ -24,7 +24,7 @@ layergroup:
       options:
         <<: *options
         sql: |
-          SELECT '', null::geometry AS the_geom_webmercator LIMIT 0
+          SELECT null::geometry AS the_geom_webmercator LIMIT 0
     - <<: *layer
       name: false_background
       options:

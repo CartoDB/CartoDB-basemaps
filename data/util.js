@@ -11,6 +11,7 @@
 var node = function() {
   var fs = require("fs");
   var md5 = require('MD5');
+  var _ = require('underscore');
 
   var PROJECT = JSON.parse(fs.readFileSync("project.json"));
   var IMAGES_HOST = 'http://libs.cartocdn.com.s3.amazonaws.com/stamen-base/';
@@ -20,6 +21,7 @@ var node = function() {
   var mapconfig_light_nolabels = {'layers':[]};
   var mapconfig_dark_nolabels = {'layers':[]};
   var mapconfig_light_only_labels = {'layers':[]};
+  var mapconfig_dark_only_labels = {'layers':[]};
 
   // change the host for the images
   function replaceImages(cartocss) {
@@ -45,7 +47,10 @@ var node = function() {
     new_layer.name = l.name;
     new_layer.options.sql = l.options.sql;
     new_layer.options.cartocss = fs.readFileSync(l.options.cartocss_file).toString();
-    mapconfig_light.layers.push(new_layer);
+    if (l.name != "global_variables_labels") {
+      //console.log(l.name);
+      mapconfig_light.layers.push(new_layer);
+    }
   });
 
   PROJECT.layers.forEach(function(l) {
@@ -58,7 +63,9 @@ var node = function() {
     } else {
       new_layer.options.cartocss = replaceImages(fs.readFileSync(l.options.cartocss_file).toString())
     }
-    mapconfig_dark.layers.push(new_layer);
+    if (l.name != "global_variables_labels") {
+      mapconfig_dark.layers.push(new_layer);
+    }
   });
 
   PROJECT.layers.forEach(function(l) {
@@ -85,6 +92,7 @@ var node = function() {
     mapconfig_dark_nolabels.layers.push(new_layer);
   });
 
+
   PROJECT.layers.forEach(function(l) {
     new_layer = {'type':'cartodb','options':{'cartocss_version':'2.1.1'}};
     new_layer.name = l.name;
@@ -92,18 +100,33 @@ var node = function() {
     if (l.name == "global_variables") {
       new_layer.options.cartocss = replaceImages(fs.readFileSync("styles/global_variables_only_labels.mss").toString());
       mapconfig_light_only_labels.layers.push(new_layer);
-    } else if (!l.toggle[2]) {
+    } else if (l.toggle[3]) {
       new_layer.options.cartocss = replaceImages(fs.readFileSync(l.options.cartocss_file).toString());
       mapconfig_light_only_labels.layers.push(new_layer);
     }
   });
+
+  PROJECT.layers.forEach(function(l) {
+    new_layer = {'type':'cartodb','options':{'cartocss_version':'2.1.1'}};
+    new_layer.name = l.name;
+    new_layer.options.sql = l.options.sql;
+    if (l.name == "global_variables_labels") {
+      new_layer.options.cartocss = replaceImages(fs.readFileSync("styles/global_variables_dark_only_labels.mss").toString());
+      mapconfig_dark_only_labels.layers.push(new_layer);
+    } else if (l.toggle[3]) {
+      new_layer.options.cartocss = replaceImages(fs.readFileSync(l.options.cartocss_file).toString());
+      mapconfig_dark_only_labels.layers.push(new_layer);
+    }
+  });
+
 
   return {
     'mapconfig_light': mapconfig_light,
     'mapconfig_dark': mapconfig_dark,
     'mapconfig_light_nolabels': mapconfig_light_nolabels,
     'mapconfig_dark_nolabels': mapconfig_dark_nolabels,
-    'mapconfig_light_only_labels': mapconfig_light_only_labels
+    'mapconfig_light_only_labels': mapconfig_light_only_labels,
+    'mapconfig_dark_only_labels': mapconfig_dark_only_labels
   };
 }
 

@@ -4,7 +4,7 @@ set -e
 ogr2ogr -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=the_geom_webmercator -lco FID=cartodb_id -overwrite -f "PostgreSQL" PG:"host=localhost dbname=cartodb_basemaps" small_shps/continents_900913.shp
 
 # Cities list
-ogr2ogr -lco GEOMETRY_NAME=the_geom -lco FID=cartodb_id -lco PRECISION=NO -overwrite -f "PostgreSQL" PG:"host=localhost dbname=cartodb_basemaps" data/z4to10.json -nln z4to10
+ogr2ogr -lco GEOMETRY_NAME=the_geom -lco FID=cartodb_id -lco PRECISION=NO -overwrite -f "PostgreSQL" PG:"host=localhost dbname=cartodb_basemaps" z4to10.json -nln z4to10
 psql cartodb_basemaps -c "ALTER TABLE z4to10 ADD COLUMN the_geom_webmercator geometry;"
 psql cartodb_basemaps -c "UPDATE z4to10 SET the_geom_webmercator = ST_Transform(the_geom,900913);"
 psql cartodb_basemaps -c "CREATE INDEX z4to10_tgw_gist ON z4to10 USING gist(the_geom_webmercator);"

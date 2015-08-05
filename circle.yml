@@ -1,4 +1,9 @@
 machine:
+  environment:
+    GIT_DEPLOY_DIR: vignettes
+    GIT_DEPLOY_BRANCH: vignettes
+    GIT_DEPLOY_USERNAME: vignette
+    GIT_DEPLOY_REPO: https://$GITHUB_TOKEN@github.com/stamen/CartoDB-basemaps
   node:
     version: 0.10.40
 dependencies:
@@ -15,3 +20,8 @@ test:
 general:
   artifacts:
     - vignettes
+deployment:
+  production:
+    branch: master
+    commands:
+      - ./deploy.sh

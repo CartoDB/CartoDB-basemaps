@@ -3,7 +3,7 @@ machine:
     version: 0.10.40
 dependencies:
   pre:
-    - sudo apt-get update && sudo apt-get install jq
+    - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test && sudo apt-get update && sudo apt-get install jq libstdc++6
   override:
     - npm install js-yaml vignette tilelive-http tilelive-cartodb tilejson tilelive
 test:

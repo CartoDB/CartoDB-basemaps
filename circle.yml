@@ -2,6 +2,8 @@ machine:
   node:
     version: 0.10.40
 dependencies:
+  pre:
+    - sudo apt-get update && sudo apt-get install jq
   override:
     - npm install js-yaml vignette tilelive-http tilelive-cartodb tilejson tilelive
 test:

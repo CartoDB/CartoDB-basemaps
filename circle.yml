@@ -1,0 +1,12 @@
+machine:
+  node:
+    version: 0.10
+dependencies:
+  override:
+    - npm install js-yaml vignette tilelive-http tilelive-cartodb tilejson tilelive
+test:
+  override:
+    - ./vignette.sh
+general:
+  artifacts:
+    - vignettes

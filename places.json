@@ -1,0 +1,14 @@
+{
+  "San Francisco": {
+    "lat": 37.7649,
+    "lon": -122.4195,
+    "minzoom": 0,
+    "maxzoom": 18
+  },
+  "Madrid": {
+    "lat": 40.4345,
+    "lon": -3.7005,
+    "minzoom": 0,
+    "maxzoom": 18
+  }
+}

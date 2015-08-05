@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 for filename in *.yml; do
   name=$(node_modules/.bin/js-yaml $filename | jq -r .name)

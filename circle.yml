@@ -16,9 +16,9 @@ dependencies:
 test:
   override:
     - ./vignette.sh
-general:
-  artifacts:
-    - vignettes
+# general:
+#   artifacts:
+#     - vignettes
 deployment:
   production:
     branch: master

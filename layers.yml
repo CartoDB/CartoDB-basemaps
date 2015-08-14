@@ -1,0 +1,104 @@
+toner:
+  type: http
+  urlTemplate: http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png
+  subdomains:
+    - a
+    - b
+    - c
+    - d
+
+global_variables:
+  sql: |
+    SELECT null::geometry AS the_geom_webmercator LIMIT 0
+
+false_background:
+  sql: |
+    SELECT the_geom_webmercator
+    FROM false_background_zoomed('!scale_denominator!', !bbox!) AS _
+
+land_positive:
+  sql: |
+    SELECT
+      cartodb_id,
+      the_geom_webmercator
+    FROM land_positive_zoomed('!scale_denominator!', !bbox!) AS _
+
+urban_areas:
+  sql: |
+    SELECT
+      cartodb_id,
+      scalerank,
+      the_geom_webmercator
+    FROM urban_areas_zoomed('!scale_denominator!',!bbox!) AS _
+
+green_areas:
+  sql: |
+    SELECT osm_id, the_geom_webmercator, area FROM green_areas_zoomed('planet_green','!scale_denominator!',!bbox!) AS _
+
+admin0boundaries:
+  sql: |
+    SELECT cartodb_id, the_geom_webmercator, unit FROM admin0boundaries_zoomed('planet_green','!scale_denominator!', !bbox!) AS _
+
+admin1boundaries:
+  sql: |
+    SELECT cartodb_id, scalerank, the_geom_webmercator FROM admin1boundaries_zoomed('planet_green','!scale_denominator!', !bbox!) AS _
+
+water:
+  sql: |
+    (SELECT id, the_geom_webmercator, name, type, is_lake, ne_scalerank, area FROM water_zoomed('planet_green','!scale_denominator!', !bbox!) AS _) UNION (SELECT cartodb_id, the_geom_webmercator, '' AS name, 'ocean' AS type, 1 AS is_lake, 0 AS ne_scalerank, 999999999 AS area FROM land_negative_zoomed('!scale_denominator!', !bbox!) AS _)
+
+aeroways:
+  sql: |
+    SELECT osm_id, type, the_geom_webmercator FROM aeroways_zoomed('planet_green','!scale_denominator!', !bbox!) AS _
+
+ne10mroads:
+  sql: |
+    SELECT cartodb_id, the_geom_webmercator, type, scalerank FROM ne_10m_roads_zoomed('!scale_denominator!', !bbox!) AS _
+
+buildings:
+  sql: |
+    SELECT osm_id, the_geom_webmercator, area FROM buildings_zoomed('planet_green','!scale_denominator!',!bbox!) AS _
+
+osmtunnels:
+  sql: |
+    select highway, railway, kind, the_geom_webmercator, is_link from tunnels('planet_green','!scale_denominator!',!bbox!) as _
+
+osmroads:
+  sql: |
+    select highway, railway, kind, the_geom_webmercator, is_link from high_road('planet_green','!scale_denominator!',!bbox!) as _
+
+osmbridges:
+  sql: |
+    select highway, railway, kind, the_geom_webmercator, is_link from bridges('planet_green','!scale_denominator!',!bbox!) as _
+
+country_city_labels:
+  sql: |
+    SELECT cartodb_id, name, the_geom_webmercator, scalerank, place, pop_est, country_city, is_capital FROM country_city_labels_zoomed('planet_green','!scale_denominator!',!bbox!) AS _
+
+park_labels:
+  sql: |
+    SELECT osm_id, name, area, the_geom_webmercator FROM green_areas_zoomed('planet_green','!scale_denominator!',!bbox!) AS _
+
+water_labels:
+  sql: |
+    SELECT id, the_geom_webmercator, name, area, is_lake FROM water_zoomed('planet_green','!scale_denominator!',!bbox!) AS _
+
+osm_roads_labels:
+  sql: |
+    SELECT name, highway, railway, kind, the_geom_webmercator FROM high_road_labels('planet_green','!scale_denominator!',!bbox!) as _
+
+marine_labels:
+  sql: |
+    SELECT cartodb_id, name, namealt, featurecla, the_geom_webmercator, scalerank FROM ne_marine_zoomed('!scale_denominator!',!bbox!) AS _
+
+admin1boundary_labels:
+  sql: |
+    SELECT cartodb_id, name, scalerank, the_geom_webmercator, geomtype from admin1boundaries_zoomed('planet_green','!scale_denominator!',!bbox!) as _
+
+admin1_labels:
+  sql: |
+    SELECT cartodb_id, name, scalerank, the_geom_webmercator FROM admin1_polygons_zoomed('!scale_denominator!',!bbox!) AS _
+
+continent_labels:
+  sql: |
+    SELECT cartodb_id, name, the_geom_webmercator FROM continents_zoomed('!scale_denominator!',!bbox!) AS _

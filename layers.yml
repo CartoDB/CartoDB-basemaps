@@ -1,12 +1,3 @@
-toner:
-  type: http
-  urlTemplate: http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png
-  subdomains:
-    - a
-    - b
-    - c
-    - d
-
 global_variables:
   sql: |
     SELECT null::geometry AS the_geom_webmercator LIMIT 0

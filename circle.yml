@@ -23,4 +23,6 @@ deployment:
   production:
     branch: master
     commands:
+      - git config --global user.email "vignette@stamen.com"
+      - git config --global user.name "vignette"
       - ./deploy.sh

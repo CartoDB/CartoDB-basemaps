@@ -8,6 +8,6 @@ for filename in *.yml; do
     echo "  ${name}"
     echo
 
-    node_modules/.bin/vignette -o vignettes/${name} -c places.json -w 600 -h 400 cartodb:///${name}
+    node_modules/.bin/vignette -o vignettes/${name} -c places.json -w 600 -h 400 cartodb+file://./${filename}
   fi
 done

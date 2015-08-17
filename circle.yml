@@ -3,6 +3,7 @@ machine:
     GIT_DEPLOY_DIR: vignettes
     GIT_DEPLOY_BRANCH: vignettes
     GIT_DEPLOY_USERNAME: vignette
+    DEBIAN_FRONTEND: noninteractive
   node:
     version: 0.10.40
 dependencies:

@@ -12,7 +12,7 @@ dependencies:
     - sudo apt-get update
     - sudo apt-get install jq libstdc++6 git
   override:
-    - npm install js-yaml vignette tilelive-http tilelive-cartodb tilejson tilelive
+    - npm install js-yaml vignette tilelive-http tilelive-cartodb tilejson tilelive cartodb-yaml
 test:
   override:
     - ./vignette.sh

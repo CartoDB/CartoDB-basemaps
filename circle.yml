@@ -11,6 +11,7 @@ dependencies:
     - sudo add-apt-repository -y ppa:git-core/ppa
     - sudo apt-get update
     - sudo apt-get install jq libstdc++6 git
+    - git clone ${GIT_DEPLOY_REPO} -b vignettes vignettes
   override:
     - npm install js-yaml vignette tilelive-http tilelive-cartodb tilejson tilelive cartodb-yaml
 test:

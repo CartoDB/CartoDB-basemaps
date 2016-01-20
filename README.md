@@ -2,7 +2,7 @@
 
 This is the source code and styles for the [CartoDB Basemaps](http://cartodb.com/basemaps), designed by [Stamen](http://stamen.com).
 
-The code and styles here are intended for serving the basemaps on your own local CartoDB instance, if you just want to use them for your own map, you should use our [hosted version](http://cartodb.com/basemaps).
+The code and styles here are intended for serving the basemaps on your own local CartoDB instance and developing the styles, if you just want to use them for your own map, you should use our [hosted version](http://cartodb.com/basemaps).
 
 ### What does what?
 

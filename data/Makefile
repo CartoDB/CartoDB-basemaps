@@ -26,11 +26,6 @@ generalizations:
 globals:
 	psql cartodb_basemaps -f global_functions.sql
 
-# Install project into user's TileMill 1 directory
-install:
-	mkdir -p ${HOME}/Documents/MapBox/project
-	ln -sf "`pwd`/styles" ${HOME}/Documents/MapBox/project/cartodb-basemap
-
 ##### Development tasks that interact with CartoDB #####
 # Generate image previews
 

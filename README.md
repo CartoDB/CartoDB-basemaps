@@ -6,16 +6,15 @@ The code and styles here are intended for serving the basemaps on your own local
 
 ### What does what?
 
-* All CartoCSS styles live in `/styles`. The Tilemill Project MML (used for local Tilemill 1) and the `project.json` in the root (used for CartoDB) need to be manually kept in sync. Each layer should have a name the same as its CartoCSS ID, and a call to a SQL function.
-	* The oddness here has to do with Tilemill and CartoDB parsing SQL differently, and also because CartoDB does not support zoom-dependent layers yet; so we instead make layers zoom-dependent by writing PL/PGSQL functions that take a mapnik `!scaleDenominator!`.
-	* The stylesheet `global_variables` may be substituted in variant styles e.g. Dark Map.
-	
-* The `project.json` is transformed into a Windshaft MapConfig via `util.js`. All util does is inline text from stylesheets, and possibly toggles layers depending on which "toggle set" (e.g. Labels Off) they belong to. Disabling a layer is done by appending LIMIT 0 to the SQL query.
+This style is designed to work with CartoDB and Windshaft, so is structured differently than a standard CartoCSS project.
+
+* All CartoCSS styles live in [`/styles`](styles/). Layers for a map style are defined in named YAML files in the root directory, and select layers from the layers catalog in [`layers.yml`](layers.yml).
+
+* The map style layers file is combined with the catalog using [cartodb-yaml](https://github.com/stamen/cartodb-yaml)
 
 * There's two places where database stuff (materialized views, PL/PGSQL functions) is defined.
-	* `global_functions.sql` is where all the functions go. This needs to be loaded first.
-	* generalizations.yml describes the materialized views, this is read by `generalizations_sql.js` to output either raw SQL or issue queries.
-
+	* [`global_functions.sql`](data/global_functions.sql) is where all the functions go. This needs to be loaded first.
+	* [`generalizations.yml`](data/generalizations.yml) describes the materialized views, this is read by `generalizations_sql.js` to output either raw SQL or issue queries.
 
 ### Getting started
 
@@ -36,20 +35,6 @@ Create a file in the root of this directory called `config.json` with your Carto
 4. run `generalizations_sql.js` into your DB.
 5. Ensure the Azo Sans, DejaVu unicode, unifont fonts are available on your instance.
 6. Open index.html to see your basemap being rendered from CartoDB. The styles will be regenerated on refresh.
-
-### Development locally using Tilemill
-
-1. run `sh download_datasets.sh` to get all the Natural Earth and OSM coastline files.
-2. Run `make database` to create the `cartodb_basemaps` PostGIS database
-2. Run `make coastline` to get the water/land polygons into your DB
-3. Import an OSM extract into your db. see the Makefile and edit the example `san_francisco` task as needed.
-4. run `sh ne2pgsql.sh` to import Natural Earth shapefiles locally such that they resemble CartoDB tables. This also imports the `z4to10.json` file from this repository, which is a hand-curated list of low zoom city points.
-5. import `global_functions.sql` into your DB (or run `make globals`)
-6. run `generalizations_sql.js` into your DB (or run `make generalizations`)
-7. run `make install` to get a local TileMill project
-8. You may need the Azo Sans, DejaVu unicode, unifont fonts installed.
-
-That should be it for getting the project running in a local TileMill.
 
 ### Creating generalizations
 

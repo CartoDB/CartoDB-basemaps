@@ -19,13 +19,15 @@ if (process.env.CARTODB_API_KEY && process.env.CARTODB_URL) {
   CARTODB_URL = json.cdb_url;
 }
 
+request = request.defaults({"baseUrl": CARTODB_URL + '/api/v1/'})
+
 var wantedUrls = fs.readFileSync('datasets.txt').toString().split("\n");
 
 var getTables = function(callback) {
   // Get existing tables from CartoDB account
     var get = {
       method: "POST",
-      uri: CARTODB_URL + '/api/v1/sql?api_key=' + API_KEY,
+      uri: 'sql?api_key=' + API_KEY,
       json: {'q': "SELECT * FROM pg_tables WHERE tableowner=user and schemaname!='cdb_importer'"}
     }
     request(get, function (error, response, body) {
@@ -39,7 +41,7 @@ var startImport = function(wantedUrl) {
   return function(callback) {
     var get = {
       method: "POST",
-      uri: CARTODB_URL + '/api/v1/imports?api_key=' + API_KEY,
+      uri: 'imports?api_key=' + API_KEY,
       json: {'url': wantedUrl}
     }
     request(get, function (error, response, body) {
@@ -52,7 +54,7 @@ var startImport = function(wantedUrl) {
 var checkImport = function(url, import_id, callback) {
     var get = {
       method: "GET",
-      uri: CARTODB_URL + '/api/v1/imports/' + import_id + '?api_key=' + API_KEY
+      uri: 'imports/' + import_id + '?api_key=' + API_KEY
     }
     request(get, function(error, response, body) {
       if(error) return callback(error);

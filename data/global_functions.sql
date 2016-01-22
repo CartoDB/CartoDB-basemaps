@@ -5,6 +5,8 @@
 
 -- functions that do not use OSM data, so do not take a schema as an argument
 
+SET client_min_messages TO WARNING;
+
 CREATE OR REPLACE FUNCTION generalize(geom geometry, zoom int) RETURNS geometry
 AS $$
 BEGIN
@@ -713,3 +715,6 @@ BEGIN
 END
 $$
 LANGUAGE 'plpgsql';
+
+-- Not needed unless another file is being used in the same session
+RESET client_min_messages;

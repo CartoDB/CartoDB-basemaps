@@ -189,7 +189,7 @@ LANGUAGE 'plpgsql';
 
 DROP FUNCTION IF EXISTS land_negative_zoomed(text,box3d);
 CREATE OR REPLACE FUNCTION land_negative_zoomed(scaleDenominator text, bbox box3d)
-  RETURNS TABLE(cartodb_id integer, the_geom_webmercator geometry) AS
+  RETURNS TABLE(cartodb_id bigint, the_geom_webmercator geometry) AS
 $$
 DECLARE
   zoom NUMERIC;

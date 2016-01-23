@@ -37,7 +37,7 @@ admin1boundaries:
 water:
   sql: |
     (SELECT id::bigint, the_geom_webmercator, name, type, is_lake, ne_scalerank, area FROM water_zoomed('planet_green','!scale_denominator!', !bbox!) AS _)
-    UNION
+    UNION ALL
     (SELECT cartodb_id::bigint, the_geom_webmercator, '' AS name, 'ocean' AS type, 1 AS is_lake, 0 AS ne_scalerank, 999999999 AS area FROM land_negative_zoomed('!scale_denominator!', !bbox!) AS _)
 
 aeroways:

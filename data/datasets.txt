@@ -1,3 +1,4 @@
+https://raw.githubusercontent.com/stamen/aries-magic-list/master/z4to10.json
 http://common-data.cartodb.net.s3.amazonaws.com/basemap_datasets/continents_900913.zip
 http://common-data.cartodb.net.s3.amazonaws.com/basemap_datasets/ne_10m_admin_1_states_provinces_lines_shp.zip
 http://common-data.cartodb.net.s3.amazonaws.com/basemap_datasets/ne_10m_geography_marine_polys.zip

@@ -4,7 +4,7 @@ This is the source code and styles for the [CartoDB Basemaps](http://cartodb.com
 
 The code and styles here are intended for serving the basemaps on your own local CartoDB instance and developing the styles, if you just want to use them for your own map, you should use our [hosted version](http://cartodb.com/basemaps).
 
-### What does what?
+## What does what?
 
 This style is designed to work with CartoDB and Windshaft, so is structured differently than a standard CartoCSS project.
 
@@ -16,25 +16,9 @@ This style is designed to work with CartoDB and Windshaft, so is structured diff
 	* [`global_functions.sql`](data/global_functions.sql) is where all the functions go. This needs to be loaded first.
 	* [`generalizations.yml`](data/generalizations.yml) describes the materialized views, this is read by `generalizations_sql.js` to output either raw SQL or issue queries.
 
-### Getting started
+## Loading data
 
-Create a file in the root of this directory called `config.json` with your CartoDB host and API key like this:
-
-```json
-{
-  "api_key": "API_KEY",
-  "cdb_url": "https://myuser.cartodb.com"
-}
-```
-
-### Development on a CartoDB instance
-
-1. run `node import_files.js` to import Natural Earth and Coastline data to your instance
-2. Import an OSM extract into your db, using `imposm3_mapping.json`. See the Makefile or https://github.com/cartodb/osm
-3. import `global_functions.sql` into your DB.
-4. run `generalizations_sql.js` into your DB.
-5. Ensure the Azo Sans, DejaVu unicode, unifont fonts are available on your instance.
-6. Open index.html to see your basemap being rendered from CartoDB. The styles will be regenerated on refresh.
+Instructions for loading data into a CartoDB instance can be found in [the data readme](data/README.md).
 
 ### Creating generalizations
 

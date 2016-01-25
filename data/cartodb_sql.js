@@ -1,6 +1,6 @@
 var fs = require("fs");
 var request = require('request');
-var CONFIG = JSON.parse(fs.readFileSync("config.json"));
+var CONFIG = JSON.parse(fs.readFileSync("../config.json"));
 
 if (process.argv[2] == '-c') {
   var post = {

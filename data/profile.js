@@ -1,6 +1,6 @@
 var fs = require("fs");
 var request = require('request');
-var CONFIG = JSON.parse(fs.readFileSync("config.json"));
+var CONFIG = JSON.parse(fs.readFileSync("../config.json"));
 var SQL = "SELECT calls, (total_time / 1000 / 60) as total_minutes, (total_time/calls) as average_time, query FROM pg_stat_statements ORDER BY average_time DESC LIMIT 100;"
 
 var post = {

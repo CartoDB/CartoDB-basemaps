@@ -16,6 +16,20 @@ This style is designed to work with CartoDB and Windshaft, so is structured diff
 	* [`global_functions.sql`](data/global_functions.sql) is where all the functions go. This needs to be loaded first.
 	* [`generalizations.yml`](data/generalizations.yml) describes the materialized views, this is read by `generalizations_sql.js` to output either raw SQL or issue queries.
 
+
+## Authentication
+
+Create a the file `config.json` in this directory with your CartoDB host and API key. An example is [`config.json.template`](config.json.template).
+
+```json
+{
+  "api_key": "API_KEY",
+  "cdb_url": "https://myuser.cartodb.com"
+}
+```
+
+You can find the API key at https://myuser.cartodb.com/your_apps
+
 ## Loading data
 
 Instructions for loading data into a CartoDB instance can be found in [the data readme](data/README.md).

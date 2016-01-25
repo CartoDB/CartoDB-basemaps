@@ -57,7 +57,7 @@ if (process.env.CARTODB_API_KEY && process.env.CARTODB_URL) {
   CARTODB_URL = process.env.CARTODB_URL;
 } else {
   console.log("Reading config variables from config.json");
-  json = JSON.parse(fs.readFileSync("config.json"));
+  json = JSON.parse(fs.readFileSync("../config.json"));
   API_KEY = json.api_key;
   CARTODB_URL = json.cdb_url;
 }

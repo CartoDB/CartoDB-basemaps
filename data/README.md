@@ -2,19 +2,6 @@
 
 Some parts of loading data onto a CartoDB instance require direct access, not access through the SQL API.
 
-## Authentication
-
-Create a the file `config.json` in this directory with your CartoDB host and API key. An example is [`config.json.template`](config.json.template).
-
-```json
-{
-  "api_key": "API_KEY",
-  "cdb_url": "https://myuser.cartodb.com"
-}
-```
-
-You can find the API key at http://myuser.cartodb.com/your_apps
-
 ## Loading data
 ### Installing static data and coastlines
 1. Install with `npm install`
@@ -36,7 +23,7 @@ You can find the API key at http://myuser.cartodb.com/your_apps
   ```
   If `PGHOST` and other libpq environment variables are set, the connection string can be simplified to `-connection='postgis://?prefix=NONE'`
 
-6. Import `global_functions.sql` into your DB. If environment variables are set, this is done with `psql -f global_functions.sql`
+6. Import `global_functions.sql` into your DB with `node cartodb_sql.js -f global_functions.sql`
 7. run `node generalizations_sql.js public postgres:///` into your DB, setting the connection string as appropriate.
 
 8. Grant usage of the materialized views with `GRANT SELECT ON ALL TABLES IN SCHEMA public TO PUBLIC`

@@ -23,10 +23,10 @@ globals:
 ##### Development tasks that interact with CartoDB #####
 # Generate image previews
 
-dev: config.json
+dev: ../config.json
 	python -m SimpleHTTPServer 8080 .
 
-previews: config.json
+previews: ../config.json
 	node generate_previews.js
 
 ##### Deployment tasks #####

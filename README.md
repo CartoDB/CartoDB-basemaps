@@ -17,7 +17,11 @@ This style is designed to work with CartoDB and Windshaft, so is structured diff
 	* [`generalizations.yml`](data/generalizations.yml) describes the materialized views, this is read by `generalizations_sql.js` to output either raw SQL or issue queries.
 
 
-## Authentication
+## Setup
+
+Install the required software with `npm install`
+
+### Authentication
 
 Create a the file `config.json` in this directory with your CartoDB host and API key. An example is [`config.json.template`](config.json.template).
 
@@ -34,32 +38,7 @@ You can find the API key at https://myuser.cartodb.com/your_apps
 
 Instructions for loading data into a CartoDB instance can be found in [the data readme](data/README.md).
 
-### Creating generalizations
-
-The generalizations go into a different schema that the style (project.json) refers to. Creating all the materialized view takes 6-7 hours for the full planet (and requires that this be run on a machine with `psql` access).
-You can speed up the generalization creation by using the script and specifying a bigger amount of threads.
-
-To create these:
-
-    nodejs generalizations_sql.js [TARGET_SCHEMA_NAME] [DATABASE_URL] [THREADS]
-    
-(On Debian, `nodejs` is the node executable.)
-
-This creates `MATERIALIZED VIEWS` with the subsets of data required for each zoom.
-
-If you want to develop against CartoDB on an extract you can derive an extract from an existing OSM dump on `public.planet` like follows:
-
-    CREATE MATERIALIZED VIEW sf_madrid AS
-    SELECT id, osm_id, tags, the_geom
-    FROM public.planet
-    WHERE the_geom && ST_Transform(ST_SetSRID('BOX(-122.737 37.449,-122.011 37.955)'::box2d, 4326), 3857) OR
-    the_geom && ST_Transform(ST_SetSRID('BOX(-4.293 39.8,-3.057 41.03)'::box2d, 4326), 3857) OR
-    ORDER BY ST_GeoHash(ST_Transform(the_geom, 4326));
-    CREATE INDEX planet_the_geom_gist ON sf_madrid USING GIST(the_geom);
-
-and build your generalizations off this instead of public.planet.
-
-### Named map creation
+## Named map creation
 
 To create a "Named Map", so users can access the basemap without API key, running `make named_maps` will create them using the local styles.
 

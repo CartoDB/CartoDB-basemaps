@@ -210,24 +210,25 @@ LANGUAGE 'plpgsql';
 
 DROP FUNCTION IF EXISTS ne_marine_zoomed(text,box3d);
 CREATE OR REPLACE FUNCTION ne_marine_zoomed(scaleDenominator text, bbox box3d)
-  RETURNS TABLE(cartodb_id integer, the_geom_webmercator geometry, name text, namealt text, featurecla text, scalerank integer) AS
+  RETURNS TABLE(cartodb_id bigint, the_geom_webmercator geometry, name text, namealt text, featurecla text, scalerank integer) AS
+/* Some tables have cartodb_id bigint, some integer, so cast them all to bigint */
 $$
 BEGIN
   IF zoom(scaleDenominator::numeric) <= 3 AND zoom(scaleDenominator::numeric) >= 2 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT cartodb_id, the_geom_webmercator, name::text, namealt::text, featurecla::text, scalerank::integer
+      'SELECT cartodb_id::bigint, the_geom_webmercator, name::text, namealt::text, featurecla::text, scalerank::integer
        FROM ne_110m_geography_marine_polys
        WHERE the_geom_webmercator && $1'
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 4 AND zoom(scaleDenominator::numeric) <= 5 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT cartodb_id, the_geom_webmercator, name::text, namealt::text, featurecla::text, scalerank::integer
+      'SELECT cartodb_id::bigint, the_geom_webmercator, name::text, namealt::text, featurecla::text, scalerank::integer
        FROM ne_50m_geography_marine_polys
        WHERE the_geom_webmercator && $1'
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 6 AND zoom(scaleDenominator::numeric) <= 8 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT cartodb_id, the_geom_webmercator, name::text, namealt::text, featurecla::text, scalerank::integer
+      'SELECT cartodb_id::bigint, the_geom_webmercator, name::text, namealt::text, featurecla::text, scalerank::integer
        FROM ne_10m_geography_marine_polys
        WHERE the_geom_webmercator && $1'
     ) USING bbox;

@@ -342,11 +342,11 @@ BEGIN
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) <= 5 AND zoom(scaleDenominator::numeric) >= 4 THEN
     RETURN QUERY EXECUTE format(
-      '(SELECT cartodb_id::bigint, admin::text AS name, ''country''::text, the_geom_webmercator, scalerank::integer, ''''::text, pop_est::numeric, false
+      '(SELECT cartodb_id::bigint, admin::text AS name, ''country''::text as country_city, the_geom_webmercator, scalerank::integer, ''''::text, pop_est::numeric, false as is_capital
        FROM ne_50m_admin_0_countries_lakes
        WHERE the_geom_webmercator && $1)
        UNION
-       (select cartodb_id::bigint, name::text, ''city''::text, the_geom_webmercator, zoom::integer as scalerank, ''''::text, population::numeric as pop_est, capital = ''yes'' as is_capital
+       (select cartodb_id::bigint, name::text, ''city''::text as country_city, the_geom_webmercator, zoom::integer as scalerank, ''''::text, population::numeric as pop_est, capital = ''yes'' as is_capital
        from z4to10
        where the_geom_webmercator && $1 and zoom <= 5
        order by scalerank asc, population desc nulls last)'

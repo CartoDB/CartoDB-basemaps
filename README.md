@@ -33,11 +33,6 @@ To create these:
 
 This creates `MATERIALIZED VIEWS` with the subsets of data required for each zoom.
 
-As materialized view creation / refreshing is blocking process (as of PostgreSQL 9.3), you can use
-`TARGET_SCHEMA_NAME` to create the generalizations into different schemas 
-(`planet_blue` or `planet_green`, for example) and then, when done,
-switch the schema referred to in project.json.
-
 If you want to develop against CartoDB on an extract you can derive an extract from an existing OSM dump on `public.planet` like follows:
 
     CREATE MATERIALIZED VIEW sf_madrid AS

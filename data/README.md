@@ -39,12 +39,7 @@ You can find the API key at http://myuser.cartodb.com/your_apps
 6. Import `global_functions.sql` into your DB. If environment variables are set, this is done with `psql -f global_functions.sql`
 7. run `node generalizations_sql.js public postgres:///` into your DB, setting the connection string as appropriate.
 
-8. Grant usage of the materialized views with `GRANT SELECT ON ALL TABLES IN SCHEMA planet_green TO PUBLIC`
-
-  As materialized view creation / refreshing is blocking process (as of PostgreSQL 9.3), you can use
-  `TARGET_SCHEMA_NAME` to create the generalizations into different schemas 
-  (`planet_blue` or `planet_green`, for example) and then, when done,
-  switch the schema referred to in project.json.
+8. Grant usage of the materialized views with `GRANT SELECT ON ALL TABLES IN SCHEMA public TO PUBLIC`
 
 8. Ensure the Azo Sans, DejaVu unicode, unifont fonts are available on your instance.
 9. Open index.html to see your basemap being rendered from CartoDB. The styles will be regenerated on refresh.

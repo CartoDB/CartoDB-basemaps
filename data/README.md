@@ -41,5 +41,4 @@ export PGHOST=/var/run/postgresql
 8. run `node generalizations_sql.js public | node cartodb_sql.js -f /dev/stdin` into your DB
   *It can be more efficient to run this on the DB server in parallel*
 
-8. Ensure the Azo Sans, DejaVu unicode, unifont fonts are available on your instance.
-9. Open index.html to see your basemap being rendered from CartoDB. The styles will be regenerated on refresh.
+9. Ensure the Azo Sans, DejaVu unicode, unifont fonts are available on your instance.

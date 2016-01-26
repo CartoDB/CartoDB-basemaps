@@ -38,6 +38,16 @@ You can find the API key at https://myuser.cartodb.com/your_apps
 
 Instructions for loading data into a CartoDB instance can be found in [the data readme](data/README.md).
 
+## Development
+
+This style is intended to be used with the [Atom text editor](*https://atom.io/) and [CartoDB extension](https://github.com/stamen/atom-cartodb).
+
+1. [Download and install Atom](https://atom.io/).
+2. Install the cartodb and language-carto packages.
+3. [Set the CartoDB username (e.g. `myuser`) and API key](https://github.com/stamen/atom-cartodb#configuration)
+4. Open a map YAML file, e.g. [positron-all.yml](positron-all.yml).
+5. Under Packages -> CartoDB, open a preview
+
 ## Named map creation
 
 To create a "Named Map", so users can access the basemap without API key, running `make named_maps` will create them using the local styles.

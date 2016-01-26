@@ -31,7 +31,8 @@ function tname(table_name) {
 if (process.argv.length == 3) {
   // Write SQL to STDOUT
   var doc = yaml.safeLoad(fs.readFileSync('generalizations.yml', 'utf8'));
-  console.log("SET client_min_messages TO WARNING;\n");
+  console.log("SET client_min_messages TO WARNING;");
+  console.log("SET statement_timeout = 0;\n")
   console.log("CREATE SCHEMA IF NOT EXISTS " + default_schema + ";");
   doc.forEach(function(view) {
     console.log("DROP "+pg_type+" IF EXISTS " + tname(view.name) + " CASCADE;");

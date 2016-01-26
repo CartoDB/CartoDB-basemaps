@@ -1,25 +1,5 @@
 .PHONY: previews dev
 
-database:
-	dropdb --if-exists cartodb_basemaps
-	createdb cartodb_basemaps
-	psql -d cartodb_basemaps -c "create extension postgis"
-	psql -d cartodb_basemaps -c "create extension hstore"
-
-##### Development tasks for rendering the map all on local machine #####
-# Prepare the local database using the CartoDB hstore style
-
-san_francisco:
-	imposm3 import -mapping imposm3_mapping.json -read /Volumes/Work/osm/sf-bay-area.osm.pbf -connection="postgis://localhost/cartodb_basemaps" -write -deployproduction -overwritecache
-	psql -d cartodb_basemaps -c "ALTER TABLE osm_planet rename to planet"
-
-generalizations:
-	npm install
-	node generalizations_sql.js public postgres://localhost/cartodb_basemaps
-
-globals:
-	psql cartodb_basemaps -f global_functions.sql
-
 ##### Development tasks that interact with CartoDB #####
 # Generate image previews
 

@@ -24,25 +24,25 @@ urban_areas:
 
 green_areas:
   sql: |
-    SELECT osm_id, the_geom_webmercator, area FROM green_areas_zoomed('public','!scale_denominator!',!bbox!) AS _
+    SELECT osm_id, the_geom_webmercator, area FROM green_areas_zoomed('!scale_denominator!',!bbox!) AS _
 
 admin0boundaries:
   sql: |
-    SELECT cartodb_id, the_geom_webmercator, unit FROM admin0boundaries_zoomed('public','!scale_denominator!', !bbox!) AS _
+    SELECT cartodb_id, the_geom_webmercator, unit FROM admin0boundaries_zoomed('!scale_denominator!', !bbox!) AS _
 
 admin1boundaries:
   sql: |
-    SELECT cartodb_id, scalerank, the_geom_webmercator FROM admin1boundaries_zoomed('public','!scale_denominator!', !bbox!) AS _
+    SELECT cartodb_id, scalerank, the_geom_webmercator FROM admin1boundaries_zoomed('!scale_denominator!', !bbox!) AS _
 
 water:
   sql: |
-    (SELECT id::bigint, the_geom_webmercator, name, type, is_lake, ne_scalerank, area FROM water_zoomed('public','!scale_denominator!', !bbox!) AS _)
+    (SELECT id::bigint, the_geom_webmercator, name, type, is_lake, ne_scalerank, area FROM water_zoomed('!scale_denominator!', !bbox!) AS _)
     UNION ALL
     (SELECT cartodb_id::bigint, the_geom_webmercator, '' AS name, 'ocean' AS type, 1 AS is_lake, 0 AS ne_scalerank, 999999999 AS area FROM land_negative_zoomed('!scale_denominator!', !bbox!) AS _)
 
 aeroways:
   sql: |
-    SELECT osm_id, type, the_geom_webmercator FROM aeroways_zoomed('public','!scale_denominator!', !bbox!) AS _
+    SELECT osm_id, type, the_geom_webmercator FROM aeroways_zoomed('!scale_denominator!', !bbox!) AS _
 
 ne10mroads:
   sql: |
@@ -50,35 +50,35 @@ ne10mroads:
 
 buildings:
   sql: |
-    SELECT osm_id, the_geom_webmercator, area FROM buildings_zoomed('public','!scale_denominator!',!bbox!) AS _
+    SELECT osm_id, the_geom_webmercator, area FROM buildings_zoomed('!scale_denominator!',!bbox!) AS _
 
 osmtunnels:
   sql: |
-    select highway, railway, kind, the_geom_webmercator, is_link from tunnels('public','!scale_denominator!',!bbox!) as _
+    select highway, railway, kind, the_geom_webmercator, is_link from tunnels('!scale_denominator!',!bbox!) as _
 
 osmroads:
   sql: |
-    select highway, railway, kind, the_geom_webmercator, is_link from high_road('public','!scale_denominator!',!bbox!) as _
+    select highway, railway, kind, the_geom_webmercator, is_link from high_road('!scale_denominator!',!bbox!) as _
 
 osmbridges:
   sql: |
-    select highway, railway, kind, the_geom_webmercator, is_link from bridges('public','!scale_denominator!',!bbox!) as _
+    select highway, railway, kind, the_geom_webmercator, is_link from bridges('!scale_denominator!',!bbox!) as _
 
 country_city_labels:
   sql: |
-    SELECT cartodb_id, name, the_geom_webmercator, scalerank, place, pop_est, country_city, is_capital FROM country_city_labels_zoomed('public','!scale_denominator!',!bbox!) AS _
+    SELECT cartodb_id, name, the_geom_webmercator, scalerank, place, pop_est, country_city, is_capital FROM country_city_labels_zoomed('!scale_denominator!',!bbox!) AS _
 
 park_labels:
   sql: |
-    SELECT osm_id, name, area, the_geom_webmercator FROM green_areas_zoomed('public','!scale_denominator!',!bbox!) AS _
+    SELECT osm_id, name, area, the_geom_webmercator FROM green_areas_zoomed('!scale_denominator!',!bbox!) AS _
 
 water_labels:
   sql: |
-    SELECT id, the_geom_webmercator, name, area, is_lake FROM water_zoomed('public','!scale_denominator!',!bbox!) AS _
+    SELECT id, the_geom_webmercator, name, area, is_lake FROM water_zoomed('!scale_denominator!',!bbox!) AS _
 
 osm_roads_labels:
   sql: |
-    SELECT name, highway, railway, kind, the_geom_webmercator FROM high_road_labels('public','!scale_denominator!',!bbox!) as _
+    SELECT name, highway, railway, kind, the_geom_webmercator FROM high_road_labels('!scale_denominator!',!bbox!) as _
 
 marine_labels:
   sql: |
@@ -86,7 +86,7 @@ marine_labels:
 
 admin1boundary_labels:
   sql: |
-    SELECT cartodb_id, name, scalerank, the_geom_webmercator, geomtype from admin1boundaries_zoomed('public','!scale_denominator!',!bbox!) as _
+    SELECT cartodb_id, name, scalerank, the_geom_webmercator, geomtype from admin1boundaries_zoomed('!scale_denominator!',!bbox!) as _
 
 admin1_labels:
   sql: |

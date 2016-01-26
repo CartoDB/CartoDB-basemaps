@@ -1,10 +1,5 @@
--- Schemas are used to distinguish extracts (for easy development)
--- from the OSM planet (big and slow).
--- in either case a table called 'planet' is assumed to exist in a schema
--- for the default public schema, this is the whole OSM planet.
-
--- functions that do not use OSM data, so do not take a schema as an argument
-
+-- The functions used to take a schema name, but no longer do. This is
+-- why many drop two functions
 SET client_min_messages TO WARNING;
 
 CREATE OR REPLACE FUNCTION generalize(geom geometry, zoom int) RETURNS geometry
@@ -329,8 +324,9 @@ END
 $$
 LANGUAGE 'plpgsql';
 
+DROP FUNCTION IF EXISTS country_city_labels_zoomed(text,box3d);
 DROP FUNCTION IF EXISTS country_city_labels_zoomed(text,text,box3d);
-CREATE OR REPLACE FUNCTION country_city_labels_zoomed(schema text,scaleDenominator text, bbox box3d)
+CREATE OR REPLACE FUNCTION country_city_labels_zoomed(scaleDenominator text, bbox box3d)
   RETURNS TABLE(cartodb_id bigint, name text, country_city text, the_geom_webmercator geometry, scalerank integer, place text, pop_est numeric, is_capital bool) AS
 $$
 BEGIN
@@ -369,9 +365,9 @@ BEGIN
   ELSIF zoom(scaleDenominator::numeric) >= 13 THEN
     RETURN QUERY EXECUTE format(
        'SELECT osm_id, name::text, ''city''::text, the_geom_webmercator, 99 as scalerank, place::text, numeric_or_zero(population) as pop_est, false as is_capital
-        FROM %s.places
+        FROM places
         WHERE the_geom_webmercator && $1
-        ORDER BY population DESC NULLS LAST', schema
+        ORDER BY population DESC NULLS LAST'
     ) USING bbox;
   ELSE
     RETURN;
@@ -401,8 +397,9 @@ LANGUAGE 'plpgsql';
 
 -- Below this, depends on a schema.
 
+DROP FUNCTION IF EXISTS admin0boundaries_zoomed(text,box3d);
 DROP FUNCTION IF EXISTS admin0boundaries_zoomed(text,text,box3d);
-CREATE OR REPLACE FUNCTION admin0boundaries_zoomed(schema text, scaleDenominator text, bbox box3d)
+CREATE OR REPLACE FUNCTION admin0boundaries_zoomed(scaleDenominator text, bbox box3d)
   RETURNS TABLE(cartodb_id bigint, the_geom_webmercator geometry, unit boolean) AS
 $$
 BEGIN
@@ -420,9 +417,9 @@ BEGIN
   ELSIF zoom(scaleDenominator::numeric) >= 10 THEN
     RETURN QUERY EXECUTE format(
       'SELECT osm_id::bigint, the_geom_webmercator, false
-       FROM %s.administrative
+       FROM administrative
        WHERE admin_level = ''2''
-       AND the_geom_webmercator && $1', schema
+       AND the_geom_webmercator && $1'
     ) USING bbox;
   ELSE
     RETURN;
@@ -431,8 +428,9 @@ END
 $$
 LANGUAGE 'plpgsql';
 
-DROP FUNCTION IF EXISTS admin1boundaries_zoomed(text, text,box3d);
-CREATE OR REPLACE FUNCTION admin1boundaries_zoomed(schema text, scaleDenominator text, bbox box3d)
+DROP FUNCTION IF EXISTS admin1boundaries_zoomed(text, box3d);
+DROP FUNCTION IF EXISTS admin1boundaries_zoomed(text, text, box3d);
+CREATE OR REPLACE FUNCTION admin1boundaries_zoomed(scaleDenominator text, bbox box3d)
   RETURNS TABLE(cartodb_id bigint, name text, scalerank integer, the_geom_webmercator geometry, geomtype text) AS
 $$
 BEGIN
@@ -451,9 +449,9 @@ BEGIN
   ELSIF zoom(scaleDenominator::numeric) >= 10 THEN
     RETURN QUERY EXECUTE format(
       'SELECT osm_id::bigint, tags::hstore -> ''name'' as name, 0, the_geom_webmercator, ST_GeometryType(the_geom_webmercator) AS geomtype
-       FROM %s.administrative
+       FROM administrative
        WHERE admin_level = ''4''
-       AND the_geom_webmercator && $1', schema
+       AND the_geom_webmercator && $1'
     ) USING bbox;
   ELSE
     RETURN;
@@ -482,8 +480,9 @@ $$
 LANGUAGE 'plpgsql';
 
 
+DROP FUNCTION IF EXISTS high_road(scaleDenominator text, bbox box3d);
 DROP FUNCTION IF EXISTS high_road(schema text, scaleDenominator text, bbox box3d);
-CREATE OR REPLACE FUNCTION high_road(schema text, scaleDenominator text, bbox box3d)
+CREATE OR REPLACE FUNCTION high_road(scaleDenominator text, bbox box3d)
   RETURNS TABLE(name text, ref text, the_geom_webmercator geometry, highway text, railway text, kind text, is_link text, is_tunnel text, is_bridge text, z_order integer) AS
 $$
 DECLARE
@@ -501,13 +500,14 @@ BEGIN
       conditions := 'true';
   END CASE;
 
-  RETURN QUERY SELECT * FROM high_road(schema, scaleDenominator, bbox, conditions);
+  RETURN QUERY SELECT * FROM high_road(scaleDenominator, bbox, conditions);
 END
 $$
 LANGUAGE 'plpgsql';
 
+DROP FUNCTION IF EXISTS high_road(scaleDenominator text, bbox box3d, conditions text);
 DROP FUNCTION IF EXISTS high_road(schema text, scaleDenominator text, bbox box3d, conditions text);
-CREATE OR REPLACE FUNCTION high_road(schema text, scaleDenominator text, bbox box3d, conditions text)
+CREATE OR REPLACE FUNCTION high_road(scaleDenominator text, bbox box3d, conditions text)
   RETURNS TABLE(name text, ref text, the_geom_webmercator geometry, highway text, railway text, kind text, is_link text, is_tunnel text, is_bridge text, z_order integer) AS
 $$
 DECLARE
@@ -532,16 +532,17 @@ BEGIN
 
   RETURN QUERY EXECUTE format(
     'SELECT name, ref, the_geom_webmercator, highway::text, railway::text, kind::text, is_link::text, is_tunnel::text, is_bridge::text, z_order 
-     FROM %s.%I
+     FROM %I
      WHERE the_geom_webmercator && $1
-     AND %s ORDER BY z_order ASC', schema, tablename, conditions
+     AND %s ORDER BY z_order ASC', tablename, conditions
   ) USING bbox;
 END
 $$
 LANGUAGE 'plpgsql';
 
+DROP FUNCTION IF EXISTS high_road_labels(scaleDenominator text, bbox box3d);
 DROP FUNCTION IF EXISTS high_road_labels(schema text, scaleDenominator text, bbox box3d);
-CREATE OR REPLACE FUNCTION high_road_labels(schema text, scaleDenominator text, bbox box3d)
+CREATE OR REPLACE FUNCTION high_road_labels(scaleDenominator text, bbox box3d)
   RETURNS TABLE(name text, ref text, the_geom_webmercator geometry, highway text, railway text, kind text, is_link text, is_tunnel text, is_bridge text, z_order integer) AS
 $$
 DECLARE
@@ -562,16 +563,17 @@ BEGIN
 
   RETURN QUERY EXECUTE format(
     'SELECT name, ref, the_geom_webmercator, highway::text, railway::text, kind::text, is_link::text, is_tunnel::text, is_bridge::text, z_order 
-     FROM %s.%I
+     FROM %I
      WHERE the_geom_webmercator && $1
-     ORDER BY z_order ASC', schema, tablename
+     ORDER BY z_order ASC', tablename
   ) USING bbox;
 END
 $$
 LANGUAGE 'plpgsql';
 
+DROP FUNCTION IF EXISTS tunnels(scaleDenominator text, bbox box3d);
 DROP FUNCTION IF EXISTS tunnels(schema text, scaleDenominator text, bbox box3d);
-CREATE OR REPLACE FUNCTION tunnels(schema text, scaleDenominator text, bbox box3d)
+CREATE OR REPLACE FUNCTION tunnels(scaleDenominator text, bbox box3d)
   RETURNS TABLE(the_geom_webmercator geometry, highway text, railway text, kind text, is_link text, is_tunnel text, is_bridge text) AS
 $$
 DECLARE
@@ -590,16 +592,17 @@ BEGIN
 
   RETURN QUERY EXECUTE format(
     'SELECT the_geom_webmercator, highway::text, railway::text, kind::text, is_link::text, is_tunnel::text, is_bridge::text
-     FROM %s.%I
+     FROM %I
      WHERE the_geom_webmercator && $1
-      AND is_tunnel = ''yes'' ORDER BY z_order ASC', schema, tablename
+      AND is_tunnel = ''yes'' ORDER BY z_order ASC', tablename
   ) USING bbox;
 END
 $$
 LANGUAGE 'plpgsql';
 
+DROP FUNCTION IF EXISTS bridges(scaleDenominator text, bbox box3d);
 DROP FUNCTION IF EXISTS bridges(schema text, scaleDenominator text, bbox box3d);
-CREATE OR REPLACE FUNCTION bridges(schema text, scaleDenominator text, bbox box3d)
+CREATE OR REPLACE FUNCTION bridges(scaleDenominator text, bbox box3d)
   RETURNS TABLE(the_geom_webmercator geometry, highway text, railway text, kind text, is_link text, is_tunnel text, is_bridge text) AS
 $$
 DECLARE
@@ -618,30 +621,31 @@ BEGIN
 
   RETURN QUERY EXECUTE format(
     'SELECT the_geom_webmercator, highway::text, railway::text, kind::text, is_link::text, is_tunnel::text, is_bridge::text
-     FROM %s.%I
+     FROM %I
      WHERE the_geom_webmercator && $1
-      AND is_bridge = ''yes'' ORDER BY z_order ASC', schema, tablename
+      AND is_bridge = ''yes'' ORDER BY z_order ASC', tablename
   ) USING bbox;
 END
 $$
 LANGUAGE 'plpgsql';
 
+DROP FUNCTION IF EXISTS buildings_zoomed(text,box3d);
 DROP FUNCTION IF EXISTS buildings_zoomed(text,text,box3d);
-CREATE OR REPLACE FUNCTION buildings_zoomed(schema text, scaleDenominator text, bbox box3d)
+CREATE OR REPLACE FUNCTION buildings_zoomed(scaleDenominator text, bbox box3d)
   RETURNS TABLE(osm_id bigint, area bigint, the_geom_webmercator geometry) AS
 $$
 BEGIN
   IF zoom(scaleDenominator::numeric) >= 12 AND zoom(scaleDenominator::numeric) <= 13 THEN
     RETURN QUERY EXECUTE format(
       'SELECT osm_id::bigint, area::bigint, the_geom_webmercator
-       FROM %s.buildings_z13
-       WHERE the_geom_webmercator && $1', schema
+       FROM buildings_z13
+       WHERE the_geom_webmercator && $1'
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 14 THEN
     RETURN QUERY EXECUTE format(
       'SELECT osm_id::bigint, area::bigint, the_geom_webmercator
-       FROM %s.buildings_z14plus
-       WHERE the_geom_webmercator && $1', schema
+       FROM buildings_z14plus
+       WHERE the_geom_webmercator && $1'
     ) USING bbox;
   ELSE
     RETURN;
@@ -650,28 +654,29 @@ END
 $$
 LANGUAGE 'plpgsql';
 
+DROP FUNCTION IF EXISTS green_areas_zoomed(text,box3d);
 DROP FUNCTION IF EXISTS green_areas_zoomed(text,text,box3d);
-CREATE OR REPLACE FUNCTION green_areas_zoomed(schema text, scaleDenominator text, bbox box3d)
+CREATE OR REPLACE FUNCTION green_areas_zoomed(scaleDenominator text, bbox box3d)
   RETURNS TABLE(osm_id bigint, name text, area bigint, the_geom_webmercator geometry) AS
 $$
 BEGIN
   IF zoom(scaleDenominator::numeric) >= 9 AND zoom(scaleDenominator::numeric) <= 10 THEN
     RETURN QUERY EXECUTE format(
       'SELECT osm_id::bigint, name, area::bigint, the_geom_webmercator
-       FROM %s.green_areas_z10
-       WHERE the_geom_webmercator && $1', schema
+       FROM green_areas_z10
+       WHERE the_geom_webmercator && $1'
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 11 AND zoom(scaleDenominator::numeric) <= 13 THEN
     RETURN QUERY EXECUTE format(
       'SELECT osm_id::bigint, name, area::bigint, the_geom_webmercator
-       FROM %s.green_areas_z13
-       WHERE the_geom_webmercator && $1', schema
+       FROM green_areas_z13
+       WHERE the_geom_webmercator && $1'
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 14 THEN
     RETURN QUERY EXECUTE format(
       'SELECT osm_id::bigint, name, area::bigint, the_geom_webmercator
-       FROM %s.green_areas_z14plus
-       WHERE the_geom_webmercator && $1', schema
+       FROM green_areas_z14plus
+       WHERE the_geom_webmercator && $1'
     ) USING bbox;
   ELSE
     RETURN;
@@ -681,16 +686,17 @@ $$
 LANGUAGE 'plpgsql';
 
 
+DROP FUNCTION IF EXISTS aeroways_zoomed(text,box3d);
 DROP FUNCTION IF EXISTS aeroways_zoomed(text,text,box3d);
-CREATE OR REPLACE FUNCTION aeroways_zoomed(schema text, scaleDenominator text, bbox box3d)
+CREATE OR REPLACE FUNCTION aeroways_zoomed(scaleDenominator text, bbox box3d)
   RETURNS TABLE(osm_id bigint, type text, the_geom_webmercator geometry) AS
 $$
 BEGIN
   IF zoom(scaleDenominator::numeric) >= 12 THEN
     RETURN QUERY EXECUTE format(
       'SELECT osm_id::bigint, type::text, the_geom_webmercator
-       FROM %s.aeroways
-       WHERE the_geom_webmercator && $1', schema
+       FROM aeroways
+       WHERE the_geom_webmercator && $1'
     ) USING bbox;
   ELSE
     RETURN;
@@ -699,8 +705,9 @@ END
 $$
 LANGUAGE 'plpgsql';
 
+DROP FUNCTION IF EXISTS osm_admin_zoomed(text,box3d);
 DROP FUNCTION IF EXISTS osm_admin_zoomed(text,text,box3d);
-CREATE OR REPLACE FUNCTION osm_admin_zoomed(schema text, scaleDenominator text, bbox box3d)
+CREATE OR REPLACE FUNCTION osm_admin_zoomed(scaleDenominator text, bbox box3d)
   RETURNS TABLE(osm_id bigint, admin_level text, the_geom_webmercator geometry) AS
 $$
 BEGIN
@@ -708,7 +715,7 @@ BEGIN
     RETURN QUERY EXECUTE format(
       'SELECT osm_id::bigint, admin_level::text, the_geom_webmercator
        FROM %s.administrative
-       WHERE the_geom_webmercator && $1', schema
+       WHERE the_geom_webmercator && $1'
     ) USING bbox;
   ELSE
     RETURN;

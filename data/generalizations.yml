@@ -6,7 +6,7 @@
   cluster_on: the_geom
   index_by: the_geom_webmercator
   select: osm_id, the_geom AS the_geom_webmercator, tags -> 'aeroway' AS type
-  from: public.planet
+  from: planet
   where: tags ? 'aeroway' AND tags -> 'aeroway' != 'no'
 
 # admin-0 and admin-1 boundaries
@@ -14,7 +14,7 @@
   cluster_on: the_geom
   index_by: the_geom_webmercator
   select: osm_id, tags, tags -> 'admin_level' AS admin_level, the_geom AS the_geom_webmercator
-  from: public.planet
+  from: planet
   where: tags -> 'boundary' = 'administrative'
 
 # Buildings
@@ -22,7 +22,7 @@
   cluster_on: the_geom
   index_by: the_geom_webmercator
   select: osm_id, tags -> 'building' building, tags -> 'height' height, ST_Area(the_geom)::bigint AS area, the_geom AS the_geom_webmercator
-  from: public.planet
+  from: planet
   where: tags ? 'building' AND tags -> 'building' != 'no'
 
 - name: buildings_z13
@@ -37,7 +37,7 @@
   cluster_on: the_geom
   index_by: the_geom_webmercator
   select: osm_id, tags -> 'name' AS name, ST_Area(the_geom)::bigint AS area, the_geom AS the_geom_webmercator
-  from: public.planet
+  from: planet
   where: tags -> 'leisure' IN ('park','water_park','marina','nature_reserve','playground',
          'garden','common','sports_centre','golf_course','stadium','track','pitch')
          OR tags -> 'amenity' IN ('graveyard')
@@ -62,7 +62,7 @@
   cluster_on: the_geom
   index_by: the_geom_webmercator
   select: osm_id, tags -> 'name' AS name, ST_Area(the_geom)::bigint AS area, COALESCE(tags -> 'natural', tags -> 'waterway', tags -> 'landuse') AS type, the_geom AS the_geom_webmercator
-  from: public.planet
+  from: planet
   where: tags -> 'natural' IN ('water','bay')
          OR tags -> 'waterway' IN ('riverbank','canal','river')
          OR tags -> 'landuse' IN ('reservoir')
@@ -102,7 +102,7 @@
           wayzorder(tags) as z_order ,
           tags -> 'name' as name,
           tags -> 'ref' as ref
-  from: public.planet
+  from: planet
   where: tags -> 'highway' IN ('motorway', 'motorway_link')
            OR tags -> 'highway' IN ('trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link')
            OR tags -> 'highway' IN ('residential', 'unclassified', 'road', 'unclassified', 'service', 'minor')
@@ -213,5 +213,5 @@
           tags -> 'name' AS name,
           tags -> 'population' AS population,
           the_geom AS the_geom_webmercator
-  from: public.planet
+  from: planet
   where: tags -> 'place' IN ('city','town','village','hamlet','suburb','neighbourhood')

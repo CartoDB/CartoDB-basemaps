@@ -235,8 +235,9 @@ $$
 LANGUAGE 'plpgsql';
 
 -- Rivers go below lakes, so rivers are drawn first (river = 0)
+DROP FUNCTION IF EXISTS water_zoomed(text,box3d);
 DROP FUNCTION IF EXISTS water_zoomed(text,text,box3d);
-CREATE OR REPLACE FUNCTION water_zoomed(schema text, scaleDenominator text, bbox box3d)
+CREATE OR REPLACE FUNCTION water_zoomed(scaleDenominator text, bbox box3d)
   RETURNS TABLE(id bigint, the_geom_webmercator geometry, name text, type text, is_lake integer, ne_scalerank integer, area bigint) AS
 $$
 BEGIN
@@ -268,9 +269,9 @@ BEGIN
        (CASE WHEN type IN (''water'',''bay'',''riverbank'',''reservoir'') 
              AND ST_GeometryType(the_geom_webmercator) IN (''ST_Polygon'',''ST_MultiPolygon'') THEN 1 ELSE 0 END) as is_lake,
        0 as ne_scalerank, area::bigint
-       FROM %s.water_areas_z10
+       FROM water_areas_z10
        WHERE the_geom_webmercator && $1
-       ORDER BY is_lake ASC', schema
+       ORDER BY is_lake ASC'
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 11 AND zoom(scaleDenominator::numeric) <= 13 THEN
     RETURN QUERY EXECUTE format(
@@ -278,9 +279,9 @@ BEGIN
        (CASE WHEN type IN (''water'',''bay'',''riverbank'',''reservoir'') 
              AND ST_GeometryType(the_geom_webmercator) IN (''ST_Polygon'',''ST_MultiPolygon'') THEN 1 ELSE 0 END) as is_lake,
        0 AS ne_scalerank, area::bigint
-       FROM %s.water_areas_z13
+       FROM water_areas_z13
        WHERE the_geom_webmercator && $1
-       ORDER BY is_lake ASC', schema
+       ORDER BY is_lake ASC'
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 14 THEN
     RETURN QUERY EXECUTE format(
@@ -288,9 +289,9 @@ BEGIN
        (CASE WHEN type IN (''water'',''bay'',''riverbank'',''reservoir'') 
              AND ST_GeometryType(the_geom_webmercator) IN (''ST_Polygon'',''ST_MultiPolygon'') THEN 1 ELSE 0 END) as is_lake,
        0 as ne_scalerank, area::bigint
-       FROM %s.water_areas_z14plus
+       FROM water_areas_z14plus
        WHERE the_geom_webmercator && $1
-       ORDER BY is_lake ASC', schema
+       ORDER BY is_lake ASC'
     ) USING bbox;
   ELSE
     RETURN;
@@ -394,8 +395,6 @@ BEGIN
 END
 $$
 LANGUAGE 'plpgsql';
-
--- Below this, depends on a schema.
 
 DROP FUNCTION IF EXISTS admin0boundaries_zoomed(text,box3d);
 DROP FUNCTION IF EXISTS admin0boundaries_zoomed(text,text,box3d);

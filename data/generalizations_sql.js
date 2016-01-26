@@ -31,8 +31,8 @@ function tname(table_name) {
 if (process.argv.length == 3) {
   // Write SQL to STDOUT
   var doc = yaml.safeLoad(fs.readFileSync('generalizations.yml', 'utf8'));
-  console.log("SET client_min_messages TO WARNING;");
-  console.log("CREATE SCHEMA IF NOT EXISTS " + default_schema + ";");
+  console.log("SET client_min_messages TO WARNING;\n");
+  console.log("CREATE SCHEMA IF NOT EXISTS " + default_schema + " CASCADE;");
   doc.forEach(function(view) {
     console.log("DROP "+pg_type+" IF EXISTS " + tname(view.name) + ";");  
     console.log("CREATE "+pg_type+" " + tname(view.name) + " AS" +
@@ -42,7 +42,7 @@ if (process.argv.length == 3) {
                 " ORDER BY ST_GeoHash(ST_Transform(ST_SetSRID(Box2D(" + view.cluster_on + "), 3857), 4326));");
     console.log("CREATE INDEX " + view.name + "_" + view.index_by + "_gist ON " + 
                  tname(view.name) + " USING gist(" + view.index_by + ");");
-    console.log("ANALYZE " + tname(view.name) + ";");
+    console.log("ANALYZE " + tname(view.name) + ";\n");
   });
   console.log("RESET client_min_messages;");
 }

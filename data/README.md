@@ -38,9 +38,8 @@ export PGHOST=/var/run/postgresql
 *Imposm3 has additional options which are worth exploring for larger imports*
 
 7. Import `global_functions.sql` into your DB with `node cartodb_sql.js -f global_functions.sql`
-8. run `node generalizations_sql.js public postgres:///` into your DB, setting the connection string as appropriate.
-
-9. Grant usage of the materialized views with `GRANT SELECT ON ALL TABLES IN SCHEMA public TO PUBLIC`
+8. run `node generalizations_sql.js public | node cartodb_sql.js -f /dev/stdin` into your DB
+  *It can be more efficient to run this on the DB server in parallel*
 
 8. Ensure the Azo Sans, DejaVu unicode, unifont fonts are available on your instance.
 9. Open index.html to see your basemap being rendered from CartoDB. The styles will be regenerated on refresh.

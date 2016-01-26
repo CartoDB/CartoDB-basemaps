@@ -307,18 +307,18 @@ LANGUAGE 'plpgsql';
 
 DROP FUNCTION IF EXISTS urban_areas_zoomed(text,box3d);
 CREATE OR REPLACE FUNCTION urban_areas_zoomed(scaleDenominator text, bbox box3d)
-  RETURNS TABLE(cartodb_id integer, scalerank integer, the_geom_webmercator geometry) AS
+  RETURNS TABLE(cartodb_id bigint, scalerank integer, the_geom_webmercator geometry) AS
 $$
 BEGIN
   IF zoom(scaleDenominator::numeric) <= 4 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT cartodb_id, scalerank, the_geom_webmercator
+      'SELECT cartodb_id::bigint, scalerank::integer, the_geom_webmercator
        FROM ne_50m_urban_areas
        WHERE the_geom_webmercator && $1'
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 5 AND zoom(scaleDenominator::numeric) <= 9 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT cartodb_id, scalerank, the_geom_webmercator
+      'SELECT cartodb_id::bigint, scalerank::integer, the_geom_webmercator
        FROM ne_10m_urban_areas
        WHERE the_geom_webmercator && $1'
     ) USING bbox;

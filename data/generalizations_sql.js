@@ -41,8 +41,8 @@ if (process.argv.length == 3) {
                 " ORDER BY ST_GeoHash(ST_Transform(ST_SetSRID(Box2D(" + view.cluster_on + "), 3857), 4326));");
     console.log("CREATE INDEX " + view.name + "_" + view.index_by + "_gist ON " + 
                  tname(view.name) + " USING gist(" + view.index_by + ");");
+    console.log("ANALYZE " + tname(view.name) + ";");
   });
-  console.log("ANALYZE;");
 }
 
 function queryFunction(sql) {
@@ -79,6 +79,7 @@ function queriesFor(view) {
                 " ORDER BY ST_GeoHash(ST_Transform(ST_SetSRID(Box2D(" + view.cluster_on + "), 3857), 4326));"));
   arr.push(queryFunction("CREATE INDEX " + view.name + "_" + view.index_by + "_gist ON " + 
                  tname(view.name) + " USING gist(" + view.index_by + ");"));
+  arr.push(queryFunction("ANALYZE " + tname(view.name) + ";"));
   return arr;
 }
 

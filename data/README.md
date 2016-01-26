@@ -20,8 +20,8 @@ export PGOPTIONS="-c statement_timeout=0"
 export PGHOST=/var/run/postgresql
 ```
 3. Download OpenStreetMap data from [planet.openstreetmap.org](http://planet.openstreetmap.org/), [Geofabrik Extracts](http://download.geofabrik.de/), or [Mapzen Metro Extracts](https://mapzen.com/data/metro-extracts).
-4. Enable hstore on the database with ``psql -c 'CREATE EXTENSION hstore;'``
-  *PostGIS was set up by the static data instructions.*
+4. Enable hstore on the database with ``psql -c 'CREATE EXTENSION IF NOT EXISTS hstore;'``
+  *PostGIS was previously set up by the static data instructions.*
 5. *Optional: Remove previous imposm3 imports with*
   ```sh
   imposm3 import -mapping imposm3_mapping.json \

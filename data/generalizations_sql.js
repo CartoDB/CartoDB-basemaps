@@ -32,9 +32,9 @@ if (process.argv.length == 3) {
   // Write SQL to STDOUT
   var doc = yaml.safeLoad(fs.readFileSync('generalizations.yml', 'utf8'));
   console.log("SET client_min_messages TO WARNING;\n");
-  console.log("CREATE SCHEMA IF NOT EXISTS " + default_schema + " CASCADE;");
+  console.log("CREATE SCHEMA IF NOT EXISTS " + default_schema + ";");
   doc.forEach(function(view) {
-    console.log("DROP "+pg_type+" IF EXISTS " + tname(view.name) + ";");  
+    console.log("DROP "+pg_type+" IF EXISTS " + tname(view.name) + " CASCADE;");
     console.log("CREATE "+pg_type+" " + tname(view.name) + " AS" +
                 " SELECT " + view.select + 
                 " FROM "  + tname(view.from) + 

@@ -6,7 +6,8 @@
     "handlebars": "^2.0.0",
     "js-yaml": "^3.2.2",
     "pg": "^3.5.0",
-    "request": "^2.40.0"
+    "request": "^2.40.0",
+    "cartodb-yaml": "^0.1.0"
   },
   "devDependencies": {
     "abaculus": "0.0.4",

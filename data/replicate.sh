@@ -81,7 +81,7 @@ do
             echo "Fetched new data from ${prevSequenceNumber} to ${sequenceNumber} into ${file}"
 
             # Apply the changes to the database
-            imposm3/imposm3 diff -config "${IMPOSM3_MAPPING}" -cachedir "${IMPOSM3_CACHE}" -connection='postgis://?prefix=NONE' "${file}"
+            imposm3/imposm3 diff -config="${IMPOSM3_MAPPING}" -cachedir="${IMPOSM3_CACHE}" -connection="postgis://?prefix=NONE" "${file}"
 
             # No need to rollback now
             rm state-prev.txt

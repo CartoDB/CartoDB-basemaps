@@ -42,3 +42,40 @@ export PGHOST=/var/run/postgresql
   *It can be more efficient to run this on the DB server in parallel*
 
 9. Ensure the Azo Sans, DejaVu unicode, unifont fonts are available on your instance.
+
+## Updating data
+### Coastlines and other quasi-static data
+
+TODO: Convert static data instructions to use sync tables
+
+### OpenStreetMap data
+Updating OpenStreetMap data requires importing the data slightly differently. Instead of the command line above, add the ``-cachedir`` option to set a persistent cache directory, and the ``-diff`` option to store some additional data.
+
+The PGUSER and other libpq environment variables need to be set like above.
+
+```sh
+# Because we're going to use it a lot, set the cache directory to a variable
+imposm3 import -mapping imposm3_mapping.json \
+  -cachedir imposm3_cache -diff
+  -connection='postgis://?prefix=NONE' \
+  -read path/to/extract.osm.pbf -write \
+  -deployproduction -overwritecache
+```
+
+The global functions and generalizations are created like normal.
+
+A sample script that uses Osmosis to fetch diffs is included as replicate.sh. To
+set up the script on Ubuntu using the user `ubuntu`, do
+
+```sh
+mkdir -p /home/ubuntu/replicate
+cd /home/ubuntu/replicate
+git clone https://github.com/CartoDB/CartoDB-basemaps.git # note: won't work until develop branch is merged
+# download imposm3 into an imposm3 directory
+# import, using replicate/imposm3_cache as a cache dir
+osmosis --rrii
+# edit configuration.txt if needed
+# download an appropriate state.txt
+```
+
+For production purposes, you probably want to put the script into Chef or similar, and change some paths.

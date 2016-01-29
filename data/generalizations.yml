@@ -5,7 +5,7 @@
 - name: aeroways
   cluster_on: the_geom
   index_by: the_geom_webmercator
-  select: id, the_geom AS the_geom_webmercator, tags -> 'aeroway' AS type
+  select: the_geom AS the_geom_webmercator, tags -> 'aeroway' AS type
   from: planet
   where: tags ? 'aeroway' AND tags -> 'aeroway' != 'no'
 
@@ -13,7 +13,7 @@
 - name: administrative
   cluster_on: the_geom
   index_by: the_geom_webmercator
-  select: id, tags, tags -> 'admin_level' AS admin_level, the_geom AS the_geom_webmercator
+  select: tags, tags -> 'admin_level' AS admin_level, the_geom AS the_geom_webmercator
   from: planet
   where: tags -> 'boundary' = 'administrative'
 
@@ -21,14 +21,14 @@
 - name: buildings_z14plus
   cluster_on: the_geom
   index_by: the_geom_webmercator
-  select: id, tags -> 'building' building, tags -> 'height' height, ST_Area(the_geom)::bigint AS area, the_geom AS the_geom_webmercator
+  select: osm_id, tags -> 'building' building, tags -> 'height' height, ST_Area(the_geom)::bigint AS area, the_geom AS the_geom_webmercator
   from: planet
   where: tags ? 'building' AND tags -> 'building' != 'no'
 
 - name: buildings_z13
   cluster_on: the_geom_webmercator
   index_by: the_geom_webmercator
-  select: id, building, height, area, generalize(the_geom_webmercator,13) as the_geom_webmercator
+  select: osm_id, building, height, area, generalize(the_geom_webmercator,13) as the_geom_webmercator
   from: buildings_z14plus
   where: area > 10000
 
@@ -36,7 +36,7 @@
 - name: green_areas_z14plus
   cluster_on: the_geom
   index_by: the_geom_webmercator
-  select: id, tags -> 'name' AS name, ST_Area(the_geom)::bigint AS area, the_geom AS the_geom_webmercator
+  select: tags -> 'name' AS name, ST_Area(the_geom)::bigint AS area, the_geom AS the_geom_webmercator
   from: planet
   where: tags -> 'leisure' IN ('park','water_park','marina','nature_reserve','playground',
          'garden','common','sports_centre','golf_course','stadium','track','pitch')
@@ -46,14 +46,14 @@
 - name: green_areas_z13
   cluster_on: the_geom_webmercator
   index_by: the_geom_webmercator
-  select: id, name, area, generalize(the_geom_webmercator,13) as the_geom_webmercator
+  select: name, area, generalize(the_geom_webmercator,13) as the_geom_webmercator
   from: green_areas_z14plus
   where: area > 75000
 
 - name: green_areas_z10
   cluster_on: the_geom_webmercator
   index_by: the_geom_webmercator
-  select: id, name, area, generalize(the_geom_webmercator,10) as the_geom_webmercator
+  select: name, area, generalize(the_geom_webmercator,10) as the_geom_webmercator
   from: green_areas_z13
   where: area > 5000000
 
@@ -61,7 +61,7 @@
 - name: water_areas_z14plus
   cluster_on: the_geom
   index_by: the_geom_webmercator
-  select: id, tags -> 'name' AS name, ST_Area(the_geom)::bigint AS area, COALESCE(tags -> 'natural', tags -> 'waterway', tags -> 'landuse') AS type, the_geom AS the_geom_webmercator
+  select: tags -> 'name' AS name, ST_Area(the_geom)::bigint AS area, COALESCE(tags -> 'natural', tags -> 'waterway', tags -> 'landuse') AS type, the_geom AS the_geom_webmercator
   from: planet
   where: tags -> 'natural' IN ('water','bay')
          OR tags -> 'waterway' IN ('riverbank','canal','river')
@@ -70,14 +70,14 @@
 - name: water_areas_z13
   cluster_on: the_geom_webmercator
   index_by: the_geom_webmercator
-  select: id, name, area, type, generalize(the_geom_webmercator,13) as the_geom_webmercator
+  select: name, area, type, generalize(the_geom_webmercator,13) as the_geom_webmercator
   from: water_areas_z14plus
   where: area > 25000 OR type = 'riverbank'
 
 - name: water_areas_z10
   cluster_on: the_geom_webmercator
   index_by: the_geom_webmercator
-  select: id, name, area, type, generalize(the_geom_webmercator,10) as the_geom_webmercator
+  select: name, area, type, generalize(the_geom_webmercator,10) as the_geom_webmercator
   from: water_areas_z13
   where: area > 25000 OR type = 'riverbank'
 

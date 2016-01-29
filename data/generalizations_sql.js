@@ -33,12 +33,13 @@ if (process.argv.length == 2) {
   doc.forEach(function(view) {
     console.log("DROP "+pg_type+" IF EXISTS " + tname(view.name) + " CASCADE;");
     console.log("CREATE "+pg_type+" " + tname(view.name) + " AS" +
-                " SELECT " + view.select + 
+                " SELECT id, " + view.select +
                 " FROM "  + tname(view.from) + 
                 " WHERE " + view.where + 
                 " ORDER BY ST_GeoHash(ST_Transform(ST_SetSRID(Box2D(" + view.cluster_on + "), 3857), 4326));");
     console.log("CREATE INDEX " + view.name + "_" + view.index_by + "_gist ON " + 
                  tname(view.name) + " USING gist(" + view.index_by + ");");
+    console.log("CREATE UNIQUE INDEX ON " + tname(view.name) + " (id);");
     console.log("ANALYZE " + tname(view.name) + ";\n");
   });
   console.log("RESET client_min_messages;");
@@ -72,12 +73,13 @@ function queriesFor(view) {
   var arr = [];
   arr.push(queryFunction("DROP "+pg_type+" IF EXISTS " + tname(view.name) + " CASCADE;"));
   arr.push(queryFunction("CREATE "+pg_type+" " + tname(view.name) + " AS" +
-                " SELECT " + view.select + 
+                " SELECT id, " + view.select +
                 " FROM "  + tname(view.from) + 
                 " WHERE " + view.where + 
                 " ORDER BY ST_GeoHash(ST_Transform(ST_SetSRID(Box2D(" + view.cluster_on + "), 3857), 4326));"));
   arr.push(queryFunction("CREATE INDEX " + view.name + "_" + view.index_by + "_gist ON " + 
                  tname(view.name) + " USING gist(" + view.index_by + ");"));
+  arr.push(queryFunction("CREATE UNIQUE INDEX ON " + tname(view.name) + " (id);"));
   arr.push(queryFunction("ANALYZE " + tname(view.name) + ";"));
   return arr;
 }

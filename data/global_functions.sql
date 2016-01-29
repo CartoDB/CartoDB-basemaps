@@ -265,7 +265,7 @@ BEGIN
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 8 AND zoom(scaleDenominator::numeric) <= 10 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id::bigint AS id, the_geom_webmercator, name::text, type::text,
+      'SELECT id::bigint AS id, the_geom_webmercator, name::text, type::text,
        (CASE WHEN type IN (''water'',''bay'',''riverbank'',''reservoir'') 
              AND ST_GeometryType(the_geom_webmercator) IN (''ST_Polygon'',''ST_MultiPolygon'') THEN 1 ELSE 0 END) as is_lake,
        0 as ne_scalerank, area::bigint
@@ -275,7 +275,7 @@ BEGIN
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 11 AND zoom(scaleDenominator::numeric) <= 13 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id::bigint AS id, the_geom_webmercator, name::text, type::text,
+      'SELECT id::bigint AS id, the_geom_webmercator, name::text, type::text,
        (CASE WHEN type IN (''water'',''bay'',''riverbank'',''reservoir'') 
              AND ST_GeometryType(the_geom_webmercator) IN (''ST_Polygon'',''ST_MultiPolygon'') THEN 1 ELSE 0 END) as is_lake,
        0 AS ne_scalerank, area::bigint
@@ -285,7 +285,7 @@ BEGIN
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 14 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id::bigint AS id, the_geom_webmercator, name::text, type::text,
+      'SELECT id::bigint AS id, the_geom_webmercator, name::text, type::text,
        (CASE WHEN type IN (''water'',''bay'',''riverbank'',''reservoir'') 
              AND ST_GeometryType(the_geom_webmercator) IN (''ST_Polygon'',''ST_MultiPolygon'') THEN 1 ELSE 0 END) as is_lake,
        0 as ne_scalerank, area::bigint
@@ -365,7 +365,7 @@ BEGIN
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 13 THEN
     RETURN QUERY EXECUTE format(
-       'SELECT osm_id, name::text, ''city''::text, the_geom_webmercator, 99 as scalerank, place::text, numeric_or_zero(population) as pop_est, false as is_capital
+       'SELECT id, name::text, ''city''::text, the_geom_webmercator, 99 as scalerank, place::text, numeric_or_zero(population) as pop_est, false as is_capital
         FROM places
         WHERE the_geom_webmercator && $1
         ORDER BY population DESC NULLS LAST'
@@ -415,7 +415,7 @@ BEGIN
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 10 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id::bigint, the_geom_webmercator, false
+      'SELECT id::bigint, the_geom_webmercator, false
        FROM administrative
        WHERE admin_level = ''2''
        AND the_geom_webmercator && $1'
@@ -447,7 +447,7 @@ BEGIN
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 10 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id::bigint, tags::hstore -> ''name'' as name, 0, the_geom_webmercator, ST_GeometryType(the_geom_webmercator) AS geomtype
+      'SELECT id::bigint, tags::hstore -> ''name'' as name, 0, the_geom_webmercator, ST_GeometryType(the_geom_webmercator) AS geomtype
        FROM administrative
        WHERE admin_level = ''4''
        AND the_geom_webmercator && $1'
@@ -631,18 +631,18 @@ LANGUAGE 'plpgsql';
 DROP FUNCTION IF EXISTS buildings_zoomed(text,box3d);
 DROP FUNCTION IF EXISTS buildings_zoomed(text,text,box3d);
 CREATE OR REPLACE FUNCTION buildings_zoomed(scaleDenominator text, bbox box3d)
-  RETURNS TABLE(osm_id bigint, area bigint, the_geom_webmercator geometry) AS
+  RETURNS TABLE(cartodb_id bigint, osm_id bigint, area bigint, the_geom_webmercator geometry) AS
 $$
 BEGIN
   IF zoom(scaleDenominator::numeric) >= 12 AND zoom(scaleDenominator::numeric) <= 13 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id::bigint, area::bigint, the_geom_webmercator
+      'SELECT id::bigint AS cartodb_id, osm_id::bigint, area::bigint, the_geom_webmercator
        FROM buildings_z13
        WHERE the_geom_webmercator && $1'
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 14 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id::bigint, area::bigint, the_geom_webmercator
+      'SELECT id::bigint AS cartodb_id, osm_id::bigint, area::bigint, the_geom_webmercator
        FROM buildings_z14plus
        WHERE the_geom_webmercator && $1'
     ) USING bbox;
@@ -656,24 +656,24 @@ LANGUAGE 'plpgsql';
 DROP FUNCTION IF EXISTS green_areas_zoomed(text,box3d);
 DROP FUNCTION IF EXISTS green_areas_zoomed(text,text,box3d);
 CREATE OR REPLACE FUNCTION green_areas_zoomed(scaleDenominator text, bbox box3d)
-  RETURNS TABLE(osm_id bigint, name text, area bigint, the_geom_webmercator geometry) AS
+  RETURNS TABLE(cartodb_id bigint, name text, area bigint, the_geom_webmercator geometry) AS
 $$
 BEGIN
   IF zoom(scaleDenominator::numeric) >= 9 AND zoom(scaleDenominator::numeric) <= 10 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id::bigint, name, area::bigint, the_geom_webmercator
+      'SELECT id::bigint AS cartodb_id, name, area::bigint, the_geom_webmercator
        FROM green_areas_z10
        WHERE the_geom_webmercator && $1'
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 11 AND zoom(scaleDenominator::numeric) <= 13 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id::bigint, name, area::bigint, the_geom_webmercator
+      'SELECT id::bigint AS cartodb_id, name, area::bigint, the_geom_webmercator
        FROM green_areas_z13
        WHERE the_geom_webmercator && $1'
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 14 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id::bigint, name, area::bigint, the_geom_webmercator
+      'SELECT id::bigint AS cartodb_id, name, area::bigint, the_geom_webmercator
        FROM green_areas_z14plus
        WHERE the_geom_webmercator && $1'
     ) USING bbox;
@@ -688,12 +688,12 @@ LANGUAGE 'plpgsql';
 DROP FUNCTION IF EXISTS aeroways_zoomed(text,box3d);
 DROP FUNCTION IF EXISTS aeroways_zoomed(text,text,box3d);
 CREATE OR REPLACE FUNCTION aeroways_zoomed(scaleDenominator text, bbox box3d)
-  RETURNS TABLE(osm_id bigint, type text, the_geom_webmercator geometry) AS
+  RETURNS TABLE(cartodb_id bigint, type text, the_geom_webmercator geometry) AS
 $$
 BEGIN
   IF zoom(scaleDenominator::numeric) >= 12 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id::bigint, type::text, the_geom_webmercator
+      'SELECT id::bigint AS cartodb_id, type::text, the_geom_webmercator
        FROM aeroways
        WHERE the_geom_webmercator && $1'
     ) USING bbox;
@@ -707,12 +707,12 @@ LANGUAGE 'plpgsql';
 DROP FUNCTION IF EXISTS osm_admin_zoomed(text,box3d);
 DROP FUNCTION IF EXISTS osm_admin_zoomed(text,text,box3d);
 CREATE OR REPLACE FUNCTION osm_admin_zoomed(scaleDenominator text, bbox box3d)
-  RETURNS TABLE(osm_id bigint, admin_level text, the_geom_webmercator geometry) AS
+  RETURNS TABLE(cartodb_id bigint, admin_level text, the_geom_webmercator geometry) AS
 $$
 BEGIN
   IF zoom(scaleDenominator::numeric) >= 9 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT osm_id::bigint, admin_level::text, the_geom_webmercator
+      'SELECT id::bigint AS cartodb_id, admin_level::text, the_geom_webmercator
        FROM %s.administrative
        WHERE the_geom_webmercator && $1'
     ) USING bbox;

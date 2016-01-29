@@ -24,15 +24,15 @@ urban_areas:
 
 green_areas:
   sql: |
-    SELECT osm_id, the_geom_webmercator, area FROM green_areas_zoomed('!scale_denominator!',!bbox!) AS _
+    SELECT the_geom_webmercator, area FROM green_areas_zoomed('!scale_denominator!',!bbox!) AS _
 
 admin0boundaries:
   sql: |
-    SELECT cartodb_id, the_geom_webmercator, unit FROM admin0boundaries_zoomed('!scale_denominator!', !bbox!) AS _
+    SELECT the_geom_webmercator, unit FROM admin0boundaries_zoomed('!scale_denominator!', !bbox!) AS _
 
 admin1boundaries:
   sql: |
-    SELECT cartodb_id, scalerank, the_geom_webmercator FROM admin1boundaries_zoomed('!scale_denominator!', !bbox!) AS _
+    SELECT scalerank, the_geom_webmercator FROM admin1boundaries_zoomed('!scale_denominator!', !bbox!) AS _
 
 water:
   sql: |
@@ -42,12 +42,13 @@ water:
 
 aeroways:
   sql: |
-    SELECT osm_id, type, the_geom_webmercator FROM aeroways_zoomed('!scale_denominator!', !bbox!) AS _
+    SELECT type, the_geom_webmercator FROM aeroways_zoomed('!scale_denominator!', !bbox!) AS _
 
 ne10mroads:
   sql: |
     SELECT cartodb_id, the_geom_webmercator, type, scalerank FROM ne_10m_roads_zoomed('!scale_denominator!', !bbox!) AS _
 
+# osm_id is used to call out a few special buildings
 buildings:
   sql: |
     SELECT osm_id, the_geom_webmercator, area FROM buildings_zoomed('!scale_denominator!',!bbox!) AS _
@@ -70,7 +71,7 @@ country_city_labels:
 
 park_labels:
   sql: |
-    SELECT osm_id, name, area, the_geom_webmercator FROM green_areas_zoomed('!scale_denominator!',!bbox!) AS _
+    SELECT name, area, the_geom_webmercator FROM green_areas_zoomed('!scale_denominator!',!bbox!) AS _
 
 water_labels:
   sql: |

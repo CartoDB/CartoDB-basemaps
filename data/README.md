@@ -38,7 +38,7 @@ export PGHOST=/var/run/postgresql
 *Imposm3 has additional options which are worth exploring for larger imports*
 
 7. Import `global_functions.sql` into your DB with `node cartodb_sql.js -f global_functions.sql`
-8. run `node generalizations_sql.js public | node cartodb_sql.js -f /dev/stdin` into your DB
+8. run `node generalizations_sql.js | node cartodb_sql.js -f /dev/stdin` into your DB
   *It can be more efficient to run this on the DB server in parallel*
 
 9. Ensure the Azo Sans, DejaVu unicode, unifont fonts are available on your instance.

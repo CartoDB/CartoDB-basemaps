@@ -11,29 +11,25 @@ var pg_type = 'MATERIALIZED VIEW';
 var threads = 1;
 
 process.argv.forEach(function (val, index, array) {
-  if (index == 2) default_schema = val;
-  if (index == 3) database_url = val;
-  if (index == 4) threads = parseInt(val);
+  if (index == 2) database_url = val;
+  if (index == 3) threads = parseInt(val);
 });
 
-if (process.argv.length < 3) {
-  console.log("arguments SCHEMA [DATABASE_URL] [PARALLEL_THREADS]");
+if (process.argv.length < 2) {
+  console.log("arguments [DATABASE_URL] [PARALLEL_THREADS]");
   process.exit();
 }
 
-// fully qualified table name
 function tname(table_name) {
-  if (table_name.indexOf(".") >= 0) return table_name;
-  return default_schema + "." + table_name;
+  return table_name;
 }
 
 
-if (process.argv.length == 3) {
+if (process.argv.length == 2) {
   // Write SQL to STDOUT
   var doc = yaml.safeLoad(fs.readFileSync('generalizations.yml', 'utf8'));
   console.log("SET client_min_messages TO WARNING;");
   console.log("SET statement_timeout = 0;\n")
-  console.log("CREATE SCHEMA IF NOT EXISTS " + default_schema + ";");
   doc.forEach(function(view) {
     console.log("DROP "+pg_type+" IF EXISTS " + tname(view.name) + " CASCADE;");
     console.log("CREATE "+pg_type+" " + tname(view.name) + " AS" +
@@ -86,7 +82,7 @@ function queriesFor(view) {
   return arr;
 }
 
-if (process.argv.length == 4 || process.argv.length == 5) {
+if (process.argv.length == 3 || process.argv.length == 4) {
   console.log("Using database " + database_url);
   var doc = yaml.safeLoad(fs.readFileSync('generalizations.yml', 'utf8'));
   var queryFunctions = [];

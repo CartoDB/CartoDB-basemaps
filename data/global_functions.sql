@@ -365,7 +365,7 @@ BEGIN
     ) USING bbox;
   ELSIF zoom(scaleDenominator::numeric) >= 13 THEN
     RETURN QUERY EXECUTE format(
-       'SELECT id, name::text, ''city''::text, the_geom_webmercator, 99 as scalerank, place::text, numeric_or_zero(population) as pop_est, false as is_capital
+       'SELECT id::bigint AS cartodb_id, name::text, ''city''::text, the_geom_webmercator, 99 as scalerank, place::text, numeric_or_zero(population) as pop_est, false as is_capital
         FROM places
         WHERE the_geom_webmercator && $1
         ORDER BY population DESC NULLS LAST'

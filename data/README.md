@@ -24,10 +24,9 @@ export PGHOST=/var/run/postgresql
   *PostGIS was previously set up by the static data instructions.*
 5. *Optional: Remove previous imposm3 imports with*
   ```sh
-  imposm3 import -mapping imposm3_mapping.json \
-    -connection='postgis://?prefix=NONE' \
-    -removebackup
+  psql -c 'DROP TABLE IF EXISTS planet CASCADE; DROP SCHEMA IF EXISTS import CASCADE; DROP SCHEMA IF EXISTS backup CASCADE;'
 ```
+  *If planning on consuming replication updates from OSM, read the updating section before running these commands*
 6. Import an OSM extract into your db, using `imposm3_mapping.json`. This can be done with
   ```sh
   imposm3 import -mapping imposm3_mapping.json \

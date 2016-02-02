@@ -305,31 +305,26 @@ DROP FUNCTION IF EXISTS urban_areas_zoomed(text,box3d);
 CREATE OR REPLACE FUNCTION urban_areas_zoomed(scaleDenominator text, bbox box3d)
   RETURNS TABLE(cartodb_id bigint, scalerank integer, the_geom_webmercator geometry) AS
 $$
-BEGIN
-  IF zoom(scaleDenominator::numeric) <= 4 THEN
-    RETURN QUERY EXECUTE format(
-      'SELECT cartodb_id::bigint, scalerank::integer, the_geom_webmercator
-       FROM ne_50m_urban_areas
-       WHERE the_geom_webmercator && $1'
-    ) USING bbox;
-  ELSIF zoom(scaleDenominator::numeric) >= 5 AND zoom(scaleDenominator::numeric) <= 9 THEN
-    RETURN QUERY EXECUTE format(
-      'SELECT cartodb_id::bigint, scalerank::integer, the_geom_webmercator
-       FROM ne_10m_urban_areas
-       WHERE the_geom_webmercator && $1'
-    ) USING bbox;
-  ELSE
-    RETURN;
-  END IF;
-END
+SELECT cartodb_id::bigint, scalerank::integer, the_geom_webmercator
+  FROM ne_50m_urban_areas
+  WHERE the_geom_webmercator && bbox
+    AND zoom(scaleDenominator::numeric) < 5
+UNION ALL
+SELECT cartodb_id::bigint, scalerank::integer, the_geom_webmercator
+  FROM ne_10m_urban_areas
+  WHERE the_geom_webmercator && bbox
+    AND zoom(scaleDenominator::numeric) >= 5 AND zoom(scaleDenominator::numeric) < 9;
 $$
-LANGUAGE 'plpgsql';
+LANGUAGE SQL;
 
 DROP FUNCTION IF EXISTS country_city_labels_zoomed(text,box3d);
 DROP FUNCTION IF EXISTS country_city_labels_zoomed(text,text,box3d);
 CREATE OR REPLACE FUNCTION country_city_labels_zoomed(scaleDenominator text, bbox box3d)
   RETURNS TABLE(cartodb_id bigint, name text, country_city text, the_geom_webmercator geometry, scalerank integer, place text, pop_est numeric, is_capital bool) AS
 $$
+
+
+
 BEGIN
   IF zoom(scaleDenominator::numeric) <= 3 AND zoom(scaleDenominator::numeric) >= 1 THEN
     RETURN QUERY EXECUTE format(
@@ -381,20 +376,18 @@ DROP FUNCTION IF EXISTS ne_10m_roads_zoomed(text,box3d);
 CREATE OR REPLACE FUNCTION ne_10m_roads_zoomed(scaleDenominator text, bbox box3d)
   RETURNS TABLE(cartodb_id integer, the_geom_webmercator geometry, type text, scalerank numeric) AS
 $$
-BEGIN
-  IF zoom(scaleDenominator::numeric) <= 8 AND zoom(scaleDenominator::numeric) >= 6 THEN
-    RETURN QUERY EXECUTE format(
-      'SELECT cartodb_id, the_geom_webmercator, type::text, scalerank::numeric
-       FROM ne_10m_roads
-       WHERE type NOT IN (''Ferry, seasonal'', ''Ferry Route'')
-       AND the_geom_webmercator && $1
-       ORDER BY scalerank DESC') USING bbox;
-  ELSE
-    RETURN;
-  END IF;
-END
+SELECT
+    cartodb_id,
+    the_geom_webmercator,
+    type::text,
+    scalerank::numeric
+  FROM ne_10m_roads
+  WHERE type NOT IN ('Ferry, seasonal', 'Ferry Route')
+    AND the_geom_webmercator && bbox
+    AND zoom(scaleDenominator::numeric) >= 6 AND zoom(scaleDenominator::numeric) < 9
+    ORDER BY scalerank DESC
 $$
-LANGUAGE 'plpgsql';
+LANGUAGE SQL;
 
 DROP FUNCTION IF EXISTS admin0boundaries_zoomed(text,box3d);
 DROP FUNCTION IF EXISTS admin0boundaries_zoomed(text,text,box3d);
@@ -463,20 +456,17 @@ DROP FUNCTION IF EXISTS admin1_polygons_zoomed(text,box3d);
 CREATE OR REPLACE FUNCTION admin1_polygons_zoomed(scaleDenominator text, bbox box3d)
   RETURNS TABLE(cartodb_id integer, name text, scalerank integer, the_geom_webmercator geometry) AS
 $$
-BEGIN
-  IF zoom(scaleDenominator::numeric) <= 7 AND zoom(scaleDenominator::numeric) >= 3 THEN
-    RETURN QUERY EXECUTE format(
-      'SELECT cartodb_id, name::text, scalerank::integer, the_geom_webmercator
-       FROM ne_10m_admin_1_states_provinces
-       WHERE adm0_a3 IN (''USA'',''CAN'',''AUS'')
-       AND the_geom_webmercator && $1'
-    ) USING bbox;
-  ELSE
-    RETURN;
-  END IF;
-END
+SELECT
+    cartodb_id,
+    name::text,
+    scalerank::integer,
+    the_geom_webmercator
+  FROM ne_10m_admin_1_states_provinces
+  WHERE adm0_a3 IN ('USA','CAN','AUS')
+    AND the_geom_webmercator && bbox
+    AND zoom(scaleDenominator::numeric) >= 3 AND zoom(scaleDenominator::numeric) < 8;
 $$
-LANGUAGE 'plpgsql';
+LANGUAGE SQL;
 
 
 DROP FUNCTION IF EXISTS high_road(scaleDenominator text, bbox box3d);
@@ -690,38 +680,30 @@ DROP FUNCTION IF EXISTS aeroways_zoomed(text,text,box3d);
 CREATE OR REPLACE FUNCTION aeroways_zoomed(scaleDenominator text, bbox box3d)
   RETURNS TABLE(cartodb_id bigint, type text, the_geom_webmercator geometry) AS
 $$
-BEGIN
-  IF zoom(scaleDenominator::numeric) >= 12 THEN
-    RETURN QUERY EXECUTE format(
-      'SELECT id::bigint AS cartodb_id, type::text, the_geom_webmercator
-       FROM aeroways
-       WHERE the_geom_webmercator && $1'
-    ) USING bbox;
-  ELSE
-    RETURN;
-  END IF;
-END
+SELECT
+    id::bigint AS cartodb_id,
+    type::text,
+    the_geom_webmercator
+  FROM aeroways
+  WHERE the_geom_webmercator && bbox
+    AND zoom(scaleDenominator::numeric) >= 12;
 $$
-LANGUAGE 'plpgsql';
+LANGUAGE SQL;
 
 DROP FUNCTION IF EXISTS osm_admin_zoomed(text,box3d);
 DROP FUNCTION IF EXISTS osm_admin_zoomed(text,text,box3d);
 CREATE OR REPLACE FUNCTION osm_admin_zoomed(scaleDenominator text, bbox box3d)
   RETURNS TABLE(cartodb_id bigint, admin_level text, the_geom_webmercator geometry) AS
 $$
-BEGIN
-  IF zoom(scaleDenominator::numeric) >= 9 THEN
-    RETURN QUERY EXECUTE format(
-      'SELECT id::bigint AS cartodb_id, admin_level::text, the_geom_webmercator
-       FROM %s.administrative
-       WHERE the_geom_webmercator && $1'
-    ) USING bbox;
-  ELSE
-    RETURN;
-  END IF;
-END
+SELECT
+    id::bigint AS cartodb_id,
+    admin_level::text,
+    the_geom_webmercator
+  FROM administrative
+  WHERE the_geom_webmercator && bbox
+    AND zoom(scaleDenominator::numeric) >= 9;
 $$
-LANGUAGE 'plpgsql';
+LANGUAGE SQL;
 
 -- Not needed unless another file is being used in the same session
 RESET client_min_messages;

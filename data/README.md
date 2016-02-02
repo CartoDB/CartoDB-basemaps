@@ -4,8 +4,8 @@ Some parts of loading data onto a CartoDB instance require direct access, not ac
 
 ## Loading data
 ### Installing static data and coastlines
-1. run `node import_files.js` to import Natural Earth and Coastline data to your instance. This requires your CartoDB instance have external internet connectivity. A total of about 750MB of space is required, of which 600MB is for coastline data.
-2. TODO: Turn tables into sync tables with automatic sync for coastlines.
+1. Run `node import_files.js` to import Natural Earth and other static data. This requires your CartoDB instance have external internet connectivity. A total of about 150MB of space is required.
+2. Run `node import_sync.js` to import coastline data. This requires your CartoDB instance have external internet connectivity. A total of about 600MB of space is required.
 
 ### Importing OSM data
 1. Install imposm3, e.g. from [Imposm3 static releases](http://imposm.org/static/rel/) or [building from source](https://github.com/omniscale/imposm3). The machine with Imposm3 must have PostgreSQL access to your CartoDB instance.

@@ -44,7 +44,7 @@ var startImport = function(wantedUrl) {
       uri: 'synchronizations?api_key=' + API_KEY,
       json: {
         'url': wantedUrl,
-        'interval': 900
+        'interval': 2592000
       }
     }
     request(get, function (error, response, body) {

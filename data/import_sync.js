@@ -41,12 +41,15 @@ var startImport = function(wantedUrl) {
   return function(callback) {
     var get = {
       method: "POST",
-      uri: 'imports?api_key=' + API_KEY,
-      json: {'url': wantedUrl}
+      uri: 'synchronizations?api_key=' + API_KEY,
+      json: {
+        'url': wantedUrl,
+        'interval': 900
+      }
     }
     request(get, function (error, response, body) {
       if (error) callback(error);
-      checkImport(wantedUrl.split("/").pop(), body['item_queue_id'], callback)
+      checkImport(wantedUrl.split("/").pop(), body['id'], callback)
     });
   }
 }
@@ -54,16 +57,16 @@ var startImport = function(wantedUrl) {
 var checkImport = function(url, import_id, callback) {
     var get = {
       method: "GET",
-      uri: 'imports/' + import_id + '?api_key=' + API_KEY
+      uri: 'synchronizations/' + import_id + '/sync_now?api_key=' + API_KEY
     }
     request(get, function(error, response, body) {
       if(error) return callback(error);
       json = JSON.parse(body);
       console.log(url+": "+json['state']);
       if(json['state'] == 'failure') return callback(json);
-      if(json['state'] != 'complete') {
+      if(json['state'] != 'success') {
         setTimeout(function(){checkImport(url, import_id, callback)}, 500);
-      }else{
+      } else {
         callback(null, body);
       }
     })

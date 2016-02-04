@@ -10,6 +10,6 @@ script:
   - jsonlint data/imposm3_mapping.json
   - GLOBIGNORE="layers.yml:.travis.yml"
   - for style in *.yml; do
-      jsonstyle="$(./node_modules/.bin/cartodb-yaml $style)" || exit 1
+      jsonstyle="$(./node_modules/.bin/cartodb-yaml $style)" || exit 1;
       if [[ "$jsonstyle" == "{}" ]]; then echo "$style created an empty JSON file"; exit 1; fi
     done

@@ -50,5 +50,14 @@ This style is intended to be used with the [Atom text editor](*https://atom.io/)
 
 ## Named map creation
 
-To create a "Named Map", so users can access the basemap without API key, running `make named_maps` will create them using the local styles.
+To let users access the basemap without an API key, the script `create_named.js` can be used.
 
+For the six maps listed on [the basemap page](https://cartodb.com/basemaps) this can be done with
+
+```sh
+node create_named.js positron-all.yml light_all
+node create_named.js positron-labels-only.yml light_only_labels
+node create_named.js dark-matter-all.yml dark_all
+node create_named.js dark-matter-no-labels.yml dark_nolabels
+node create_named.js dark-matter-labels-only.yml dark_only_labels
+```

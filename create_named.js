@@ -37,7 +37,7 @@ var deleteNamed = function(name, callback) {
     request(get, function(error, response, body) {
         if(error) return callback(error);
         if (response.statusCode == 404) {
-            console.log("Map " + name + " does not exist, delete did not do anything")
+            console.log("Map " + name + " does not exist, DELETE did not do anything")
         } else if (response.statusCode == 204) {
             console.log("Map " + name + " deleted")
         } else {

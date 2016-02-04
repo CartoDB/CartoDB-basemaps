@@ -8,11 +8,11 @@ The code and styles here are intended for serving the basemaps on your own local
 
 This style is designed to work with CartoDB and Windshaft, so is structured differently than a standard CartoCSS project.
 
-* All CartoCSS styles live in [`/styles`](styles/). Layers for a map style are defined in named YAML files in the root directory, and select layers from the layers catalog in [`layers.yml`](layers.yml).
+* All CartoCSS styles live in [`/styles`](styles/). Layers for a map style are defined in named YAML files in the root directory, and it selects layers from the layers catalog in [`layers.yml`](layers.yml).
 
 * The map style layers file is combined with the catalog using [cartodb-yaml](https://github.com/stamen/cartodb-yaml)
 
-* There's two places where database stuff (materialized views, PL/PGSQL functions) is defined.
+* There's two places where database stuff (materialized views, PL/PGSQL functions) are defined.
 	* [`global_functions.sql`](data/global_functions.sql) is where all the functions go. This needs to be loaded first.
 	* [`generalizations.yml`](data/generalizations.yml) describes the materialized views, this is read by `generalizations_sql.js` to output either raw SQL or issue queries.
 

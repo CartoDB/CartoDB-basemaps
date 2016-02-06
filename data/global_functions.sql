@@ -2,6 +2,8 @@
 -- why many drop two functions
 SET client_min_messages TO WARNING;
 
+BEGIN;
+
 CREATE OR REPLACE FUNCTION generalize(geom geometry, zoom int) RETURNS geometry
 AS $$
 BEGIN
@@ -677,5 +679,6 @@ SELECT
 $$
 LANGUAGE SQL;
 
+COMMIT;
 -- Not needed unless another file is being used in the same session
 RESET client_min_messages;

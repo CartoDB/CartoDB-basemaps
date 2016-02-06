@@ -6,6 +6,8 @@ addons:
     - python-demjson
 install:
   - npm install
+before_script:
+  openssl aes-256-cbc -K $encrypted_dde8a6eeaa7c_key -iv $encrypted_dde8a6eeaa7c_iv -in config.json.enc -out config.json -d
 script:
   - jsonlint data/imposm3_mapping.json
   - GLOBIGNORE="layers.yml:.travis.yml"

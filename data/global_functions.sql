@@ -11,22 +11,18 @@ END
 $$ LANGUAGE plpgsql IMMUTABLE;
 
 CREATE OR REPLACE FUNCTION numeric_or_zero(s text) RETURNS numeric
-AS $$
-BEGIN
-  IF s ~ '^[0-9]+$' THEN
-    RETURN s::numeric;
-  ELSE
-    RETURN 0;
-  END IF;
-END
-$$ LANGUAGE plpgsql IMMUTABLE;
+AS
+$$
+SELECT CASE WHEN s ~ '^[0-9]+$' THEN s::numeric ELSE 0 END;
+$$
+LANGUAGE SQL IMMUTABLE;
 
 CREATE OR REPLACE FUNCTION numeric_or_zero(s numeric) RETURNS numeric
-AS $$
-BEGIN
-  RETURN s::numeric;
-END
-$$ LANGUAGE plpgsql IMMUTABLE;
+AS
+$$
+SELECT s::numeric;
+$$
+LANGUAGE SQL IMMUTABLE;
 
 -- see https://github.com/omniscale/imposm3/blob/master/mapping/fields.go#L199
 CREATE OR REPLACE FUNCTION wayzorder(tags hstore) RETURNS integer
@@ -107,41 +103,25 @@ DROP FUNCTION IF EXISTS false_background_zoomed(text,box3d);
 CREATE OR REPLACE FUNCTION false_background_zoomed(scaleDenominator text, bbox box3d)
   RETURNS TABLE(the_geom_webmercator geometry) AS
 $$
-DECLARE
-  zoom NUMERIC;
-BEGIN
-  zoom := zoom(scaleDenominator::numeric);
-  IF zoom >= 9 THEN
-    RETURN QUERY EXECUTE format(
-      'SELECT ($1)::geometry'
-    ) USING bbox;
-  ELSE
-    RETURN;
-  END IF;
-END
+  SELECT bbox::geometry
+    WHERE zoom(scaleDenominator::numeric) >= 9;
 $$
-LANGUAGE 'plpgsql';
+LANGUAGE SQL;
 
 DROP FUNCTION IF EXISTS continents_zoomed(text,box3d);
 CREATE OR REPLACE FUNCTION continents_zoomed(scaleDenominator text, bbox box3d)
   RETURNS TABLE(cartodb_id integer, name text, the_geom_webmercator geometry) AS
 $$
-DECLARE
-  zoom NUMERIC;
-BEGIN
-  -- hack hack. scaledenominators seem to be inaccurate at zooms 0-2
-  IF scaleDenominator::numeric > 139000000 THEN
-    RETURN QUERY EXECUTE format(
-      'SELECT cartodb_id, name::text, the_geom_webmercator
-       FROM continents_900913
-       WHERE the_geom_webmercator && $1'
-    ) USING bbox;
-  ELSE
-    RETURN;
-  END IF;
-END
+SELECT
+    cartodb_id,
+    name::text,
+    the_geom_webmercator
+  FROM continents_900913
+  WHERE the_geom_webmercator && bbox
+    -- hack hack. scaledenominators seem to be inaccurate at zooms 0-2
+    AND scaleDenominator::numeric > 139000000;
 $$
-LANGUAGE 'plpgsql';
+LANGUAGE SQL;
 
 DROP FUNCTION IF EXISTS land_positive_zoomed(text,box3d);
 CREATE OR REPLACE FUNCTION land_positive_zoomed(scaleDenominator text, bbox box3d)
@@ -186,22 +166,14 @@ DROP FUNCTION IF EXISTS land_negative_zoomed(text,box3d);
 CREATE OR REPLACE FUNCTION land_negative_zoomed(scaleDenominator text, bbox box3d)
   RETURNS TABLE(cartodb_id bigint, the_geom_webmercator geometry) AS
 $$
-DECLARE
-  zoom NUMERIC;
-BEGIN
-  zoom := zoom(scaleDenominator::numeric);
-  IF zoom >= 9 THEN
-    RETURN QUERY EXECUTE format(
-      'SELECT cartodb_id::bigint, the_geom_webmercator
-       FROM water_polygons
-       WHERE the_geom_webmercator && $1'
-    ) USING bbox;
-  ELSE
-    RETURN;
-  END IF;
-END
+SELECT
+    cartodb_id::bigint,
+    the_geom_webmercator
+  FROM water_polygons
+  WHERE the_geom_webmercator && bbox
+    AND zoom(scaleDenominator::numeric) >= 9;
 $$
-LANGUAGE 'plpgsql';
+LANGUAGE SQL;
 
 DROP FUNCTION IF EXISTS ne_marine_zoomed(text,box3d);
 CREATE OR REPLACE FUNCTION ne_marine_zoomed(scaleDenominator text, bbox box3d)

@@ -192,7 +192,7 @@ BEGIN
   zoom := zoom(scaleDenominator::numeric);
   IF zoom >= 9 THEN
     RETURN QUERY EXECUTE format(
-      'SELECT cartodb_id, the_geom_webmercator
+      'SELECT cartodb_id::bigint, the_geom_webmercator
        FROM water_polygons
        WHERE the_geom_webmercator && $1'
     ) USING bbox;

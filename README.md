@@ -56,6 +56,7 @@ For the six maps listed on [the basemap page](https://cartodb.com/basemaps) this
 
 ```sh
 node create_named.js positron-all.yml light_all
+node create_named.js positron-no-labels.yml light_nolabels
 node create_named.js positron-labels-only.yml light_only_labels
 node create_named.js dark-matter-all.yml dark_all
 node create_named.js dark-matter-no-labels.yml dark_nolabels

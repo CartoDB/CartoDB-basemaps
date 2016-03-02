@@ -19,7 +19,7 @@
 
 REPLICATE_HOME=/home/ubuntu/replicate
 IMPOSM3_MAPPING="${REPLICATE_HOME}/CartoDB-basemaps/data/imposm3_mapping.json"
-IMPOSM3_CACHE="${REPLICATE_HOME}/imposm3_cache"
+IMPOSM3_CACHE="/mnt/imposm3_cache"
 
 # Define exit handler
 function onexit {

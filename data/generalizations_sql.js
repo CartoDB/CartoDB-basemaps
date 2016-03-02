@@ -34,6 +34,7 @@ if (process.argv.length == 2) {
       console.log("CREATE INDEX IF NOT EXISTS \"" + view.from + "_view_" + view.name + "_idx\" ON " + tname(view.from) +
                   " USING GIST (" + view.cluster_on + ") WHERE (" + view.where + ");");
     }
+    console.log("");
   });
   console.log("RESET client_min_messages;");
 }

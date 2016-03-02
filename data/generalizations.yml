@@ -3,7 +3,7 @@
 
 # Aeroways
 - name: aeroways
-  materialized: true
+  materialized: false
   cluster_on: the_geom
   index_by: the_geom_webmercator
   select: the_geom AS the_geom_webmercator, tags -> 'aeroway' AS type
@@ -12,7 +12,7 @@
 
 # admin-0 and admin-1 boundaries
 - name: administrative
-  materialized: true
+  materialized: false
   cluster_on: the_geom
   index_by: the_geom_webmercator
   select: tags, tags -> 'admin_level' AS admin_level, the_geom AS the_geom_webmercator
@@ -38,7 +38,7 @@
 
 # Green Areas
 - name: green_areas_z14plus
-  materialized: true
+  materialized: false
   cluster_on: the_geom
   index_by: the_geom_webmercator
   select: tags -> 'name' AS name, ST_Area(the_geom)::bigint AS area, the_geom AS the_geom_webmercator

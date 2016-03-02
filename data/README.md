@@ -36,9 +36,9 @@ export PGHOST=/var/run/postgresql
   ```
 *Imposm3 has additional options which are worth exploring for larger imports*
 
-7. Import `global_functions.sql` into your DB with `node cartodb_sql.js -f global_functions.sql`
-8. run `node generalizations_sql.js | node cartodb_sql.js -f /dev/stdin` into your DB
+7. run `node generalizations_sql.js | node cartodb_sql.js -f /dev/stdin` into your DB. If dealing with a full planet extract, this should be done on the database server with `node generalizations_sql.js | psql`.
   *It can be more efficient to run this on the DB server in parallel*
+8. Import `global_functions.sql` into your DB with `node cartodb_sql.js -f global_functions.sql`
 
 9. Ensure the Azo Sans, DejaVu unicode, unifont fonts are available on your instance.
 

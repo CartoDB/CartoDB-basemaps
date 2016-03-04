@@ -14,7 +14,7 @@
     line-color: @buildings_outline;
   }
   [zoom >= 18] {
-    [osm_id = 220254203], // Madrid
+    [osm_id = 140780178], // Madrid
     [osm_id = 260351411]  // Stamen
     {
       ::red {

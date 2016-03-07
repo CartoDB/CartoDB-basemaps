@@ -4,15 +4,14 @@
 # Aeroways
 - name: aeroways
   materialized: false
-  cluster_on: the_geom
-  index_by: the_geom_webmercator
+  index_by: the_geom
   select: the_geom AS the_geom_webmercator, tags -> 'aeroway' AS type
   from: planet
   where: tags ? 'aeroway' AND tags -> 'aeroway' != 'no'
 
 # admin-0 and admin-1 boundaries
 - name: administrative
-  materialized: false
+  materialized: true
   cluster_on: the_geom
   index_by: the_geom_webmercator
   select: tags, tags -> 'admin_level' AS admin_level, the_geom AS the_geom_webmercator
@@ -37,10 +36,10 @@
   where: area > 10000
 
 # Green Areas
+# 1311+160+9
 - name: green_areas_z14plus
   materialized: false
-  cluster_on: the_geom
-  index_by: the_geom_webmercator
+  index_by: the_geom
   select: tags -> 'name' AS name, ST_Area(the_geom)::bigint AS area, the_geom AS the_geom_webmercator
   from: planet
   where: tags -> 'leisure' IN ('park','water_park','marina','nature_reserve','playground',
@@ -67,8 +66,7 @@
 # Water Areas
 - name: water_areas_z14plus
   materialized: false
-  cluster_on: the_geom
-  index_by: the_geom_webmercator
+  index_by: the_geom
   select: tags -> 'name' AS name, ST_Area(the_geom)::bigint AS area, COALESCE(tags -> 'natural', tags -> 'waterway', tags -> 'landuse') AS type, the_geom AS the_geom_webmercator
   from: planet
   where: tags -> 'natural' IN ('water','bay')
@@ -223,8 +221,7 @@
 
 - name: places
   materialized: false
-  cluster_on: the_geom
-  index_by: the_geom_webmercator
+  index_by: the_geom
   select: tags -> 'place' AS place,
           tags -> 'name' AS name,
           tags -> 'population' AS population,

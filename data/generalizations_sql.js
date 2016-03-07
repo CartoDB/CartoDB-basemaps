@@ -24,7 +24,11 @@ if (process.argv.length == 2) {
     console.log("    FROM "  + tname(view.from));
     console.log("    WHERE " + view.where);
     if (pg_type == 'MATERIALIZED VIEW') {
-      console.log("    ORDER BY ST_GeoHash(ST_Transform(ST_SetSRID(Box2D(" + view.cluster_on + "), 3857), 4326));");
+      if (view.cluster_on) {
+        console.log("    ORDER BY ST_GeoHash(ST_Transform(ST_SetSRID(Box2D(" + view.cluster_on + "), 3857), 4326));");
+      } else {
+        console.log(";");
+      }
       console.log("CREATE INDEX " + view.name + "_" + view.index_by + "_gist ON " +
                    tname(view.name) + " USING gist(" + view.index_by + ");");
       console.log("CREATE UNIQUE INDEX ON " + tname(view.name) + " (id);");
@@ -32,7 +36,7 @@ if (process.argv.length == 2) {
     } else {
       console.log(";"); // Don't ORDER BY
       console.log("CREATE INDEX IF NOT EXISTS \"" + view.from + "_view_" + view.name + "_idx\" ON " + tname(view.from) +
-                  " USING GIST (" + view.cluster_on + ") WHERE (" + view.where + ");");
+                  " USING GIST (" + view.index_by + ") WHERE (" + view.where + ");");
     }
     console.log("");
   });

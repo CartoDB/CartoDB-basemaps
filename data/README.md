@@ -79,3 +79,6 @@ osmosis --rrii
 ```
 
 For production purposes, you probably want to put the script into Chef or similar, and change some paths.
+
+### Refreshing views
+To generate the SQL necessary to update the views, run `node refresh.js`.

@@ -62,3 +62,13 @@ node create_named.js dark-matter-all.yml dark_all
 node create_named.js dark-matter-no-labels.yml dark_nolabels
 node create_named.js dark-matter-labels-only.yml dark_only_labels
 ```
+
+## Versioning
+
+This project follows a MAJOR.MINOR.PATCH versioning system. In the context of a cartographic project you can expect the following:
+
+PATCH: When a patch version is released, there would be no reason not to upgrade. PATCH versions contain only bugfixes e.g. stylesheets won't compile, features are missing by mistake, etc.
+
+MINOR: These are routine releases. They will contain changes to what's shown on the map, how they appear, new features added and old features removed. They may rarely contain changes to assets i.e. shapefiles and fonts but will not contain changes that require software or database reloads. They may contain function or view changes that can be done without downtime or a reload.
+
+MAJOR: Any change the requires reloading a database, or upgrading software dependecies will trigger a major version change.

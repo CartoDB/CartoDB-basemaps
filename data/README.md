@@ -10,7 +10,7 @@ Some parts of loading data onto a CartoDB instance require direct access, not ac
 ### Importing OSM data
 1. Install imposm3, e.g. from [Imposm3 static releases](http://imposm.org/static/rel/) or [building from source](https://github.com/omniscale/imposm3). The machine with Imposm3 must have PostgreSQL access to your CartoDB instance.
 2. Set PostgreSQL environment variables with
-  ```sh
+```sh
 export PGUSER=cartodb_user_uid
 export PGDATABASE="${PGUSER}_db"
 # Required so imposm3 won't time out

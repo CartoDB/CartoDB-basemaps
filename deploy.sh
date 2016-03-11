@@ -1,5 +1,6 @@
 #!/bin/sh
 set -e
+set -x
 openssl aes-256-cbc -K $encrypted_dde8a6eeaa7c_key -iv $encrypted_dde8a6eeaa7c_iv -in config.json.enc -out config.json -d
 
 (cd data; node cartodb_sql.js -f global_functions.sql)

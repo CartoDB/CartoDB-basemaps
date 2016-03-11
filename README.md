@@ -72,3 +72,9 @@ PATCH: When a patch version is released, there would be no reason not to upgrade
 MINOR: These are routine releases. They will contain changes to what's shown on the map, how they appear, new features added and old features removed. They may rarely contain changes to assets i.e. shapefiles and fonts but will not contain changes that require software or database reloads. They may contain function or view changes that can be done without downtime or a reload.
 
 MAJOR: Any change the requires reloading a database, or upgrading software dependecies will trigger a major version change.
+
+The `master` branch only contains versions tagged and released, while work is merged to the `develop` branch.
+
+## Releases
+
+Commits from the develop branch are automatically pushed to the develop basemap server by Travis. Releases require manually pushing to the production server with `create_named.js`.

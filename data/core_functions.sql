@@ -7,11 +7,9 @@ BEGIN;
 
 CREATE OR REPLACE FUNCTION generalize(geom geometry, zoom int) RETURNS geometry
 AS $$
-BEGIN
   -- generalize to 1/4 pixel (assuming 256x256 tiles)
-  RETURN ST_Simplify(geom, 20037508.34 * 2 / 2^(9 + zoom));
-END
-$$ LANGUAGE plpgsql IMMUTABLE;
+  SELECT ST_Simplify(geom, 20037508.34 * 2 / 2^(9 + zoom));
+$$ LANGUAGE SQL IMMUTABLE;
 
 CREATE OR REPLACE FUNCTION numeric_or_zero(s text) RETURNS numeric
 AS

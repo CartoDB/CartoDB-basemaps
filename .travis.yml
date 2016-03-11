@@ -6,7 +6,7 @@ addons:
     - python-demjson
 deploy:
   provider: script
-  script: deploy.sh
+  script: ./deploy.sh
   on:
     branch: develop
 install:

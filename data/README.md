@@ -39,6 +39,7 @@ export PGHOST=/var/run/postgresql
 7. Import `core_functions.sql` into your DB with `node cartodb_sql.js -f core_functions.sql`
 8. run `node generalizations_sql.js | node cartodb_sql.js -f /dev/stdin` into your DB. If dealing with a full planet extract, this should be done on the database server with `node generalizations_sql.js | psql`.
   *It can be more efficient to run this on the DB server in parallel*
+  - You can alternatively run `node generalizations_sql_batch.js` to execute the generalizations in parallel over the CartoDB SQL Batch API.
 9. Import `global_functions.sql` into your DB with `node cartodb_sql.js -f global_functions.sql`
 
 10. Ensure the Azo Sans, DejaVu unicode, unifont fonts are available on your instance.

@@ -9,14 +9,14 @@
 <body>
   <div id="map" style="width: 100%; height: 100%; position: fixed; left:0; top:0; overflow:hidden;"></div>
   <script>
-  var tileUrl = 'http://basemaps-dev95.cartodb.com/api/v1/map/named/{name}/all/{z}/{x}/{y}.png';
+  var tileUrl = 'http://{s}.basemaps.cartocdn.com/{name}/{z}/{x}/{y}.png';
   var attrib = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>';
-  var light_all = L.tileLayer(tileUrl, {name: 'light_all', attribution: attrib});
-  var light_nolabels = L.tileLayer(tileUrl, {name: 'light_nolabels', attribution: attrib});
-  var light_only_labels = L.tileLayer(tileUrl, {name: 'light_only_labels', attribution: attrib});
-  var dark_all = L.tileLayer(tileUrl, {name: 'dark_all', attribution: attrib});
-  var dark_nolabels = L.tileLayer(tileUrl, {name: 'dark_nolabels', attribution: attrib});
-  var dark_only_labels = L.tileLayer(tileUrl, {name: 'dark_only_labels', attribution: attrib});
+  var light_all = L.tileLayer(tileUrl, {name: 'dev_light_all', attribution: attrib});
+  var light_nolabels = L.tileLayer(tileUrl, {name: 'dev_light_nolabels', attribution: attrib});
+  var light_only_labels = L.tileLayer(tileUrl, {name: 'dev_light_only_labels', attribution: attrib});
+  var dark_all = L.tileLayer(tileUrl, {name: 'dev_dark_all', attribution: attrib});
+  var dark_nolabels = L.tileLayer(tileUrl, {name: 'dev_dark_nolabels', attribution: attrib});
+  var dark_only_labels = L.tileLayer(tileUrl, {name: 'dev_dark_only_labels', attribution: attrib});
   var map = L.map('map', {
     center: [49.25, -123.1],
     zoom: 11,

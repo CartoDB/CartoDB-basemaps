@@ -120,10 +120,10 @@ Map {
 @countries_class2_text_fill: lighten(@label_foreground_fill,10%);
 @countries_class2_text_halo_radius: 1.8;
 
-@admin1_labels_size: 10;
-@admin1_labels: rgba(255,255,255,1);
-@admin1_labels_halo: rgba(47,48,53,0.8);
-@admin1_labels_halo_radius: 1.4px;
+@admin1_labels_size: 14;
+@admin1_labels: darken(#8494a1, 15%);
+@admin1_labels_halo: rgba(255,255,255,0.9);
+@admin1_labels_halo_radius: 1.6px;
 
 @admin1_lowzoom_labels_size: @admin1_labels_size;
 @admin1_lowzoom_labels: @admin1_labels;

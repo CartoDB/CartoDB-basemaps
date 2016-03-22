@@ -1,0 +1,21 @@
+language: node_js
+sudo: false
+addons:
+  apt:
+    packages:
+    - python-demjson
+deploy:
+  provider: script
+  script: ./deploy.sh
+  skip_cleanup: true
+  on:
+    branch: develop
+install:
+  - npm install
+script:
+  - jsonlint data/imposm3_mapping.json
+  - GLOBIGNORE="layers.yml:.travis.yml"
+  - for style in *.yml; do
+      jsonstyle="$(./node_modules/.bin/cartodb-yaml $style)" || exit 1;
+      if [[ "$jsonstyle" == "{}" ]]; then echo "$style created an empty JSON file"; exit 1; fi
+    done

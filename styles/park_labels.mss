@@ -12,7 +12,7 @@
     text-size: 12;
     text-name: "[name]"; 
     text-fill: @label_park_fill;
-    text-halo-radius: 1.4px;
+    text-halo-radius: @label_park_halo_radius;
     text-halo-fill: @label_park_halo_fill;
     text-face-name: "Azo Sans Italic","DejaVu Sans Bold","unifont Medium";
     text-character-spacing: 1.0;

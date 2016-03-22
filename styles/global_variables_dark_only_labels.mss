@@ -1,4 +1,7 @@
-// Default colors for the dark style ("dark matter")
+// Alternate colors for dark style ("dark matter") variants
+
+// We use this instead of global_variables.mss whenever we show a subset of features on a transparent background.
+// For example, labels, lines, buildings that need to have modified contrast when overlayed on top of data.
 
 
 // this should be incremented when the data (queries, functions, features) changes:
@@ -8,7 +11,6 @@
 @water: darken(#333336,6%);
 
 Map {
-  background-color: @water;
   buffer-size: 256;
 }
 
@@ -89,65 +91,64 @@ Map {
 @osm_tunnel_stroke: #111;
 
 // labels
-@label_foreground_fill: #777;
-@label_foreground_halo_fill: rgba(0,0,0,0.7);
-@label_foreground_halo_radius: 1.2px;
+@label_foreground_fill: lighten(#555,30%);
+@label_foreground_halo_fill: rgba(0,0,0,0.8);
+@label_foreground_halo_radius: 1.3px;
 
-@label_background_fill: #444;
-@label_background_halo_fill: rgba(0,0,0,0.3);
+@label_background_fill: lighten(#444,15%);
+@label_background_halo_fill: rgba(0,0,0,0.8);
 
-@labels_lowzoom_shield_fill: darken(@label_foreground_fill, 15%);
-@labels_lowzoom_shield_halo_fill: black;
+@labels_lowzoom_shield_fill: lighten(#555, 30%);
+@labels_lowzoom_shield_halo_fill: rgba(0,0,0,0.9);
 @labels_lowzoom_shield_halo_radius: 1.3px;
 
-@labels_highzoom_text_fill: #444;
+@labels_highzoom_text_fill: lighten(#555, 30%);
 @labels_highzoom_halo_fill: darken(@label_foreground_halo_fill,10%);
-@labels_highzoom_halo_radius: 1.7px;
+@labels_highzoom_halo_radius: 1.3px;
 
-
-@labels_highzoom_class1_text_fill: lighten(@labels_highzoom_text_fill,5%);
-@labels_highzoom_class2_text_fill: lighten(@labels_highzoom_text_fill,15%);
+@labels_highzoom_class1_text_fill: lighten(@labels_highzoom_text_fill,15%);
+@labels_highzoom_class2_text_fill: lighten(@labels_highzoom_text_fill,25%);
 @labels_highzoom_class1_text_size: 12;
 @labels_highzoom_class1_text_size_default: 9;
 
-@labels_marine_fill: darken(@label_foreground_fill,20%);
+@labels_marine_fill: darken(@label_foreground_fill,15%);
 @labels_marine_halo_fill: darken(@label_foreground_halo_fill,10%);
 @labels_marine_halo_radius: 1.2px;
 
-@osm_roads_labels_fill: #444;
-@osm_roads_labels_halo: black;
-@osm_roads_labels_radius: 1.7px;
+@osm_roads_labels_fill: lighten(#555, 25%);
+@osm_roads_labels_halo: rgba(0,0,0,0.8);
+@osm_roads_labels_radius: 1.8px;
 
-@countries_class1_text_fill: lighten(@label_foreground_fill,5%);
-@countries_highzoom_class1_text_fill: darken(@label_background_fill,5%);
+@countries_class1_text_fill: lighten(@label_foreground_fill,25%);
+@countries_highzoom_class1_text_fill: lighten(@label_foreground_fill,10%);
 
-@countries_class2_label_size: 10px;
-@countries_class2_text_fill: @countries_class1_text_fill;
-@countries_class2_text_halo_radius: 1.8;
+@countries_class2_label_size: 0;
+@countries_class2_text_fill: transparent;
+@countries_class2_text_halo_radius: 0;
 
 @admin1_labels_size: 14;
-@admin1_labels: #333;
-@admin1_labels_halo: #111;
-@admin1_labels_halo_radius: 1px;
+@admin1_labels: @label_foreground_fill;
+@admin1_labels_halo: rgba(0,0,0,0.9);
+@admin1_labels_halo_radius: 1.3px;
 
-@admin1_lowzoom_labels_size: @admin1_labels_size;
-@admin1_lowzoom_labels: @admin1_labels;
-@admin1_lowzoom_labels_halo_radius: @admin1_labels_halo_radius;
+@admin1_lowzoom_labels_size: 0;
+@admin1_lowzoom_labels: transparent;
+@admin1_lowzoom_labels_halo_radius: 0;
 
-@label_park_fill: darken(@label_foreground_fill,15%);
-@label_park_halo_fill: darken(@label_foreground_halo_fill,10%);
+@label_park_fill: lighten(#555, 20%);
+@label_park_halo_fill: @label_foreground_halo_fill;
 @label_park_halo_radius: 1.2px;
 
-@label_water_fill: darken(@label_foreground_fill,20%);
+@label_water_fill: lighten(#555, 20%);
 @label_water_halo_fill: darken(@label_foreground_halo_fill,5%);
 @label_water_halo_radius: 1.2px;
 
-@continent_labels: @label_foreground_fill;
+@continent_labels: lighten(@label_foreground_fill,25%);
 
 // assets
-@city_shield_file: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/city_shield_dark_444.png");
+@city_shield_file: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/city_shield_dark_666.png");
 @city_shield_file_lowzoom: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/city_shield_dark_666.png");
-@capital_shield_file: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/capital_shield_dark_444.png");
+@capital_shield_file: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/capital_shield_dark_666.png");
 @capital_shield_file_lowzoom: url("http://s3.amazonaws.com/libs.cartocdn.com/stamen-base/capital_shield_dark_666.png");
 
 @park_texture_opacity: 0.12;

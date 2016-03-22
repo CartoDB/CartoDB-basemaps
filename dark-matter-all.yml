@@ -1,0 +1,27 @@
+name: DarkMatter-all
+minzoom: 0
+maxzoom: 20
+
+layers:
+  - global_variables: styles/global_variables_dark.mss
+  - false_background:
+  - land_positive:
+  - urban_areas:
+  - green_areas:
+  - admin0boundaries:
+  - admin1boundaries:
+  - water:
+  - aeroways:
+  - ne10mroads:
+  - buildings:
+  - osmtunnels:
+  - osmroads:
+  - osmbridges:
+  - country_city_labels:
+  - park_labels:
+  - water_labels:
+  - osm_roads_labels:
+  - marine_labels:
+  - admin1boundary_labels:
+  - admin1_labels:
+  - continent_labels:

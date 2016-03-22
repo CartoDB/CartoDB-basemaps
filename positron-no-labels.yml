@@ -1,0 +1,19 @@
+name: Positron-no-labels
+minzoom: 0
+maxzoom: 20
+
+layers:
+  - global_variables:
+  - false_background:
+  - land_positive:
+  - urban_areas:
+  - green_areas:
+  - admin0boundaries:
+  - admin1boundaries:
+  - water:
+  - aeroways:
+  - ne10mroads:
+  - buildings:
+  - osmtunnels:
+  - osmroads:
+  - osmbridges:

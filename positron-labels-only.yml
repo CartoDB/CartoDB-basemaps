@@ -1,0 +1,14 @@
+name: Positron-labels-only
+minzoom: 0
+maxzoom: 20
+
+layers:
+  - global_variables: styles/global_variables_only_labels.mss
+  - country_city_labels:
+  - park_labels:
+  - water_labels:
+  - osm_roads_labels:
+  - marine_labels:
+  - admin1boundary_labels:
+  - admin1_labels:
+  - continent_labels:

@@ -15,6 +15,7 @@
   }
   [zoom >= 18] {
     [osm_id = 140780178], // Madrid
+    [osm_id = 279649784], // Brooklyn
     [osm_id = 260351411]  // Stamen
     {
       ::red {
@@ -53,6 +54,8 @@
       }
     }
     // For multipolygons, we have to put the rainbow on the outside of the building
+    /*
+     * The Brooklyn office moved and is no longer a MP
     [osm_id = -3720805] // Brooklyn
     {
       polygon-clip: false;
@@ -91,6 +94,7 @@
         polygon-fill: @buildings;
       }
     }
+    */
   }
 }
 

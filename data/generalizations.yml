@@ -114,7 +114,7 @@
   from: planet
   where: tags -> 'highway' IN ('motorway', 'motorway_link')
            OR tags -> 'highway' IN ('trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link')
-           OR tags -> 'highway' IN ('residential', 'unclassified', 'road', 'unclassified', 'service', 'minor')
+           OR tags -> 'highway' IN ('residential', 'unclassified', 'road', 'unclassified', 'service')
            OR tags -> 'highway' IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway')
            OR tags -> 'railway' IN ('rail', 'tram', 'light_rail', 'narrow_guage', 'monorail')
 
@@ -127,7 +127,7 @@
           railway,
           (CASE WHEN highway IN ('motorway', 'motorway_link') THEN 'highway'
                 WHEN highway IN ('trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link') THEN 'major_road'
-                WHEN highway IN ('residential', 'unclassified', 'road', 'minor') THEN 'minor_road'
+                WHEN highway IN ('residential', 'unclassified', 'road') THEN 'minor_road'
                 WHEN railway IN ('rail') THEN 'rail'
                 ELSE 'unknown' END) AS kind,
           is_link,
@@ -139,7 +139,7 @@
   from: highroad_z15plus
   where: highway in ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 
            'primary_link', 'secondary','secondary_link', 'tertiary',
-           'tertiary_link','residential','unclassified','road','minor') 
+           'tertiary_link','residential','unclassified','road')
          OR railway = 'rail'
 
 - name: highroad_z13

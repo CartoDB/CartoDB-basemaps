@@ -240,7 +240,16 @@ BEGIN
        'SELECT id::bigint AS cartodb_id, name::text, ''city''::text, the_geom_webmercator, 99 as scalerank, place::text, numeric_or_zero(population) as pop_est, false as is_capital
         FROM places
         WHERE the_geom_webmercator && $1
-        ORDER BY population DESC NULLS LAST'
+        ORDER BY population DESC NULLS LAST,
+          CASE place
+            WHEN ''city'' THEN 10
+            WHEN ''town'' THEN 9
+            WHEN ''village'' THEN 8
+            WHEN ''hamlet'' THEN 7
+            WHEN ''suburb'' THEN 6
+            WHEN ''neighbourhood'' THEN 5
+          END DESC,
+        length(name) DESC'
     ) USING bbox;
   ELSE
     RETURN;

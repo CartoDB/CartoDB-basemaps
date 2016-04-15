@@ -37,7 +37,7 @@ BEGIN
   END IF;
 
   CASE
-    WHEN tags -> 'highway' IN ('minor','road','unclassified','residential','tertiary_link',
+    WHEN tags -> 'highway' IN ('road','unclassified','residential','living_street','tertiary_link',
      'secondary_link','primary_link','trunk_link','motorway_link') THEN
       z = z + 3;
     WHEN tags -> 'highway' = 'tertiary' THEN

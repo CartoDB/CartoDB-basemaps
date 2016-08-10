@@ -69,6 +69,10 @@ country_city_labels:
   sql: |
     SELECT cartodb_id, name, the_geom_webmercator, scalerank, place, pop_est, country_city, is_capital FROM country_city_labels_zoomed('!scale_denominator!',!bbox!) AS _
 
+country_city_labels_lowercase:
+  sql: |
+    SELECT cartodb_id, name, the_geom_webmercator, scalerank, place, pop_est, country_city, is_capital FROM country_city_labels_zoomed('!scale_denominator!',!bbox!) AS _
+
 park_labels:
   sql: |
     SELECT name, area, the_geom_webmercator FROM green_areas_zoomed('!scale_denominator!',!bbox!) AS _
@@ -78,6 +82,10 @@ water_labels:
     SELECT id, the_geom_webmercator, name, area, is_lake FROM water_zoomed('!scale_denominator!',!bbox!) AS _
 
 osm_roads_labels:
+  sql: |
+    SELECT name, highway, railway, kind, the_geom_webmercator FROM high_road_labels('!scale_denominator!',!bbox!) as _
+
+osm_roads_labels_lowercase:
   sql: |
     SELECT name, highway, railway, kind, the_geom_webmercator FROM high_road_labels('!scale_denominator!',!bbox!) as _
 
@@ -93,6 +101,14 @@ admin1_labels:
   sql: |
     SELECT cartodb_id, name, scalerank, the_geom_webmercator FROM admin1_polygons_zoomed('!scale_denominator!',!bbox!) AS _
 
+admin1_labels_lowercase:
+  sql: |
+    SELECT cartodb_id, name, scalerank, the_geom_webmercator FROM admin1_polygons_zoomed('!scale_denominator!',!bbox!) AS _
+
 continent_labels:
+  sql: |
+    SELECT cartodb_id, name, the_geom_webmercator FROM continents_zoomed('!scale_denominator!',!bbox!) AS _
+
+continent_labels_lowercase:
   sql: |
     SELECT cartodb_id, name, the_geom_webmercator FROM continents_zoomed('!scale_denominator!',!bbox!) AS _

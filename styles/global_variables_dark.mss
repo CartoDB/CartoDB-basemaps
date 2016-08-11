@@ -9,7 +9,7 @@
 
 Map {
   background-color: @water;
-  buffer-size: 256;
+  buffer-size: 512;
 }
 
 @landmass_fill: #0e0e0e;

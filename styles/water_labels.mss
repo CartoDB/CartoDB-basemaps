@@ -1,6 +1,6 @@
 // zooms 10+
 
-#water_labels {
+#water_labels [zoom<=17] {
   [is_lake=1] {
     [zoom=9][area>100000000],
     [zoom=10][area>100000000],

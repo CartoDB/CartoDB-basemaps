@@ -1,6 +1,6 @@
 // Zooms 1-13
 
-#country_city_labels[country_city="city"] {
+#country_city_labels[country_city="city"][zoom<=17] {
   [zoom=4][scalerank<=4],
   [zoom=5][scalerank<=5],
   [zoom=6][scalerank<=6],
@@ -81,14 +81,15 @@
     text-face-name: "Open Sans Regular","DejaVu Sans Bold","unifont Medium";
     //text-transform: uppercase;
 
-    text-wrap-width: 100;
+    [zoom<=10]{text-wrap-width: 150;}
+    [zoom>=11][zoom<=12]{text-wrap-width: 200;}
     text-wrap-before: true;
     text-character-spacing: 1;
     text-halo-radius: @labels_highzoom_halo_radius;
     text-halo-fill: @labels_highzoom_halo_fill;
     text-fill: @labels_highzoom_class1_text_fill;
-
     text-min-distance: 10;
+
 
     [zoom>=11]{text-size: 10;}
 
@@ -127,7 +128,7 @@
     [zoom>=13] {
       text-size: 10;
       text-fill: @label_foreground_fill;
-      text-wrap-width: 80;
+      text-wrap-width: 150;
     }
 
     [zoom>=14]{

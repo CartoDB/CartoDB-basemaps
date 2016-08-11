@@ -5,7 +5,7 @@
 @cachebuster: #000096;
 
 @polygoncolor: #ffd479;
-@water: darken(#333336,6%);
+@water: darken(#333336,0%);
 
 Map {
   background-color: @water;
@@ -89,20 +89,20 @@ Map {
 @osm_tunnel_stroke: #111;
 
 // labels
-@label_foreground_fill: #777;
-@label_foreground_halo_fill: rgba(0,0,0,0.7);
-@label_foreground_halo_radius: 1.2px;
+@label_foreground_fill: #ddd;
+@label_foreground_halo_fill: #333;
+@label_foreground_halo_radius: 1px;
 
-@label_background_fill: #444;
-@label_background_halo_fill: rgba(0,0,0,0.3);
+@label_background_fill: #666;
+@label_background_halo_fill: #333;
 
-@labels_lowzoom_shield_fill: darken(@label_foreground_fill, 15%);
-@labels_lowzoom_shield_halo_fill: black;
-@labels_lowzoom_shield_halo_radius: 1.3px;
+@labels_lowzoom_shield_fill: #999;
+@labels_lowzoom_shield_halo_fill: #444;
+@labels_lowzoom_shield_halo_radius: 1;
 
-@labels_highzoom_text_fill: #444;
-@labels_highzoom_halo_fill: darken(@label_foreground_halo_fill,10%);
-@labels_highzoom_halo_radius: 1.7px;
+@labels_highzoom_text_fill: #ccc;
+@labels_highzoom_halo_fill: #444;
+@labels_highzoom_halo_radius: 1px;
 
 
 @labels_highzoom_class1_text_fill: lighten(@labels_highzoom_text_fill,5%);
@@ -110,37 +110,45 @@ Map {
 @labels_highzoom_class1_text_size: 12;
 @labels_highzoom_class1_text_size_default: 9;
 
-@labels_marine_fill: darken(@label_foreground_fill,20%);
-@labels_marine_halo_fill: darken(@label_foreground_halo_fill,10%);
-@labels_marine_halo_radius: 1.2px;
+@labels_marine_fill: lighten(#333336,20%);//darken(@label_foreground_fill,35%);
+@labels_marine_halo_fill: #333336;//darken(@label_foreground_halo_fill,0%);
+@labels_marine_halo_radius: 1px;
 
-@osm_roads_labels_fill: #444;
-@osm_roads_labels_halo: black;
-@osm_roads_labels_radius: 1.7px;
+@osm_roads_labels_fill: lighten(#666,10);
+@osm_roads_labels_halo: #222;
+@osm_roads_labels_radius: 1px;
 
-@countries_class1_text_fill: lighten(@label_foreground_fill,5%);
+@countries_class1_text_fill: #888;
 @countries_highzoom_class1_text_fill: darken(@label_background_fill,5%);
 
 @countries_class2_label_size: 10px;
 @countries_class2_text_fill: @countries_class1_text_fill;
-@countries_class2_text_halo_radius: 1.8;
+@countries_class2_text_halo_radius: 1;
 
+//state labels and similar start at z5
 @admin1_labels_size: 14;
-@admin1_labels: #333;
-@admin1_labels_halo: #111;
+@admin1_labels: #888;
+@admin1_labels_halo: #333;
 @admin1_labels_halo_radius: 1px;
 
 @admin1_lowzoom_labels_size: @admin1_labels_size;
 @admin1_lowzoom_labels: @admin1_labels;
 @admin1_lowzoom_labels_halo_radius: @admin1_labels_halo_radius;
 
+
 @label_park_fill: darken(@label_foreground_fill,15%);
 @label_park_halo_fill: darken(@label_foreground_halo_fill,10%);
-@label_park_halo_radius: 1.2px;
+@label_park_halo_radius: 1px;
 
+@label_water_fill: lighten(#333336,30%);
+@label_water_halo_fill: #333336;
+@label_water_halo_radius: 1px;
+
+/*
 @label_water_fill: darken(@label_foreground_fill,20%);
-@label_water_halo_fill: darken(@label_foreground_halo_fill,5%);
-@label_water_halo_radius: 1.2px;
+@label_water_halo_fill: darken(@label_foreground_halo_fill,10%);
+@label_water_halo_radius: 1px;
+*/
 
 @continent_labels: @label_foreground_fill;
 

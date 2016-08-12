@@ -68,7 +68,7 @@
   // Transition from townpoints to plain text at z8
 
   [zoom=8][scalerank<=7],
-  [zoom=9][scalerank<=9],
+  [zoom=9][scalerank<=8],
   [zoom=10][scalerank<=9],
   [zoom=11][scalerank<=10],
   [zoom=12][scalerank<=10],
@@ -81,14 +81,18 @@
     text-face-name: "Open Sans Regular","DejaVu Sans Bold","unifont Medium";
     //text-transform: uppercase;
 
-    [zoom<=10]{text-wrap-width: 150;}
-    [zoom>=11][zoom<=12]{text-wrap-width: 200;}
+    [zoom<=11]{text-wrap-width: 100;}
+    [zoom=12]{text-wrap-width: 120;}
     text-wrap-before: true;
     text-character-spacing: 1;
+
     text-halo-radius: @labels_highzoom_halo_radius;
     text-halo-fill: @labels_highzoom_halo_fill;
-    text-fill: @labels_highzoom_class1_text_fill;
+    text-fill: #adadad;//@labels_highzoom_class1_text_fill;
+
     text-min-distance: 10;
+    [zoom=10]{text-min-distance: 20;}
+    [zoom>=11]{text-min-distance: 28;}
 
 
     [zoom>=11]{text-size: 10;}
@@ -97,13 +101,13 @@
     [zoom=8][scalerank<=6],
     [zoom=9][scalerank<=7],
     [zoom=10][scalerank<=7] {
-      text-size: @labels_highzoom_class1_text_size;
+      text-size: 11;
       text-fill: @labels_highzoom_class1_text_fill;
       text-line-spacing: -1;
     }
     [zoom=11][scalerank<=7],
     [zoom=12][scalerank<=7] {
-      text-size: 14;
+      text-size: 12;
       text-fill: @labels_highzoom_class1_text_fill;
     }
 
@@ -113,16 +117,20 @@
     [zoom=10][scalerank<=5] {
       text-size: 16;
       text-fill: @labels_highzoom_class2_text_fill;
+      text-wrap-width: 100;
     }
     [zoom=11][scalerank<=5],
     [zoom=12][scalerank<=5]
     {
       text-size: 18;
       text-fill: @label_foreground_fill;
+      text-wrap-width: 100;
     }
 
     // class 0 (default)
     text-size: @labels_highzoom_class1_text_size_default;
+
+
 
     // At this zoom cities disappear, and it's only neighborhoods
     [zoom>=13] {

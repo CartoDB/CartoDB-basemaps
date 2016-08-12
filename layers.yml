@@ -77,7 +77,15 @@ park_labels:
   sql: |
     SELECT name, area, the_geom_webmercator FROM green_areas_zoomed('!scale_denominator!',!bbox!) AS _
 
+park_labels_lowercase:
+  sql: |
+    SELECT name, area, the_geom_webmercator FROM green_areas_zoomed('!scale_denominator!',!bbox!) AS _
+
 water_labels:
+  sql: |
+    SELECT id, the_geom_webmercator, name, area, is_lake FROM water_zoomed('!scale_denominator!',!bbox!) AS _
+
+water_labels_lowercase:
   sql: |
     SELECT id, the_geom_webmercator, name, area, is_lake FROM water_zoomed('!scale_denominator!',!bbox!) AS _
 
@@ -93,7 +101,15 @@ marine_labels:
   sql: |
     SELECT cartodb_id, name, namealt, featurecla, the_geom_webmercator, scalerank FROM ne_marine_zoomed('!scale_denominator!',!bbox!) AS _
 
+marine_labels_lowercase:
+  sql: |
+    SELECT cartodb_id, name, namealt, featurecla, the_geom_webmercator, scalerank FROM ne_marine_zoomed('!scale_denominator!',!bbox!) AS _
+
 admin1boundary_labels:
+  sql: |
+    SELECT cartodb_id, name, scalerank, the_geom_webmercator, geomtype from admin1boundaries_zoomed('!scale_denominator!',!bbox!) as _
+
+admin1boundary_labels_lowercase:
   sql: |
     SELECT cartodb_id, name, scalerank, the_geom_webmercator, geomtype from admin1boundaries_zoomed('!scale_denominator!',!bbox!) as _
 

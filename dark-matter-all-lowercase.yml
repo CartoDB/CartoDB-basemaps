@@ -18,10 +18,10 @@ layers:
   - osmroads:
   - osmbridges:
   - country_city_labels_lowercase:
-  - park_labels:
-  - water_labels:
+  - park_labels_lowercase:
+  - water_labels_lowercase:
   - osm_roads_labels_lowercase:
-  - marine_labels:
-  - admin1boundary_labels:
+  - marine_labels_lowercase:
+  - admin1boundary_labels_lowercase:
   - admin1_labels_lowercase:
   - continent_labels_lowercase:

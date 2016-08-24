@@ -16,6 +16,10 @@
   [zoom>=13] {
     text-size: 10px;
   }
+
+  [zoom>=16] {
+    text-size: 11px;
+  }
 }
 
 #osmroads_labels[zoom>=16][kind='minor_road'] {

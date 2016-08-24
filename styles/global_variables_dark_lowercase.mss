@@ -104,7 +104,7 @@ Map {
 @labels_highzoom_halo_fill: #444;
 @labels_highzoom_halo_radius: 1px;
 
-
+@labels_highzoom_class1_small_text_fill: #adadad;
 @labels_highzoom_class1_text_fill: lighten(@labels_highzoom_text_fill,5%);
 @labels_highzoom_class2_text_fill: lighten(@labels_highzoom_text_fill,15%);
 @labels_highzoom_class1_text_size: 12;
@@ -135,6 +135,8 @@ Map {
 @admin1_lowzoom_labels: @admin1_labels;
 @admin1_lowzoom_labels_halo_radius: @admin1_labels_halo_radius;
 
+@admin_boundary_labels: lighten(@admin1_highzoom,10);
+@admin_boundary_halo: lighten(@landmass_fill,5);
 
 @label_park_fill: darken(@label_foreground_fill,15%);
 @label_park_halo_fill: darken(@label_foreground_halo_fill,10%);

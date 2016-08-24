@@ -88,7 +88,7 @@
 
     text-halo-radius: @labels_highzoom_halo_radius;
     text-halo-fill: @labels_highzoom_halo_fill;
-    text-fill: #adadad;//@labels_highzoom_class1_text_fill;
+    text-fill: @labels_highzoom_class1_small_text_fill;
 
     text-min-distance: 10;
     [zoom=10]{text-min-distance: 20;}
@@ -134,7 +134,7 @@
 
     // At this zoom cities disappear, and it's only neighborhoods
     [zoom>=13] {
-      text-size: 10;
+      text-size: 10.5;
       text-fill: @label_foreground_fill;
       text-wrap-width: 80;
     }

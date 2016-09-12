@@ -1,0 +1,27 @@
+name: DarkMatter-all-lowercase
+minzoom: 0
+maxzoom: 20
+
+layers:
+  - global_variables: styles/global_variables_dark_lowercase.mss
+  - false_background:
+  - land_positive:
+  - urban_areas:
+  - green_areas:
+  - admin0boundaries:
+  - admin1boundaries:
+  - water:
+  - aeroways:
+  - ne10mroads:
+  - buildings:
+  - osmtunnels:
+  - osmroads:
+  - osmbridges:
+  - country_city_labels_lowercase:
+  - park_labels_lowercase:
+  - water_labels_lowercase:
+  - osm_roads_labels_lowercase:
+  - marine_labels_lowercase:
+  - admin1boundary_labels_lowercase:
+  - admin1_labels_lowercase:
+  - continent_labels_lowercase:

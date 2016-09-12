@@ -3,3 +3,5 @@
 .thumb.png
 node_modules
 config.json
+config.json.dev
+config.json.prod

@@ -1,6 +1,6 @@
 // zooms 10+
 
-#park_labels {
+#park_labels [zoom<=17] {
   [zoom=10][area>100000000],
   [zoom=11][area>25000000],
   [zoom=12][area>5000000],
@@ -10,13 +10,13 @@
   [zoom=16][area>10000],
   [zoom>=17] {
     text-size: 12;
-    text-name: "[name]"; 
+    text-name: "[name]";
     text-fill: @label_park_fill;
     text-halo-radius: @label_park_halo_radius;
     text-halo-fill: @label_park_halo_fill;
-    text-face-name: "Azo Sans Italic","DejaVu Sans Bold","unifont Medium";
+    text-face-name: "Open Sans Italic","DejaVu Sans Bold","unifont Medium";
     text-character-spacing: 1.0;
-    text-wrap-width: 150;
+    text-wrap-width: 200;
     text-wrap-before: true;
     text-ratio: 0.5;
     [name=~".* Watershed"],
@@ -27,4 +27,3 @@
     }
   }
 }
-

@@ -36,7 +36,7 @@ Map {
 @urbanareas_highzoom: darken(#f5f5f3, 3%);
 
 
-@admin0_4: lighten(#c79297, 20%); 
+@admin0_4: lighten(#c79297, 20%);
 @admin0_5: lighten(#c99297,10%);
 @admin0_6: mix(lighten(#c99297, 20%), lighten(#e3e3dc, 8%), 20);
 @admin0_7: lighten(#c99297,20%);

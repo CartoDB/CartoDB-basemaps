@@ -16,10 +16,10 @@
     [namealt!=''] {
       text-name: [name] + '\n(' + [namealt] + ')';
     }
-    text-face-name: 'Azo Sans Italic';
-    text-wrap-width: 100;
+    text-face-name: 'Open Sans Italic';
+    text-wrap-width: 50;
     text-wrap-before: true;
-    text-size: 12;
+    text-size: 10;
 
     text-line-spacing: -2;
     text-character-spacing: 1.1;
@@ -28,8 +28,14 @@
     text-fill: @labels_marine_fill;
     text-halo-radius: @labels_marine_halo_radius;
     text-halo-fill: @labels_marine_halo_fill;
-    [zoom>=3][zoom<=8][featurecla='ocean'] {
+
+    [zoom>=4]{text-size: 12;}
+
+    [featurecla='ocean'][zoom>=2][zoom<=8] {
       text-size: 14;
+      text-wrap-width:100;
+
+      [zoom<=2] {text-size: 12;}
 
       [zoom>=4] {
         text-size: 18;
